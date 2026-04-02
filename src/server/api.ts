@@ -1,13 +1,7 @@
-import type { Class, DateRange, Day, Lesson, ResourceData, SchoolInfo, TimeTable } from "./types";
+import type { Class, DateRange, Day, Lesson, ResourceData, SchoolInfo, TimeTable } from "../types";
 
 const baseUrl: string = "https://ap.webuntis.com/WebUntis/api/rest/view/v1";
 const headers: HeadersInit = { "anonymous-school": "ap" };
-
-export async function getApiProxy(localPath: string) {
-    const response = await fetch(localPath, { method: "POST" });
-    const data = response.json();
-    return data;
-}
 
 function newURL(path: string, params?: URLSearchParams): string {
     return `${baseUrl}${path}` + (params ? `?${params}` : "");

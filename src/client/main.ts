@@ -1,4 +1,3 @@
-import { getApiProxy as get } from "../api";
 import type { Class } from "../types";
 import "./style.css";
 
@@ -22,6 +21,12 @@ function copy(id: string) {
     const url = location.href + "calendar?class=" + id;
     navigator.clipboard.writeText(url);
     alert(`${url} copied to clipboard!\nPaste it in your calendar app to sync.`);
+}
+
+async function get(localPath: string) {
+    const response = await fetch(localPath, { method: "POST" });
+    const data = response.json();
+    return data;
 }
 
 main();

@@ -1,6 +1,6 @@
 import express from "express";
 import ViteExpress from "vite-express";
-import { getClasses, getLessons } from "../api";
+import { getClasses, getLessons } from "./api";
 import { Lesson } from "../types";
 import ical from "ical-generator";
 
