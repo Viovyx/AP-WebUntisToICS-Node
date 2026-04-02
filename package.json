@@ -1,0 +1,24 @@
+{
+  "name": ".",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "nodemon -w src/server -x tsx src/server/main.ts",
+    "start": "cross-env NODE_ENV=production tsx src/server/main.ts",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.2",
+    "nodemon": "^3.1.10",
+    "vite": "^6.3.3"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "express": "^5.1.0",
+    "ical-generator": "^10.1.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3",
+    "vite-express": "*"
+  }
+}
