@@ -1,5 +1,5 @@
-import type { Class } from "../types";
 import "./style.css";
+import type { Class } from "./types";
 
 async function main() {
     const classes: Class[] = await get("/classes");
@@ -17,16 +17,16 @@ async function main() {
     });
 }
 
+async function get(path: string, method: string = "get") {
+    const response = await fetch(path, { method: method });
+    const data = response.json();
+    return data;
+}
+
 function copy(id: string) {
     const url = location.href + "calendar?class=" + id;
     navigator.clipboard.writeText(url);
     alert(`${url} copied to clipboard!\nPaste it in your calendar app to sync.`);
-}
-
-async function get(localPath: string) {
-    const response = await fetch(localPath, { method: "POST" });
-    const data = response.json();
-    return data;
 }
 
 main();
