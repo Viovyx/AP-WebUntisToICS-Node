@@ -11,14 +11,16 @@ const app = express();
 const host: string = process.env.HOST;
 const port: number = process.env.PORT;
 
-const sendError = (res: Response, error: ErrorRes, status: number = 400) => res.status(status).send(error);
+const sendError = (res: Response, error: ErrorRes, status: number = 400) =>
+    res.status(status).send(error);
 
 // Api endpoints
 app.get("/calendar", async (req, res) => {
     const classId = req.query.class as string;
 
     if (!classId) return sendError(res, { error: "No 'class' param found." });
-    if (isNaN(+classId)) return sendError(res, { error: "'class' should be a number." });
+    if (isNaN(+classId))
+        return sendError(res, { error: "'class' should be a number." });
 
     const timetable = await getTimetable(+classId);
     const lessons = mapToLessons(timetable);
@@ -28,7 +30,7 @@ app.get("/calendar", async (req, res) => {
         name: "AP WebUntis",
         timezone: "Europe/Brussels",
         ttl: minutes(15),
-        url: `${host}:${port}/calendar?class=${classId}`,
+        url: `${host}:${port}/calendar?class=${classId}`
     });
 
     lessons.forEach((lesson) => {
@@ -46,8 +48,14 @@ app.get("/classes", async (req, res) => {
 
 // Serve client files
 app.use((req, res) => {
-    const resPath = path.resolve(`./client/dist${req.path == "/" ? "/index.html" : req.path}`);
-    res.sendFile(resPath, (e) => (e ? sendError(res, { error: `Cannot ${req.method} ${req.path}` }, 404) : null));
+    const resPath = path.resolve(
+        `./client/dist${req.path == "/" ? "/index.html" : req.path}`
+    );
+    res.sendFile(resPath, (e) =>
+        e
+            ? sendError(res, { error: `Cannot ${req.method} ${req.path}` }, 404)
+            : null
+    );
 });
 
 // Start Express server
@@ -58,6 +66,6 @@ app.listen(port, host, () => {
          > Listening on: http://${host}:${port}
         `
             .replaceAll("  ", "")
-            .trim(),
+            .trim()
     );
 });

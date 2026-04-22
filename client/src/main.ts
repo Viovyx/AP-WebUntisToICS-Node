@@ -26,7 +26,9 @@ async function get(path: string, method: string = "get") {
 function copy(id: string) {
     const url = location.href + "calendar?class=" + id;
     navigator.clipboard.writeText(url);
-    alert(`${url} copied to clipboard!\nPaste it in your calendar app to sync.`);
+    alert(
+        `${url} copied to clipboard!\nPaste it in your calendar app to sync.`
+    );
 }
 
 main();
