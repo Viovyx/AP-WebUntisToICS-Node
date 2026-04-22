@@ -23,6 +23,7 @@ app.get("/calendar", async (req, res) => {
         return sendError(res, { error: "'class' should be a number." });
 
     const timetable = await getTimetable(+classId);
+    // TODO: Add merging similar timetable entries function (https://github.com/Viovyx/AP-WebUntisToICS/blob/f96ba87d4f41669cf9fad1efe42e00c275992720/src/api.py#L57-L72)
     const lessons = mapToLessons(timetable);
 
     const minutes = (n: number) => n * 60;
