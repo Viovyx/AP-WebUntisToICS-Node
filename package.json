@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prestart": "cd client && npm run build",
-    "start": "tsx watch main.ts"
+    "start": "tsx watch src/main.ts"
   },
   "keywords": [],
   "author": "",
