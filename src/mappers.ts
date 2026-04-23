@@ -10,15 +10,15 @@ export function mapToLessons(timetable: Timetable): Lesson[] {
                 info: entry.lessonInfo,
                 teachers: [entry.position1[0]?.current.longName],
                 subject: entry.position2[0]?.current.longName,
-                locations: entry.position3.map(
-                    (location) => location.current.displayName
-                ),
+                locations: entry.position3
+                    .map((location) => location.current.displayName)
+                    .sort(),
                 classes: [
                     ...(entry.position5?.map(
                         (classEl) => classEl.current.displayName
                     ) ?? []),
                     day.resource.shortName
-                ]
+                ].sort()
             } as Lesson;
         })
     );
