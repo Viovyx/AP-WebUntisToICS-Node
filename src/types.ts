@@ -11,7 +11,7 @@ export interface Lesson {
     start: Date;
     end: Date;
     info: string;
-    teacher: string;
+    teachers: string[];
     subject: string;
     locations: string[];
     classes: string[];

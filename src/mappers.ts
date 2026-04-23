@@ -8,7 +8,7 @@ export function mapToLessons(timetable: Timetable): Lesson[] {
                 start: new Date(entry.duration.start),
                 end: new Date(entry.duration.end),
                 info: entry.lessonInfo,
-                teacher: entry.position1[0]?.current.longName,
+                teachers: [entry.position1[0]?.current.longName],
                 subject: entry.position2[0]?.current.longName,
                 locations: entry.position3.map(
                     (location) => location.current.displayName
@@ -33,7 +33,11 @@ export function mapToClasses(classesRes: ClassResource[]): Class[] {
 }
 
 export function mapToCalEvent(lesson: Lesson): ICalEventData {
-    let descriptionLines = [lesson.teacher, lesson.classes.join(" / ")];
+    let descriptionLines = [
+        lesson.teachers.join(", "),
+        "-".repeat(20),
+        lesson.classes.join(" / ")
+    ];
     if (lesson.info)
         descriptionLines.concat(["-".repeat(20), `ℹ️ ${lesson.info}`]);
 
