@@ -38,7 +38,7 @@ Made to work for [AP Hogeschool WebUntis](https://ap.webuntis.com/)
 If you run into a bug or issue (that is not related to the [the disclaimers](#disclaimers)), please create an issue [here](https://github.com/Viovyx/AP-WebUntisToICS/issues), and I'll do my best to resolve it.
 
 ## Todo
-- [ ] Add merging similar events
+- [ ] Merge similar event duplicates ([#1](https://github.com/Viovyx/AP-WebUntisToICS-Node/issues/1))
 
 ---
 
