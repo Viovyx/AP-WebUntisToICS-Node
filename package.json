@@ -1,25 +1,28 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "clear-cache": "rm -r cache/*",
-    "prestart": "cd client && npm run build",
-    "start": "tsx watch src/main.ts"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
-  "dependencies": {
-    "express": "^5.2.1",
-    "ical-generator": "^10.1.0",
-    "node-fetch-cache": "^5.1.0"
-  },
-  "devDependencies": {
-    "@types/express": "^5.0.6",
-    "@types/node": "^25.5.2",
-    "@types/node-fetch-cache": "^3.0.5"
-  }
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "clear-cache": "rm -r cache/*",
+        "install": "npm i && cd client && npm i",
+        "predev": "cd client && npm run build",
+        "dev": "tsx watch src/main.ts",
+        "prestart": "cd client && npm run build",
+        "start": "tsx src/main.ts"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "dependencies": {
+        "express": "^5.2.1",
+        "ical-generator": "^10.1.0",
+        "node-fetch-cache": "^5.1.0"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.6",
+        "@types/node": "^25.5.2",
+        "@types/node-fetch-cache": "^3.0.5"
+    }
 }
