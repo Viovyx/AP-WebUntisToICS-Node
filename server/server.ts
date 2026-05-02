@@ -1,15 +1,16 @@
 import express, { type Response } from "express";
-import type { ErrorRes } from "./types.ts";
-import { getClasses, getTimetable } from "./api.ts";
+import type { ErrorRes } from "./src/types.ts";
+import { getClasses, getTimetable } from "./src/api.ts";
 import ical from "ical-generator";
-import { mapToCalEvent, mapToClasses, mapToLessons } from "./mappers.ts";
-import { loadEnvFile } from "node:process";
+import { mapToCalEvent, mapToClasses, mapToLessons } from "./src/mappers.ts";
 import path from "node:path";
 
-loadEnvFile();
 const app = express();
-const host: string = process.env.HOST;
-const port: number = process.env.PORT;
+
+export const host: string = "0.0.0.0";
+export const port: number = 3000;
+export const apiBaseUrl: string =
+    "https://ap.webuntis.com/WebUntis/api/rest/view/v1";
 
 const sendError = (res: Response, error: ErrorRes, status: number = 400) =>
     res.status(status).send(error);
@@ -50,7 +51,7 @@ app.get("/classes", async (req, res) => {
 // Serve client files
 app.use((req, res) => {
     const resPath = path.resolve(
-        `./client/dist${req.path == "/" ? "/index.html" : req.path}`
+        `../client/dist${req.path == "/" ? "/index.html" : req.path}`
     );
     res.sendFile(resPath, (e) =>
         e

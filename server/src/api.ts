@@ -1,4 +1,3 @@
-import { loadEnvFile } from "node:process";
 import type {
     ClassResource,
     Resource,
@@ -7,13 +6,12 @@ import type {
     Timetable
 } from "./types.ts";
 import NodeFetchCache, { FileSystemCache, MemoryCache } from "node-fetch-cache";
+import { apiBaseUrl } from "../server.ts";
 
-loadEnvFile();
-const baseUrl: string = process.env.APIBASEURL;
 const headers: HeadersInit = { "anonymous-school": "ap" };
 
 function newURL(path: string, params?: URLSearchParams): string {
-    return `${baseUrl}${path}` + (params ? `?${params}` : "");
+    return `${apiBaseUrl}${path}` + (params ? `?${params}` : "");
 }
 
 function createFetchCache(time: {
