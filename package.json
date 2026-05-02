@@ -1,0 +1,24 @@
+{
+    "name": "ap-webuntistoics-node",
+    "version": "1.0.0",
+    "description": "Easy to use .ics generator for importing your Webuntis calendar into your own calendar app.",
+    "main": "server/server.ts",
+    "scripts": {
+        "preinstall": "npm i --prefix client",
+        "install": "npm i --prefix server",
+        "prestart": "cd client && npm run build",
+        "start": "npm start --prefix server"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Viovyx/AP-WebUntisToICS-Node.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "bugs": {
+        "url": "https://github.com/Viovyx/AP-WebUntisToICS-Node/issues"
+    },
+    "homepage": "https://github.com/Viovyx/AP-WebUntisToICS-Node#readme"
+}

@@ -5,7 +5,6 @@
     "main": "index.js",
     "scripts": {
         "clear-cache": "rm -r ./cache/*",
-        "prestart": "cd ../client && npm run build",
         "start": "tsx watch server"
     },
     "keywords": [],
