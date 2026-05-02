@@ -6,7 +6,7 @@
     "scripts": {
         "preinstall": "npm i --prefix client",
         "install": "npm i --prefix server",
-        "prestart": "cd client && npm run build",
+        "prestart": "npm run build --prefix client",
         "start": "npm start --prefix server"
     },
     "repository": {
