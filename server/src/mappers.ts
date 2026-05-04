@@ -38,8 +38,7 @@ export function mapToCalEvent(lesson: Lesson): ICalEventData {
         "-".repeat(20),
         lesson.classes.join(" / ")
     ];
-    if (lesson.info)
-        descriptionLines.concat(["-".repeat(20), `ℹ️ ${lesson.info}`]);
+    if (lesson.info) descriptionLines.push("-".repeat(20), `ℹ️ ${lesson.info}`);
 
     return {
         start: lesson.start,
