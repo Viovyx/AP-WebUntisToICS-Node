@@ -24,10 +24,10 @@ app.get("/calendar", async (req, res) => {
         return sendError(res, { error: "'class' should be a number." });
 
     const timetable = await getTimetable(+classId);
-    if (!timetable) {
-        sendError(res, { error: `Class with id '${classId}' not found.` }, 400);
-        return;
-    }
+    if (!timetable)
+        return sendError(res, {
+            error: `Class with id '${classId}' not found.`
+        });
 
     const lessons = mapToLessons(timetable!);
 
