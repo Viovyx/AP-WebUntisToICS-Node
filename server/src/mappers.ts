@@ -1,5 +1,11 @@
 import type { ICalEventData } from "ical-generator";
-import type { Class, ClassResource, Lesson, Timetable } from "./types.ts";
+import type {
+    Class,
+    ClassResource,
+    GridEntry,
+    Lesson,
+    Timetable
+} from "./types.ts";
 
 function mergeArrays(...arrays: string[][]): string[] {
     let mergedArray: string[] = [...new Set(arrays.flatMap((arr) => arr))];
@@ -7,42 +13,17 @@ function mergeArrays(...arrays: string[][]): string[] {
     return mergedArray;
 }
 
-function deduplicateLessons(lessons: Lesson[]): Lesson[] {
-    let lessonSet = new Map<string, Lesson>();
-
-    lessons.forEach((lesson) => {
-        const key: string = lesson.subject.concat(
-            lesson.info,
-            lesson.start.toString(),
-            lesson.end.toString()
-        );
-
-        let toCompare = lessonSet.get(key);
-        if (toCompare) {
-            toCompare.teachers = mergeArrays(
-                toCompare.teachers,
-                lesson.teachers
-            );
-            toCompare.classes = mergeArrays(toCompare.classes, lesson.classes);
-            toCompare.locations = mergeArrays(
-                toCompare.locations,
-                lesson.locations
-            );
-        } else lessonSet.set(key, lesson);
-    });
-
-    return [...lessonSet.values()];
-}
-
 export function mapToLessons(timetable: Timetable): Lesson[] {
-    const lessons: Lesson[] = timetable.days?.flatMap((day) =>
-        day.gridEntries?.map((entry) => {
-            return {
+    const lessonSet = new Map<string, Lesson>();
+
+    timetable.days?.forEach((day) =>
+        day.gridEntries?.forEach((entry) => {
+            const lesson: Lesson = {
                 start: new Date(entry.duration.start),
                 end: new Date(entry.duration.end),
-                info: entry.lessonInfo,
-                teachers: [entry.position1[0]?.current.longName],
-                subject: entry.position2[0]?.current.longName,
+                info: entry.lessonInfo ?? "",
+                teachers: [entry.position1[0]?.current.longName ?? ""],
+                subject: entry.position2[0]?.current.longName ?? "No subject",
                 locations: entry.position3
                     .map((location) => location.current.displayName)
                     .sort(),
@@ -52,11 +33,35 @@ export function mapToLessons(timetable: Timetable): Lesson[] {
                     ) ?? []),
                     day.resource.shortName
                 ].sort()
-            } as Lesson;
+            };
+
+            // Create unique key
+            const key: string = lesson.subject.concat(
+                lesson.info,
+                lesson.start.toString(),
+                lesson.end.toString()
+            );
+            const toCompare = lessonSet.get(key);
+
+            // If key exists => merge lessons
+            if (toCompare !== undefined) {
+                toCompare.teachers = mergeArrays(
+                    toCompare.teachers,
+                    lesson.teachers
+                );
+                toCompare.classes = mergeArrays(
+                    toCompare.classes,
+                    lesson.classes
+                );
+                toCompare.locations = mergeArrays(
+                    toCompare.locations,
+                    lesson.locations
+                );
+            } else lessonSet.set(key, lesson); // Add new unique lesson
         })
     );
 
-    return deduplicateLessons(lessons);
+    return [...lessonSet.values()];
 }
 
 export function mapToClasses(classesRes: ClassResource[]): Class[] {
