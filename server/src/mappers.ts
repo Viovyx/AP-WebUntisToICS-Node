@@ -1,11 +1,5 @@
 import type { ICalEventData } from "ical-generator";
-import type {
-    Class,
-    ClassResource,
-    GridEntry,
-    Lesson,
-    Timetable
-} from "./types.ts";
+import type { Class, ClassResource, Lesson, Timetable } from "./types.ts";
 
 function mergeArrays(...arrays: string[][]): string[] {
     let mergedArray: string[] = [...new Set(arrays.flatMap((arr) => arr))];
