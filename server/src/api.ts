@@ -56,7 +56,9 @@ export async function getCurrentSchoolyear(): Promise<SchoolYear> {
     return data.currentSchoolYear;
 }
 
-export async function getTimetable(classId: number): Promise<Timetable> {
+export async function getTimetable(
+    classId: number
+): Promise<Timetable | undefined> {
     const { start, end } = (await getCurrentSchoolyear()).dateRange;
     const params = new URLSearchParams({
         resourceType: "CLASS",
@@ -69,7 +71,9 @@ export async function getTimetable(classId: number): Promise<Timetable> {
     const response = await fetchCache(newURL("/timetable/entries", params), {
         headers: headers
     });
-    const data = (await response.json()) as Timetable;
 
-    return data;
+    if (response.ok) {
+        const data = (await response.json()) as Timetable;
+        return data;
+    } else return;
 }

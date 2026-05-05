@@ -24,7 +24,12 @@ app.get("/calendar", async (req, res) => {
         return sendError(res, { error: "'class' should be a number." });
 
     const timetable = await getTimetable(+classId);
-    const lessons = mapToLessons(timetable);
+    if (!timetable) {
+        sendError(res, { error: `Class with id '${classId}' not found.` }, 400);
+        return;
+    }
+
+    const lessons = mapToLessons(timetable!);
 
     const minutes = (n: number) => n * 60;
     const calendar = ical({
