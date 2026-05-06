@@ -133,10 +133,25 @@ export interface GridEntry {
     color: string;
     notesAll: string;
     icons: unknown[];
+    /**
+     * Teachers
+     */
     position1: Postion[];
+    /**
+     * Subject
+     */
     position2: Postion[];
+    /**
+     * Locations
+     */
     position3: Postion[];
+    /**
+     * Extra info
+     */
     position4: Postion[];
+    /**
+     * Classes
+     */
     position5: Postion[];
     position6: unknown[];
     position7: unknown[];
