@@ -16,7 +16,9 @@ export function mapToLessons(timetable: Timetable): Lesson[] {
                 start: new Date(entry.duration.start),
                 end: new Date(entry.duration.end),
                 info: entry.lessonInfo ?? "",
-                teachers: [entry.position1[0]?.current.longName ?? ""],
+                teachers: entry.position1.map(
+                    (teacher) => teacher.current.longName
+                ),
                 subject: entry.position2[0]?.current.longName ?? "No subject",
                 locations: entry.position3
                     .map((location) => location.current.displayName)
