@@ -1,0 +1,13 @@
+info:
+    name: This API
+    type: folder
+    seq: 1
+
+request:
+    variables:
+        - name: baseURL
+          value: http://0.0.0.0:3000
+
+docs:
+    content: For testing the local API endpoints of this project.
+    type: text/markdown

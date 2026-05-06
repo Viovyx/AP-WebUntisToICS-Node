@@ -1,0 +1,19 @@
+info:
+    name: Calendar
+    type: http
+    seq: 1
+
+http:
+    method: GET
+    url: "{{baseURL}}/calendar?class=3518"
+    params:
+        - name: class
+          value: "3518"
+          type: query
+    auth: inherit
+
+settings:
+    encodeUrl: true
+    timeout: 0
+    followRedirects: true
+    maxRedirects: 5

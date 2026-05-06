@@ -1,0 +1,13 @@
+info:
+    name: WebUntis API
+    type: folder
+    seq: 1
+
+request:
+    variables:
+        - name: baseURL
+          value: https://ap.webuntis.com/WebUntis/api/rest/view/v1
+
+docs:
+    content: For testing the used API endpoints of WebUntis.
+    type: text/markdown

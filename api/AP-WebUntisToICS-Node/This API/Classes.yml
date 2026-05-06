@@ -1,0 +1,14 @@
+info:
+  name: Classes
+  type: http
+
+http:
+  method: GET
+  url: "{{baseURL}}/classes"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
