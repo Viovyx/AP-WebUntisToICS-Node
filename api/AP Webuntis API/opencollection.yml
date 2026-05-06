@@ -1,0 +1,15 @@
+opencollection: 1.0.0
+
+info:
+  name: AP Webuntis API
+
+request:
+  variables:
+    - name: baseURL
+      value: https://ap.webuntis.com/WebUntis/api/rest/view/v1
+bundled: false
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git
