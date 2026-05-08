@@ -1,7 +1,7 @@
 import express, { type Response } from "express";
 import type { ErrorRes } from "./src/types.ts";
 import { getClasses, getTimetable } from "./src/api.ts";
-import ical from "ical-generator";
+import ical, { type ICalCalendarProdIdData } from "ical-generator";
 import { mapToCalEvent, mapToClasses, mapToLessons } from "./src/mappers.ts";
 import path from "node:path";
 
@@ -34,9 +34,11 @@ app.get("/calendar", async (req, res) => {
     const minutes = (n: number) => n * 60;
     const calendar = ical({
         name: "AP WebUntis",
+        description: "AP calendar synced from ap.webuntis.com",
         timezone: "Europe/Brussels",
         ttl: minutes(15),
-        url: `${host}:${port}/calendar?class=${classId}`
+        url: `${host}:${port}/calendar?class=${classId}`,
+        prodId: { company: "viovyx", product: "AP-WebUntisToICS-Node" }
     });
 
     lessons.forEach((lesson) => {
