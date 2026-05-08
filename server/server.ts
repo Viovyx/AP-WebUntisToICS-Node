@@ -43,7 +43,11 @@ app.get("/calendar", async (req, res) => {
         calendar.createEvent(mapToCalEvent(lesson));
     });
 
-    res.contentType("text/calendar").send(calendar.toString());
+    res.writeHead(200, {
+        "Content-Disposition": 'attachment; filename="calendar.ics"',
+        "Content-Type": "text/calendar; charset=utf-8"
+    });
+    res.end(calendar.toString());
 });
 
 app.get("/classes", async (req, res) => {
