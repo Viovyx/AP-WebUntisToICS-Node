@@ -5,6 +5,7 @@ import ical, { type ICalCalendarProdIdData } from "ical-generator";
 import { mapToCalEvent, mapToClasses, mapToLessons } from "./src/mappers.ts";
 import path from "node:path";
 
+//#region Set consts
 const app = express();
 
 export const host: string = "0.0.0.0";
@@ -14,8 +15,9 @@ export const apiBaseUrl: string =
 
 const sendError = (res: Response, error: ErrorRes, status: number = 400) =>
     res.status(status).send(error);
+//#endregion
 
-// Api endpoints
+//#region API endpoints
 app.get("/calendar", async (req, res) => {
     const classId = req.query.class as string;
 
@@ -57,8 +59,9 @@ app.get("/classes", async (req, res) => {
     const classes = mapToClasses(classesRes);
     res.json(classes);
 });
+//#endregion
 
-// Serve client files
+//#region Serve Client
 app.use((req, res) => {
     const resPath = path.resolve(
         `../client/dist${req.path == "/" ? "/index.html" : req.path}`
@@ -69,8 +72,9 @@ app.use((req, res) => {
             : null
     );
 });
+//#endregion
 
-// Start Express server
+//#region Start express
 app.listen(port, host, () => {
     console.log(
         `
@@ -81,3 +85,4 @@ app.listen(port, host, () => {
             .trim()
     );
 });
+//#endregion

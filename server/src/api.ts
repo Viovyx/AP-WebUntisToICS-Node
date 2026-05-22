@@ -10,6 +10,7 @@ import { apiBaseUrl } from "../server.ts";
 
 const headers: HeadersInit = { "anonymous-school": "ap" };
 
+//#region Helpers
 function newURL(path: string, params?: URLSearchParams): string {
     return `${apiBaseUrl}${path}` + (params ? `?${params}` : "");
 }
@@ -31,7 +32,9 @@ function createFetchCache(time: {
         })
     });
 }
+//#endregion
 
+//#region API requests
 export async function getClasses(): Promise<ClassResource[]> {
     const params = new URLSearchParams({
         resourceType: "CLASS"
@@ -77,3 +80,4 @@ export async function getTimetable(
         return data;
     } else return;
 }
+//#endregion

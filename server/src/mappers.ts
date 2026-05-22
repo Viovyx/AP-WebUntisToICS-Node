@@ -1,12 +1,15 @@
 import type { ICalEventData } from "ical-generator";
 import type { Class, ClassResource, Lesson, Timetable } from "./types.ts";
 
+//#region Helpers
 function mergeArrays(...arrays: string[][]): string[] {
     let mergedArray: string[] = [...new Set(arrays.flatMap((arr) => arr))];
     mergedArray.sort();
     return mergedArray;
 }
+//#endregion
 
+//#region Mappers
 export function mapToLessons(timetable: Timetable): Lesson[] {
     const lessonSet = new Map<string, Lesson>();
 
@@ -82,3 +85,4 @@ export function mapToCalEvent(lesson: Lesson): ICalEventData {
         description: descriptionLines.join("\n")
     };
 }
+//#endregion

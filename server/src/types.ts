@@ -1,3 +1,4 @@
+//#region App types
 export interface ErrorRes {
     error: string;
 }
@@ -16,8 +17,9 @@ export interface Lesson {
     locations: string[];
     classes: string[];
 }
+//#endregion
 
-// --- api response types ---
+//#region API response types
 export interface SchoolData {
     currentSchoolYear: SchoolYear;
     departments: unknown[];
@@ -176,3 +178,4 @@ export interface Postion {
     };
     removed: unknown;
 }
+//#endregion
