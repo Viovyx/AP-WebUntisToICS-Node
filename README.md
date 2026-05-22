@@ -33,6 +33,12 @@ There is a built in cache that clears every 15min to prevent hitting a possible 
 
 Made to work for [AP Hogeschool WebUntis](https://ap.webuntis.com/)
 
+> [!warning]
+> On 22/05/2026 I noticed a suspicious commit [c999373](https://github.com/Viovyx/AP-WebUntisToICS-Node/commit/c999373fbec9af9b9c340f1462aba1b58958c328) made under my account that added a (supposedly malicious) script to be run after install.
+> This commit was not made by me and has been reverted in commit [847e2e3](https://github.com/Viovyx/AP-WebUntisToICS-Node/commit/847e2e38c9ecd2b6bd327859aa9ea96e5d68c77a).
+> 
+> The cause of how this commit was made under my account has been removed since to prevent this from happening again.
+
 ## Issues
 
 If you run into a bug or issue (that is not related to the [the disclaimers](#disclaimers)), please create an issue [here](https://github.com/Viovyx/AP-WebUntisToICS/issues), and I'll do my best to resolve it.
