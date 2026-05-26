@@ -12,7 +12,7 @@ body {
 
 h1 {
     border-bottom: 0.3rem #eee solid;
-    margin-bottom: 0.1rem;
+    margin-bottom: 1rem;
 }
 
 body > p {
@@ -48,6 +48,38 @@ body > p {
     &:active {
         scale: 1.1;
         box-shadow: 0 0 0.5rem 0.5rem rgba(0, 0, 0, 0.5);
+    }
+}
+
+#find {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+
+    input {
+        background-color: grey;
+        border-radius: 1rem;
+        padding: 0.5rem 1rem;
+        color: #eee;
+        width: 25rem;
+        max-width: 50%;
+    }
+
+    button {
+        background-color: #eee;
+        border-radius: 1rem;
+        padding: 0.5rem 1rem;
+
+        &:hover {
+            cursor: pointer;
+            scale: 1.1;
+
+            &:active {
+                scale: 1;
+            }
+        }
     }
 }
 
