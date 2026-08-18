@@ -21,7 +21,7 @@ export interface Lesson {
 
 //#region API response types
 export interface SchoolData {
-    currentSchoolYear: SchoolYear;
+    currentSchoolYear: CurrentSchoolyear;
     departments: unknown[];
     isPLayground: unknown;
     oneDriveData: unknown;
@@ -61,6 +61,9 @@ export interface SchoolYear {
     dateRange: DateRange;
     id: number;
     name: string;
+}
+
+export interface CurrentSchoolyear extends SchoolYear {
     timeGrid: {
         schoolyearId: number;
         units: {

@@ -1,11 +1,13 @@
 import type {
     ClassResource,
+    CurrentSchoolyear,
+    DateRange,
     Resource,
     SchoolData,
     SchoolYear,
     Timetable
 } from "./types.ts";
-import NodeFetchCache, { FileSystemCache, MemoryCache } from "node-fetch-cache";
+import NodeFetchCache, { FileSystemCache } from "node-fetch-cache";
 import { apiBaseUrl } from "../server.ts";
 
 const headers: HeadersInit = { "anonymous-school": "ap" };
@@ -35,9 +37,13 @@ function createFetchCache(time: {
 //#endregion
 
 //#region API requests
-export async function getClasses(): Promise<ClassResource[]> {
+export async function getClasses(
+    dateRange: DateRange
+): Promise<ClassResource[]> {
     const params = new URLSearchParams({
-        resourceType: "CLASS"
+        resourceType: "CLASS",
+        start: dateRange.start,
+        end: dateRange.end
     });
 
     const fetchCache = createFetchCache({ days: 7 });
@@ -49,7 +55,17 @@ export async function getClasses(): Promise<ClassResource[]> {
     return data.classes;
 }
 
-export async function getCurrentSchoolyear(): Promise<SchoolYear> {
+export async function getSchoolyears(): Promise<SchoolYear[]> {
+    const fetchCache = createFetchCache({ days: 7 });
+    const response = await fetchCache(newURL("/schoolyears"), {
+        headers: headers
+    });
+    const data = (await response.json()) as SchoolYear[];
+
+    return data;
+}
+
+export async function getCurrentSchoolyear(): Promise<CurrentSchoolyear> {
     const fetchCache = createFetchCache({ days: 7 });
     const response = await fetchCache(newURL("/app/data"), {
         headers: headers
@@ -60,13 +76,13 @@ export async function getCurrentSchoolyear(): Promise<SchoolYear> {
 }
 
 export async function getTimetable(
-    classId: number
+    classId: number,
+    dateRange: DateRange
 ): Promise<Timetable | undefined> {
-    const { start, end } = (await getCurrentSchoolyear()).dateRange;
     const params = new URLSearchParams({
         resourceType: "CLASS",
-        start: start,
-        end: end,
+        start: dateRange.start,
+        end: dateRange.end,
         resources: classId.toString()
     });
 

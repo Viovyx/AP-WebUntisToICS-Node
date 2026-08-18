@@ -1,7 +1,12 @@
 import express, { type Response } from "express";
-import type { ErrorRes } from "./src/types.ts";
-import { getClasses, getTimetable } from "./src/api.ts";
-import ical, { type ICalCalendarProdIdData } from "ical-generator";
+import type { DateRange, ErrorRes } from "./src/types.ts";
+import {
+    getClasses,
+    getCurrentSchoolyear,
+    getSchoolyears,
+    getTimetable
+} from "./src/api.ts";
+import ical from "ical-generator";
 import { mapToCalEvent, mapToClasses, mapToLessons } from "./src/mappers.ts";
 import path from "node:path";
 
@@ -20,12 +25,29 @@ const sendError = (res: Response, error: ErrorRes, status: number = 400) =>
 //#region API endpoints
 app.get("/calendar", async (req, res) => {
     const classId = req.query.class as string;
+    let dateRange: DateRange = {
+        start: req.query.start as string,
+        end: req.query.end as string
+    };
+
+    if (!(dateRange.start && dateRange.end))
+        dateRange = (await getCurrentSchoolyear()).dateRange;
+    else if (
+        !(await getSchoolyears()).some(
+            (schoolyear) =>
+                schoolyear.dateRange.start === dateRange.start &&
+                schoolyear.dateRange.end === dateRange.end
+        )
+    )
+        return sendError(res, {
+            error: `No schoolyear found for daterange '${dateRange.start} - ${dateRange.end}'.`
+        });
 
     if (!classId) return sendError(res, { error: "No 'class' param found." });
     if (isNaN(+classId))
         return sendError(res, { error: "'class' should be a number." });
 
-    const timetable = await getTimetable(+classId);
+    const timetable = await getTimetable(+classId, dateRange);
     if (!timetable)
         return sendError(res, {
             error: `Class with id '${classId}' not found.`
@@ -55,9 +77,22 @@ app.get("/calendar", async (req, res) => {
 });
 
 app.get("/classes", async (req, res) => {
-    const classesRes = await getClasses();
+    let dateRange: DateRange = {
+        start: req.query.start as string,
+        end: req.query.end as string
+    };
+
+    if (!(dateRange.start && dateRange.end))
+        dateRange = (await getCurrentSchoolyear()).dateRange;
+
+    const classesRes = await getClasses(dateRange);
     const classes = mapToClasses(classesRes);
     res.json(classes);
+});
+
+app.get("/schoolyears", async (_, res) => {
+    const schoolyears = await getSchoolyears();
+    res.json(schoolyears);
 });
 //#endregion
 
