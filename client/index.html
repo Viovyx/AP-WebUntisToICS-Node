@@ -10,7 +10,13 @@
     <body>
         <h1>Select your class:</h1>
         <form id="find">
-            <input type="text" id="find-text" />
+            <select name="schoolyears" id="schoolyears">
+                <!-- 
+                <option value="">Choose different schoolyear</option>
+                <option value="1">2025/2026</option> 
+                -->
+            </select>
+            <input type="text" name="find-text" id="find-text" />
             <button type="submit">Find</button>
         </form>
         <div class="class-list" id="classes"></div>
