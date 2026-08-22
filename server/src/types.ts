@@ -17,6 +17,14 @@ export interface Lesson {
     locations: string[];
     classes: string[];
 }
+
+export interface CleanPositions {
+    subjects: Position[];
+    teachers: Position[];
+    rooms: Position[];
+    infos: Position[];
+    classes: Position[];
+}
 //#endregion
 
 //#region API response types
@@ -138,28 +146,13 @@ export interface GridEntry {
     color: string;
     notesAll: string;
     icons: unknown[];
-    /**
-     * Teachers
-     */
-    position1: Postion[];
-    /**
-     * Subject
-     */
-    position2: Postion[];
-    /**
-     * Locations
-     */
-    position3: Postion[];
-    /**
-     * Extra info
-     */
-    position4: Postion[];
-    /**
-     * Classes
-     */
-    position5: Postion[];
-    position6: unknown[];
-    position7: unknown[];
+    position1: Position[] | undefined;
+    position2: Position[] | undefined;
+    position3: Position[] | undefined;
+    position4: Position[] | undefined;
+    position5: Position[] | undefined;
+    position6: Position[] | undefined;
+    position7: Position[] | undefined;
     texts: unknown[];
     lessonText: unknown;
     lessonInfo: string;
@@ -170,9 +163,9 @@ export interface GridEntry {
     link: unknown;
 }
 
-export interface Postion {
+export interface Position {
     current: {
-        type: string;
+        type: "SUBJECT" | "TEACHER" | "ROOM" | "INFO" | "CLASS";
         status: string;
         shortName: string;
         longName: string;

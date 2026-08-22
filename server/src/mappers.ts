@@ -1,11 +1,46 @@
 import type { ICalEventData } from "ical-generator";
-import type { Class, ClassResource, Lesson, Timetable } from "./types.ts";
+import type {
+    Class,
+    ClassResource,
+    CleanPositions,
+    GridEntry,
+    Lesson,
+    Position,
+    Timetable
+} from "./types.ts";
 
 //#region Helpers
 function mergeArrays(...arrays: string[][]): string[] {
     let mergedArray: string[] = [...new Set(arrays.flatMap((arr) => arr))];
     mergedArray.sort();
     return mergedArray;
+}
+
+function getEntryPositions(gridEntry: GridEntry): CleanPositions {
+    const positionsArr: Position[][] = [
+        gridEntry.position1 ?? [],
+        gridEntry.position2 ?? [],
+        gridEntry.position3 ?? [],
+        gridEntry.position4 ?? [],
+        gridEntry.position5 ?? [],
+        gridEntry.position6 ?? [],
+        gridEntry.position7 ?? []
+    ];
+
+    return {
+        subjects:
+            positionsArr.find((pos) => pos[0]?.current.type === "SUBJECT") ??
+            [],
+        teachers:
+            positionsArr.find((pos) => pos[0]?.current.type === "TEACHER") ??
+            [],
+        rooms:
+            positionsArr.find((pos) => pos[0]?.current.type === "ROOM") ?? [],
+        infos:
+            positionsArr.find((pos) => pos[0]?.current.type === "INFO") ?? [],
+        classes:
+            positionsArr.find((pos) => pos[0]?.current.type === "CLASS") ?? []
+    };
 }
 //#endregion
 
@@ -15,19 +50,22 @@ export function mapToLessons(timetable: Timetable): Lesson[] {
 
     timetable.days?.forEach((day) =>
         day.gridEntries?.forEach((entry) => {
+            const positions = getEntryPositions(entry);
+
             const lesson: Lesson = {
                 start: new Date(entry.duration.start),
                 end: new Date(entry.duration.end),
                 info: entry.lessonInfo,
-                teachers: entry.position1.map(
+                teachers: positions.teachers.map(
                     (teacher) => teacher.current.longName
                 ),
-                subject: entry.position2[0]?.current.longName ?? "No subject",
-                locations: entry.position3
+                subject:
+                    positions.subjects[0]?.current.longName ?? "No subject",
+                locations: positions.rooms
                     .map((location) => location.current.displayName)
                     .sort(),
                 classes: [
-                    ...(entry.position5?.map(
+                    ...(positions.classes?.map(
                         (classEl) => classEl.current.displayName
                     ) ?? []),
                     day.resource.shortName
