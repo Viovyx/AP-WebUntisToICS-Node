@@ -17,11 +17,14 @@ function newURL(path: string, params?: URLSearchParams): string {
     return `${apiBaseUrl}${path}` + (params ? `?${params}` : "");
 }
 
-function createFetchCache(time: {
-    days?: number;
-    hours?: number;
-    minutes?: number;
-}) {
+function createFetchCache(
+    time: {
+        days?: number;
+        hours?: number;
+        minutes?: number;
+    },
+    cacheSubDir: string
+) {
     const days: number = time.days ?? 0;
     const hours: number = time.hours ?? 0;
     const minutes: number = time.minutes ?? 0;
@@ -29,11 +32,14 @@ function createFetchCache(time: {
     return NodeFetchCache.create({
         shouldCacheResponse: (response) => response.ok,
         cache: new FileSystemCache({
-            cacheDirectory: "./cache",
+            cacheDirectory: `./cache/${cacheSubDir}`,
             ttl: (days * 86400 + hours * 3600 + minutes * 60) * 1000
         })
     });
 }
+
+const fetchLongCache = createFetchCache({ days: 7 }, "long");
+const fetchShortCache = createFetchCache({ minutes: 15 }, "short");
 //#endregion
 
 //#region API requests
@@ -46,8 +52,7 @@ export async function getClasses(
         end: dateRange.end
     });
 
-    const fetchCache = createFetchCache({ days: 7 });
-    const response = await fetchCache(newURL("/timetable/filter", params), {
+    const response = await fetchLongCache(newURL("/timetable/filter", params), {
         headers: headers
     });
     const data = (await response.json()) as Resource;
@@ -56,8 +61,7 @@ export async function getClasses(
 }
 
 export async function getSchoolyears(): Promise<SchoolYear[]> {
-    const fetchCache = createFetchCache({ days: 7 });
-    const response = await fetchCache(newURL("/schoolyears"), {
+    const response = await fetchLongCache(newURL("/schoolyears"), {
         headers: headers
     });
     const data = (await response.json()) as SchoolYear[];
@@ -66,8 +70,7 @@ export async function getSchoolyears(): Promise<SchoolYear[]> {
 }
 
 export async function getCurrentSchoolyear(): Promise<CurrentSchoolyear> {
-    const fetchCache = createFetchCache({ days: 7 });
-    const response = await fetchCache(newURL("/app/data"), {
+    const response = await fetchLongCache(newURL("/app/data"), {
         headers: headers
     });
     const data = (await response.json()) as SchoolData;
@@ -86,10 +89,12 @@ export async function getTimetable(
         resources: classId.toString()
     });
 
-    const fetchCache = createFetchCache({ minutes: 15 });
-    const response = await fetchCache(newURL("/timetable/entries", params), {
-        headers: headers
-    });
+    const response = await fetchShortCache(
+        newURL("/timetable/entries", params),
+        {
+            headers: headers
+        }
+    );
 
     if (response.ok) {
         const data = (await response.json()) as Timetable;
