@@ -83,9 +83,17 @@ function copy(id: string, dateRange?: DateRange) {
     let url = `${location.href}calendar?class=${id}`;
     if (dateRange) url += `&start=${dateRange.start}&end=${dateRange.end}`;
 
-    navigator.clipboard.writeText(url);
-    alert(
-        `${url} copied to clipboard!\nPaste it in your calendar app to sync.`
-    );
+    try {
+        navigator.clipboard.writeText(url);
+        alert(
+            `Copied sync url to your clipboard!\nPaste it in your calendar app to sync.`
+        );
+    } catch (error) {
+        // Fallback when unable to write to clipboard
+        prompt(
+            `Cannot copy sync url to your clipboard!\nCopy following url manually and paste it in your calendar app to sync.`,
+            url
+        );
+    }
 }
 //#endregion
