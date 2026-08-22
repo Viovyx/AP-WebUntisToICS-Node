@@ -30,7 +30,7 @@ function createFetchCache(time: {
         shouldCacheResponse: (response) => response.ok,
         cache: new FileSystemCache({
             cacheDirectory: "./cache",
-            ttl: days * 86400 + hours * 3600 + minutes * 60
+            ttl: (days * 86400 + hours * 3600 + minutes * 60) * 1000
         })
     });
 }
