@@ -1,5 +1,5 @@
 import express, { type Response } from "express";
-import type { DateRange, ErrorRes } from "./src/types.ts";
+import type { DateRange } from "./src/types.ts";
 import {
     getClasses,
     getCurrentSchoolyear,
@@ -18,8 +18,11 @@ export const port: number = 3000;
 export const apiBaseUrl: string =
     "https://ap.webuntis.com/WebUntis/api/rest/view/v1";
 
-const sendError = (res: Response, error: ErrorRes, status: number = 400) =>
+const sendError = (res: Response, error: string, status: number = 400) =>
     res.status(status).send(error);
+
+const getErrorMessage = (error: unknown): string =>
+    error instanceof Error ? error.message : String(error);
 //#endregion
 
 //#region API endpoints
@@ -30,15 +33,14 @@ app.get("/calendar", async (req, res) => {
         end: req.query.end as string
     };
 
-    if (!classId) return sendError(res, { error: "No 'class' param found." });
-    if (isNaN(+classId))
-        return sendError(res, { error: "'class' should be a number." });
+    if (!classId) return sendError(res, "No 'class' param found.");
+    if (isNaN(+classId)) return sendError(res, "'class' should be a number.");
 
     if (!(dateRange.start && dateRange.end)) {
         try {
             dateRange = (await getCurrentSchoolyear()).dateRange;
-        } catch (error: any) {
-            return sendError(res, { error: error.message }, 502);
+        } catch (error) {
+            return sendError(res, getErrorMessage(error));
         }
     } else {
         try {
@@ -50,11 +52,12 @@ app.get("/calendar", async (req, res) => {
                         schoolyear.dateRange.end === dateRange.end
                 )
             )
-                return sendError(res, {
-                    error: `No schoolyear found for daterange '${dateRange.start} - ${dateRange.end}'.`
-                });
-        } catch (error: any) {
-            return sendError(res, { error: error.message }, 502);
+                return sendError(
+                    res,
+                    `No schoolyear found for daterange '${dateRange.start} - ${dateRange.end}'.`
+                );
+        } catch (error) {
+            return sendError(res, getErrorMessage(error), 502);
         }
     }
 
@@ -81,10 +84,8 @@ app.get("/calendar", async (req, res) => {
             "Content-Type": "text/calendar; charset=utf-8"
         });
         res.end(calendar.toString());
-    } catch (error: any) {
-        return sendError(res, {
-            error: error.message
-        });
+    } catch (error) {
+        return sendError(res, getErrorMessage(error));
     }
 });
 
@@ -97,8 +98,8 @@ app.get("/classes", async (req, res) => {
     if (!(dateRange.start && dateRange.end)) {
         try {
             dateRange = (await getCurrentSchoolyear()).dateRange;
-        } catch (error: any) {
-            return sendError(res, { error: error.message }, 502);
+        } catch (error) {
+            return sendError(res, getErrorMessage(error), 502);
         }
     }
 
@@ -106,8 +107,8 @@ app.get("/classes", async (req, res) => {
         const classesRes = await getClasses(dateRange);
         const classes = mapToClasses(classesRes);
         res.json(classes);
-    } catch (error: any) {
-        return sendError(res, { error: error.message }, 502);
+    } catch (error) {
+        return sendError(res, getErrorMessage(error), 502);
     }
 });
 
@@ -115,8 +116,8 @@ app.get("/schoolyears", async (_, res) => {
     try {
         const schoolyears = await getSchoolyears();
         res.json(schoolyears);
-    } catch (error: any) {
-        return sendError(res, { error: error.message }, 502);
+    } catch (error) {
+        return sendError(res, getErrorMessage(error), 502);
     }
 });
 //#endregion
@@ -127,9 +128,7 @@ app.use((req, res) => {
         `../client/dist${req.path == "/" ? "/index.html" : req.path}`
     );
     res.sendFile(resPath, (e) =>
-        e
-            ? sendError(res, { error: `Cannot ${req.method} ${req.path}` }, 404)
-            : null
+        e ? sendError(res, `Cannot ${req.method} ${req.path}`, 404) : null
     );
 });
 //#endregion

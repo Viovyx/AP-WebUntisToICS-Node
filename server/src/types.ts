@@ -1,8 +1,4 @@
 //#region App types
-export interface ErrorRes {
-    error: string;
-}
-
 export interface Class {
     id: number;
     name: string;
