@@ -30,50 +30,62 @@ app.get("/calendar", async (req, res) => {
         end: req.query.end as string
     };
 
-    if (!(dateRange.start && dateRange.end))
-        dateRange = (await getCurrentSchoolyear()).dateRange;
-    else if (
-        !(await getSchoolyears()).some(
-            (schoolyear) =>
-                schoolyear.dateRange.start === dateRange.start &&
-                schoolyear.dateRange.end === dateRange.end
-        )
-    )
-        return sendError(res, {
-            error: `No schoolyear found for daterange '${dateRange.start} - ${dateRange.end}'.`
-        });
-
     if (!classId) return sendError(res, { error: "No 'class' param found." });
     if (isNaN(+classId))
         return sendError(res, { error: "'class' should be a number." });
 
-    const timetable = await getTimetable(+classId, dateRange);
-    if (!timetable)
-        return sendError(res, {
-            error: `Class with id '${classId}' not found.`
+    if (!(dateRange.start && dateRange.end)) {
+        try {
+            dateRange = (await getCurrentSchoolyear()).dateRange;
+        } catch (error: any) {
+            return sendError(res, { error: error.message }, 502);
+        }
+    } else {
+        try {
+            const schoolyears = await getSchoolyears();
+            if (
+                !schoolyears.some(
+                    (schoolyear) =>
+                        schoolyear.dateRange.start === dateRange.start &&
+                        schoolyear.dateRange.end === dateRange.end
+                )
+            )
+                return sendError(res, {
+                    error: `No schoolyear found for daterange '${dateRange.start} - ${dateRange.end}'.`
+                });
+        } catch (error: any) {
+            return sendError(res, { error: error.message }, 502);
+        }
+    }
+
+    try {
+        const timetable = await getTimetable(+classId, dateRange);
+        const lessons = mapToLessons(timetable);
+
+        const minutes = (n: number) => n * 60;
+        const calendar = ical({
+            name: "AP WebUntis",
+            description: "AP calendar synced from ap.webuntis.com",
+            timezone: "Europe/Brussels",
+            ttl: minutes(15),
+            url: `${host}:${port}/calendar?class=${classId}`,
+            prodId: { company: "viovyx", product: "AP-WebUntisToICS-Node" }
         });
 
-    const lessons = mapToLessons(timetable!);
+        lessons.forEach((lesson) => {
+            calendar.createEvent(mapToCalEvent(lesson));
+        });
 
-    const minutes = (n: number) => n * 60;
-    const calendar = ical({
-        name: "AP WebUntis",
-        description: "AP calendar synced from ap.webuntis.com",
-        timezone: "Europe/Brussels",
-        ttl: minutes(15),
-        url: `${host}:${port}/calendar?class=${classId}`,
-        prodId: { company: "viovyx", product: "AP-WebUntisToICS-Node" }
-    });
-
-    lessons.forEach((lesson) => {
-        calendar.createEvent(mapToCalEvent(lesson));
-    });
-
-    res.writeHead(200, {
-        "Content-Disposition": 'attachment; filename="calendar.ics"',
-        "Content-Type": "text/calendar; charset=utf-8"
-    });
-    res.end(calendar.toString());
+        res.writeHead(200, {
+            "Content-Disposition": 'attachment; filename="calendar.ics"',
+            "Content-Type": "text/calendar; charset=utf-8"
+        });
+        res.end(calendar.toString());
+    } catch (error: any) {
+        return sendError(res, {
+            error: error.message
+        });
+    }
 });
 
 app.get("/classes", async (req, res) => {
@@ -82,17 +94,30 @@ app.get("/classes", async (req, res) => {
         end: req.query.end as string
     };
 
-    if (!(dateRange.start && dateRange.end))
-        dateRange = (await getCurrentSchoolyear()).dateRange;
+    if (!(dateRange.start && dateRange.end)) {
+        try {
+            dateRange = (await getCurrentSchoolyear()).dateRange;
+        } catch (error: any) {
+            return sendError(res, { error: error.message }, 502);
+        }
+    }
 
-    const classesRes = await getClasses(dateRange);
-    const classes = mapToClasses(classesRes);
-    res.json(classes);
+    try {
+        const classesRes = await getClasses(dateRange);
+        const classes = mapToClasses(classesRes);
+        res.json(classes);
+    } catch (error: any) {
+        return sendError(res, { error: error.message }, 502);
+    }
 });
 
 app.get("/schoolyears", async (_, res) => {
-    const schoolyears = await getSchoolyears();
-    res.json(schoolyears);
+    try {
+        const schoolyears = await getSchoolyears();
+        res.json(schoolyears);
+    } catch (error: any) {
+        return sendError(res, { error: error.message }, 502);
+    }
 });
 //#endregion
 

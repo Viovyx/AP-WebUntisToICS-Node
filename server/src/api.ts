@@ -38,8 +38,25 @@ function createFetchCache(
     });
 }
 
-const fetchLongCache = createFetchCache({ days: 7 }, "long");
-const fetchShortCache = createFetchCache({ minutes: 15 }, "short");
+const longCache = createFetchCache({ days: 7 }, "long");
+const shortCache = createFetchCache({ minutes: 15 }, "short");
+
+async function fetchJson<T>(
+    fetchFunc: typeof longCache | typeof shortCache,
+    url: string
+): Promise<T> {
+    const response = await fetchFunc(url, {
+        headers
+    });
+
+    if (!response.ok) {
+        throw new Error(
+            `WebUntis API request failed: ${response.status} ${response.statusText}`
+        );
+    }
+
+    return (await response.json()) as T;
+}
 //#endregion
 
 //#region API requests
@@ -52,28 +69,25 @@ export async function getClasses(
         end: dateRange.end
     });
 
-    const response = await fetchLongCache(newURL("/timetable/filter", params), {
-        headers: headers
-    });
-    const data = (await response.json()) as Resource;
+    const data: Resource = await fetchJson(
+        longCache,
+        newURL("/timetable/filter", params)
+    );
 
     return data.classes;
 }
 
 export async function getSchoolyears(): Promise<SchoolYear[]> {
-    const response = await fetchLongCache(newURL("/schoolyears"), {
-        headers: headers
-    });
-    const data = (await response.json()) as SchoolYear[];
+    const data: SchoolYear[] = await fetchJson(
+        longCache,
+        newURL("/schoolyears")
+    );
 
     return data;
 }
 
 export async function getCurrentSchoolyear(): Promise<CurrentSchoolyear> {
-    const response = await fetchLongCache(newURL("/app/data"), {
-        headers: headers
-    });
-    const data = (await response.json()) as SchoolData;
+    const data: SchoolData = await fetchJson(longCache, newURL("/app/data"));
 
     return data.currentSchoolYear;
 }
@@ -81,7 +95,7 @@ export async function getCurrentSchoolyear(): Promise<CurrentSchoolyear> {
 export async function getTimetable(
     classId: number,
     dateRange: DateRange
-): Promise<Timetable | undefined> {
+): Promise<Timetable> {
     const params = new URLSearchParams({
         resourceType: "CLASS",
         start: dateRange.start,
@@ -89,16 +103,11 @@ export async function getTimetable(
         resources: classId.toString()
     });
 
-    const response = await fetchShortCache(
-        newURL("/timetable/entries", params),
-        {
-            headers: headers
-        }
+    const data: Timetable = await fetchJson(
+        shortCache,
+        newURL("/timetable/entries", params)
     );
 
-    if (response.ok) {
-        const data = (await response.json()) as Timetable;
-        return data;
-    } else return;
+    return data;
 }
 //#endregion
