@@ -1,3 +1,4 @@
+import { config } from "dotenv";
 import type {
     ClassResource,
     CurrentSchoolyear,
@@ -8,8 +9,11 @@ import type {
     Timetable
 } from "./types.ts";
 import NodeFetchCache, { FileSystemCache } from "node-fetch-cache";
-import { apiBaseUrl } from "../server.ts";
+import { envUndefined } from "../server.ts";
 
+config();
+const apiBaseUrl: string =
+    process.env.API_BASE_URL?.trim() || envUndefined("API_BASE_URL");
 const headers: HeadersInit = { "anonymous-school": "ap" };
 
 //#region Helpers

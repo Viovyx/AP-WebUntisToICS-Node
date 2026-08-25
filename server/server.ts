@@ -9,14 +9,23 @@ import {
 import ical from "ical-generator";
 import { mapToCalEvent, mapToClasses, mapToLessons } from "./src/mappers.ts";
 import path from "node:path";
+import { config } from "dotenv";
 
 //#region Set consts
+config();
 const app = express();
 
-export const host: string = "0.0.0.0";
-export const port: number = 3000;
-export const apiBaseUrl: string =
-    "https://ap.webuntis.com/WebUntis/api/rest/view/v1";
+export const envUndefined = (name: string) => {
+    console.error(
+        `${name} must be defined in .env!\nPlease restart application after updating .env`
+    );
+    process.exit();
+};
+
+const host: string = process.env.HOST?.trim() || envUndefined("HOST");
+const publicUrl: string =
+    process.env.PUBLIC_URL?.trim() || envUndefined("PUBLIC_URL");
+const port: number = Number(process.env.PORT?.trim()) || envUndefined("PORT");
 
 const sendError = (res: Response, error: string, status: number = 400) =>
     res.status(status).send(error);
@@ -71,7 +80,7 @@ app.get("/calendar", async (req, res) => {
             description: "AP calendar synced from ap.webuntis.com",
             timezone: "Europe/Brussels",
             ttl: minutes(15),
-            url: `${host}:${port}/calendar?class=${classId}`,
+            url: `${publicUrl}/calendar?class=${classId}&start=${dateRange.start}&end=${dateRange.end}`,
             prodId: { company: "viovyx", product: "AP-WebUntisToICS-Node" }
         });
 
@@ -139,6 +148,7 @@ app.listen(port, host, () => {
         `
          Server started!
          > Listening on: http://${host}:${port}
+         > Public access: ${publicUrl}
         `
             .replaceAll("  ", "")
             .trim()
