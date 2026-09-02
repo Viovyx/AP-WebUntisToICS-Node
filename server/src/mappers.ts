@@ -45,7 +45,10 @@ function getEntryPositions(gridEntry: GridEntry): CleanPositions {
 //#endregion
 
 //#region Mappers
-export function mapToLessons(timetable: Timetable): Lesson[] {
+export function mapToLessons(
+    timetable: Timetable,
+    filter?: string[]
+): Lesson[] {
     const lessonSet = new Map<string, Lesson>();
 
     timetable.days?.forEach((day) =>
@@ -72,29 +75,39 @@ export function mapToLessons(timetable: Timetable): Lesson[] {
                 ].sort()
             };
 
-            // Create unique key
-            const key: string = lesson.subject.concat(
-                lesson.info,
-                lesson.start.toString(),
-                lesson.end.toString()
-            );
-            const toCompare = lessonSet.get(key);
+            if (
+                (filter &&
+                    !filter.some(
+                        (filterSubject) =>
+                            filterSubject.toLowerCase() ===
+                            lesson.subject.toLowerCase()
+                    )) ||
+                !filter
+            ) {
+                // Create unique key
+                const key: string = lesson.subject.concat(
+                    lesson.info,
+                    lesson.start.toString(),
+                    lesson.end.toString()
+                );
+                const toCompare = lessonSet.get(key);
 
-            // If key exists => merge lessons
-            if (toCompare !== undefined) {
-                toCompare.teachers = mergeArrays(
-                    toCompare.teachers,
-                    lesson.teachers
-                );
-                toCompare.classes = mergeArrays(
-                    toCompare.classes,
-                    lesson.classes
-                );
-                toCompare.locations = mergeArrays(
-                    toCompare.locations,
-                    lesson.locations
-                );
-            } else lessonSet.set(key, lesson); // Add new unique lesson
+                // If key exists => merge lessons
+                if (toCompare !== undefined) {
+                    toCompare.teachers = mergeArrays(
+                        toCompare.teachers,
+                        lesson.teachers
+                    );
+                    toCompare.classes = mergeArrays(
+                        toCompare.classes,
+                        lesson.classes
+                    );
+                    toCompare.locations = mergeArrays(
+                        toCompare.locations,
+                        lesson.locations
+                    );
+                } else lessonSet.set(key, lesson); // Add new unique lesson
+            }
         })
     );
 

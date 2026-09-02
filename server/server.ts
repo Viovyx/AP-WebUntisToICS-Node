@@ -41,6 +41,9 @@ app.get("/calendar", async (req, res) => {
         start: req.query.start as string,
         end: req.query.end as string
     };
+    const filter: string[] = (req.query.filter as string)
+        ?.split(",")
+        .map((filter) => filter.trim());
 
     if (!classId) return sendError(res, "No 'class' param found.");
     if (isNaN(+classId)) return sendError(res, "'class' should be a number.");
@@ -72,7 +75,7 @@ app.get("/calendar", async (req, res) => {
 
     try {
         const timetable = await getTimetable(+classId, dateRange);
-        const lessons = mapToLessons(timetable);
+        const lessons = mapToLessons(timetable, filter);
 
         const minutes = (n: number) => n * 60;
         const calendar = ical({
