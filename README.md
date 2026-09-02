@@ -10,6 +10,15 @@ Easy to use .ics generator for importing your Webuntis calendar into your own ca
 
 This will sync with WebUntis whenever your client syncs the url.
 
+### Filtering
+It is possible to filter out subjects that don't apply to you. Filtering is done by adding a `filter` parameter to the url you copied from the steps above. You can have multiple subjects filtered by splitting them with a comma.
+
+Below is an example:
+```
+https://<the link copied from the steps above>&filter=Ideation, Robot Dynamics
+```
+This will filter out all subjects that match one of those names (capitalization insensitive). Currently it is only possible to filter on subjects, not on subject info or teacher, this means if there are practical and theoretical classes of one subject it will filter out both.
+
 ### Tested clients
 
 | Client                                                         | Comment                                                     |
