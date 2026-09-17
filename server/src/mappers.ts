@@ -93,13 +93,11 @@ export function mapToLessons(
             };
 
             if (
-                (filter &&
-                    !filter.some(
-                        (filterSubject) =>
-                            filterSubject.toLowerCase() ===
-                            lesson.subject.toLowerCase()
-                    )) ||
-                !filter
+                !filter?.some(
+                    (filterSubject) =>
+                        filterSubject.toLowerCase() ===
+                        lesson.subject.toLowerCase()
+                )
             ) {
                 // Create unique key
                 const key: string = lesson.subject.concat(
