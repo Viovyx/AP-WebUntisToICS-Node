@@ -27,20 +27,37 @@ function getEntryPositions(gridEntry: GridEntry): CleanPositions {
         gridEntry.position7 ?? []
     ];
 
-    return {
-        subjects:
-            positionsArr.find((pos) => pos[0]?.current.type === "SUBJECT") ??
-            [],
-        teachers:
-            positionsArr.find((pos) => pos[0]?.current.type === "TEACHER") ??
-            [],
-        rooms:
-            positionsArr.find((pos) => pos[0]?.current.type === "ROOM") ?? [],
-        infos:
-            positionsArr.find((pos) => pos[0]?.current.type === "INFO") ?? [],
-        classes:
-            positionsArr.find((pos) => pos[0]?.current.type === "CLASS") ?? []
+    let positions: CleanPositions = {
+        subjects: [],
+        teachers: [],
+        rooms: [],
+        infos: [],
+        classes: []
     };
+
+    positionsArr.forEach((pos) => {
+        switch (pos[0]?.current.type) {
+            case "SUBJECT":
+                positions.subjects = pos;
+                break;
+            case "TEACHER":
+                positions.teachers = pos;
+                break;
+            case "ROOM":
+                positions.rooms = pos;
+                break;
+            case "INFO":
+                positions.infos = pos;
+                break;
+            case "CLASS":
+                positions.classes = pos;
+                break;
+            default:
+                break;
+        }
+    });
+
+    return positions;
 }
 //#endregion
 
