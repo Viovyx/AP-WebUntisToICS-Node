@@ -25,8 +25,8 @@ async function loadClasses(schoolyearId?: number) {
         const classEl = document.createElement("div");
         classEl.innerHTML = `<p>${classData.name}</p><span>${classData.id}</span>`;
         classEl.id = String(classData.id);
-        classEl.addEventListener("click", (e) => {
-            const el = e.target as HTMLElement;
+        classEl.addEventListener("click", (event) => {
+            const el = event.target as HTMLElement;
             if (schoolyearId) copy(el.id, dateRange);
             else copy(el.id);
         });
@@ -47,8 +47,8 @@ async function loadSchoolyears() {
         )
         .join("");
 
-    schoolyearsSelectRef.addEventListener("change", (e) => {
-        const selected = (e.target as HTMLSelectElement).selectedOptions[0];
+    schoolyearsSelectRef.addEventListener("change", (event) => {
+        const selected = (event.target as HTMLSelectElement).selectedOptions[0];
         loadClasses(+selected.value);
     });
 }
@@ -57,8 +57,8 @@ function initSearch() {
     const form: HTMLFormElement = document.querySelector("#find")!;
     const findTextRef: HTMLInputElement = form.querySelector("#find-text")!;
 
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
         const query: string = findTextRef.value;
 
         if ("find" in window && typeof (window as any).find === "function") {

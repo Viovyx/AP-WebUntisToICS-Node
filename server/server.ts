@@ -139,9 +139,9 @@ app.use((req, res) => {
     const resPath = path.resolve(
         `../client/dist${req.path == "/" ? "/index.html" : req.path}`
     );
-    res.sendFile(resPath, (e) =>
-        e ? sendError(res, `Cannot ${req.method} ${req.path}`, 404) : null
-    );
+    res.sendFile(resPath, (error) => {
+        if (error) sendError(res, `Cannot ${req.method} ${req.path}`, 404);
+    });
 });
 //#endregion
 
