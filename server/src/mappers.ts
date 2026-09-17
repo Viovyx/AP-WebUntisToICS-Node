@@ -27,7 +27,7 @@ function getEntryPositions(gridEntry: GridEntry): CleanPositions {
         gridEntry.position7 ?? []
     ];
 
-    let positions: CleanPositions = {
+    const positions: CleanPositions = {
         subjects: [],
         teachers: [],
         rooms: [],
