@@ -101,6 +101,53 @@ app.get("/calendar", async (req, res) => {
     }
 });
 
+app.get("/lessons", async (req, res) => {
+    const classId = req.query.class as string;
+    let dateRange: DateRange = {
+        start: req.query.start as string,
+        end: req.query.end as string
+    };
+    const filter: string[] = (req.query.filter as string)
+        ?.split(",")
+        .map((filter) => filter.trim());
+
+    if (!classId) return sendError(res, "No 'class' param found.");
+    if (isNaN(+classId)) return sendError(res, "'class' should be a number.");
+
+    if (!(dateRange.start && dateRange.end)) {
+        try {
+            dateRange = (await getCurrentSchoolyear()).dateRange;
+        } catch (error) {
+            return sendError(res, getErrorMessage(error));
+        }
+    } else {
+        try {
+            const schoolyears = await getSchoolyears();
+            if (
+                !schoolyears.some(
+                    (schoolyear) =>
+                        schoolyear.dateRange.start === dateRange.start &&
+                        schoolyear.dateRange.end === dateRange.end
+                )
+            )
+                return sendError(
+                    res,
+                    `No schoolyear found for daterange '${dateRange.start} - ${dateRange.end}'.`
+                );
+        } catch (error) {
+            return sendError(res, getErrorMessage(error), 502);
+        }
+    }
+
+    try {
+        const timetable = await getTimetable(+classId, dateRange);
+        const lessons = mapToLessons(timetable, filter);
+        res.json(lessons);
+    } catch (error) {
+        return sendError(res, getErrorMessage(error));
+    }
+});
+
 app.get("/classes", async (req, res) => {
     let dateRange: DateRange = {
         start: req.query.start as string,

@@ -13,3 +13,13 @@ export interface DateRange {
     start: string;
     end: string;
 }
+
+export interface Lesson {
+    start: Date;
+    end: Date;
+    info: string;
+    teachers: string[];
+    subject: string;
+    locations: string[];
+    classes: string[];
+}
