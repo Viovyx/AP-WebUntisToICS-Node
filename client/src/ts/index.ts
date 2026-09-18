@@ -1,4 +1,5 @@
-import "./style.css";
+import "/css/global-style.css";
+import "/css/index.css";
 import type { Class, DateRange, SchoolYear } from "./types";
 
 loadClasses();
