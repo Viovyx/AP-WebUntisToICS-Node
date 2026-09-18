@@ -137,7 +137,7 @@ app.get("/schoolyears", async (_, res) => {
 //#region Serve Client
 app.use((req, res) => {
     const resPath = path.resolve(
-        `../client/dist${req.path == "/" ? "/index.html" : req.path}`
+        `../client/dist${!path.extname(req.path) ? req.path + "/index.html" : req.path}`
     );
     res.sendFile(resPath, (error) => {
         if (error) sendError(res, `Cannot ${req.method} ${req.path}`, 404);

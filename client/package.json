@@ -11,5 +11,10 @@
   "devDependencies": {
     "typescript": "~5.9.3",
     "vite": "^8.0.1"
+  },
+  "dependencies": {
+    "fullcalendar": "^7.1.0",
+    "fullcalendar-scheduler": "^7.1.0",
+    "temporal-polyfill": "^1.0.5"
   }
 }
