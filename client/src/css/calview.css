@@ -85,6 +85,17 @@ body {
         text-align: center;
         color: #b3b5b8;
     }
+
+    .event-detail-group {
+        display: grid;
+        grid-template-columns: 24px 1fr;
+        gap: 1rem;
+        padding: 1rem 0;
+
+        p {
+            margin: 0;
+        }
+    }
 }
 .tippy-box[data-theme~="custom"][data-placement^="top"] > .tippy-arrow:before {
     border-top-color: var(--tippy-background);
