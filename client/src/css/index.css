@@ -24,7 +24,7 @@
 
     .action-buttons {
         display: none;
-        gap: 2rem;
+        gap: 1rem;
     }
 
     &:hover {
@@ -43,6 +43,7 @@
     gap: 1rem;
     margin-bottom: 1rem;
     justify-content: center;
+    flex-wrap: wrap;
 
     input {
         background-color: grey;
@@ -51,6 +52,11 @@
         color: #eee;
         width: 25rem;
         max-width: 50%;
+    }
+
+    > div.group {
+        display: flex;
+        justify-content: center;
     }
 
     button {
@@ -65,15 +71,6 @@
             &:active {
                 scale: 1;
             }
-        }
-    }
-}
-
-@media (min-width: 1000px) {
-    .class-list > div {
-        &:hover {
-            scale: 1.1;
-            box-shadow: 0 0 0.5rem 0.5rem rgba(0, 0, 0, 0.5);
         }
     }
 }
