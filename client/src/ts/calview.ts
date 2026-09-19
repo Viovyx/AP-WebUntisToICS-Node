@@ -35,7 +35,7 @@ async function getCalendarUrl(): Promise<string> {
 
 //#region Icon Actions
 const refetchIcon: SVGElement = document.querySelector("#refetch-icon")!;
-const linkIcon: SVGElement = document.querySelector("#link-icon")!;
+const linkIcon: SVGElement = document.querySelector("#calendar-icon")!;
 
 tippy(refetchIcon, { content: "Refetch events", placement: "right" });
 tippy(linkIcon, { content: "Copy ICS sync url", placement: "left" });
