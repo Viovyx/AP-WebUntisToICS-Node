@@ -27,6 +27,10 @@ const publicUrl: string =
     process.env.PUBLIC_URL?.trim() || envUndefined("PUBLIC_URL");
 const port: number = Number(process.env.PORT?.trim()) || envUndefined("PORT");
 
+export const apiBaseUrl: string =
+    process.env.API_BASE_URL?.trim() || envUndefined("API_BASE_URL");
+export const headers: HeadersInit = { "anonymous-school": "ap" };
+
 const sendError = (res: Response, error: string, status: number = 400) =>
     res.status(status).send(error);
 
@@ -137,7 +141,7 @@ app.get("/schoolyears", async (_, res) => {
 //#region Serve Client
 app.use((req, res) => {
     const resPath = path.resolve(
-        `../client/dist${req.path == "/" ? "/index.html" : req.path}`
+        `../client/dist${!path.extname(req.path) ? req.path + "/index.html" : req.path}`
     );
     res.sendFile(resPath, (error) => {
         if (error) sendError(res, `Cannot ${req.method} ${req.path}`, 404);

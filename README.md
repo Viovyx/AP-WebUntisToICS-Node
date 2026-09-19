@@ -4,13 +4,23 @@ Easy to use .ics generator for importing your Webuntis calendar into your own ca
 
 ## Usage
 
+
+### Using the built in calendar
 1. Go to the public url above
-2. Find and select your class (If you can't find your class, make sure you've selected the correct schoolyear!)
-3. Import the link in your calendar app of choice
+2. Find and click your class (If you can't find your class, make sure you've selected the correct schoolyear!)
+3. Choose `Open Calendar`
 
-This will sync with WebUntis whenever your client syncs the url.
+You can view your schedule there and save the url to come back later. You can also filter out subjects as explained below by adding the `filter` parameter to the url.
 
-### Filtering
+### Syncing with your own calendar client
+1. Go to the public url above
+2. Find and click your class (If you can't find your class, make sure you've selected the correct schoolyear!)
+3. Choose `Copy ICS sync url`
+4. Import the link in your calendar app of choice
+
+This will sync with WebUntis whenever your client syncs the url. You can also filter out subjects as explained below by adding the `filter` parameter to the url.
+
+## Filtering
 It is possible to filter out subjects that don't apply to you. Filtering is done by adding a `filter` parameter to the url you copied from the steps above. You can have multiple subjects filtered by splitting them with a comma.
 
 Below is an example:
@@ -29,15 +39,28 @@ This will filter out all subjects that match one of those names (capitalization 
 
 Theoretically this should work in any calendar client that supports importing from url and some might have better results, these are just the ones I've tested myself with my experience.
 
-### Preview (Google calendar)
+### Examples
 
-#### Week overview:
+#### Built in calendar
+
+##### Week overview:
+
+<img width="2791" height="1595" alt="built-in-week-view" src="https://github.com/user-attachments/assets/27f7df53-3d26-4940-a9d1-ae9714aa45c3" />
+
+##### Detailed info view:
+
+<img width="500" height="auto" alt="built-in-detail-view" src="https://github.com/user-attachments/assets/b03014ee-3e9f-4413-947e-b43c5c945e54" />
+
+#### Google calendar
+
+##### Week overview:
 
 <img width="2137" height="1103" alt="week-view" src="https://github.com/user-attachments/assets/866b631e-85e2-4c17-8784-d3a21dda302b" />
 
-#### Detailed info view:
+##### Detailed info view:
 
-<img width="435" height="294" alt="detail-view" src="https://github.com/user-attachments/assets/adf6c9ec-29c0-442e-95bf-1a2e511de967" />
+<img width="500" height="auto" alt="detail-view" src="https://github.com/user-attachments/assets/adf6c9ec-29c0-442e-95bf-1a2e511de967" />
+
 
 ## Disclaimers
 

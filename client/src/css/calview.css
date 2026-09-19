@@ -1,0 +1,108 @@
+:root {
+    --tippy-background: #030712;
+    --tippy-border: #2a2a2a;
+}
+
+body {
+    width: 100dvw;
+    height: 100dvh;
+    background-color: var(--tippy-background);
+}
+
+#icons {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    top: 0;
+    width: calc(100dvw - 3rem);
+    padding: 1.5rem;
+    height: 3rem;
+    z-index: 1;
+
+    svg {
+        height: 100%;
+        cursor: pointer;
+        transition: transform 2s linear;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#calendar {
+    .toolbar {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        > :first-child {
+            grid-column: 1/-1;
+            margin: 0 auto;
+        }
+
+        > :last-child {
+            margin-left: auto;
+        }
+    }
+}
+
+.event-open {
+    filter: blur(10px) brightness(0.5);
+}
+
+#tippy-container {
+    position: absolute;
+    top: 0;
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+[data-tippy-root]:has(div.tippy-box[data-theme~="custom"]) {
+    transform: unset !important;
+    position: unset !important;
+    transform: unset !important;
+}
+
+.tippy-box[data-theme~="custom"] {
+    width: min(600px, 90dvw) !important;
+    background-color: var(--tippy-background);
+    border: 2px solid var(--tippy-border);
+    padding: 0 1rem;
+
+    h3 {
+        font-weight: 600;
+    }
+
+    p.time {
+        text-align: center;
+        color: #b3b5b8;
+    }
+}
+.tippy-box[data-theme~="custom"][data-placement^="top"] > .tippy-arrow:before {
+    border-top-color: var(--tippy-background);
+}
+.tippy-box[data-theme~="custom"][data-placement^="bottom"]
+    > .tippy-arrow:before {
+    border-bottom-color: var(--tippy-background);
+}
+.tippy-box[data-theme~="custom"][data-placement^="left"] > .tippy-arrow:before {
+    border-left-color: var(--tippy-background);
+}
+.tippy-box[data-theme~="custom"][data-placement^="right"]
+    > .tippy-arrow:before {
+    border-right-color: var(--tippy-background);
+}
+.tippy-box[data-theme~="custom"] > .tippy-backdrop {
+    background-color: var(--tippy-background);
+}
+.tippy-box[data-theme~="custom"] > .tippy-svg-arrow {
+    fill: var(--tippy-background);
+}
