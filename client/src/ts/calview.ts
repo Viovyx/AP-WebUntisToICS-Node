@@ -105,7 +105,17 @@ const calendar = new Calendar(calendarEl, {
         url: await getCalendarUrl(),
         format: "ics"
     },
-    eventDidMount: (info) =>
+    eventTitleClass: "event-title",
+    eventDidMount: (info) => {
+        // Add event locations under title
+        if (info.view.type !== "dayGridMonth") {
+            const locationEl = document.createElement("p");
+            locationEl.innerText = info.event.extendedProps.location;
+            locationEl.classList.add("event-location");
+            info.el.querySelector(".event-title").after(locationEl);
+        }
+
+        // Event detailed view
         tippy(info.el, {
             plugins: [hideOnEsc],
             trigger: "click",
@@ -140,7 +150,8 @@ const calendar = new Calendar(calendarEl, {
                     <p>${(info.event.extendedProps.description as string).replaceAll("\n", "</br>")}</p>
                 </div>
             `
-        })
+        });
+    }
 });
 
 calendar.render();
