@@ -1,20 +1,22 @@
 {
-  "name": "client",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "typescript": "~5.9.3",
-    "vite": "^8.0.1"
-  },
-  "dependencies": {
-    "fullcalendar": "^7.1.0",
-    "fullcalendar-scheduler": "^7.1.0",
-    "temporal-polyfill": "^1.0.5"
-  }
+    "name": "client",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview"
+    },
+    "devDependencies": {
+        "typescript": "~5.9.3",
+        "vite": "^8.0.1"
+    },
+    "dependencies": {
+        "@fullcalendar/icalendar": "^7.1.0",
+        "fullcalendar": "^7.1.0",
+        "ical.js": "^2.2.1",
+        "temporal-polyfill": "^1.0.5",
+        "tippy.js": "^6.3.7"
+    }
 }
