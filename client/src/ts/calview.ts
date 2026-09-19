@@ -33,7 +33,40 @@ async function getCalendarUrl(): Promise<string> {
 }
 //#endregion
 
+//#region Icon Actions
+const refetchIcon: SVGElement = document.querySelector("#refetch-icon")!;
+const linkIcon: SVGElement = document.querySelector("#link-icon")!;
+
+tippy(refetchIcon, { content: "Refetch events", placement: "right" });
+tippy(linkIcon, { content: "Copy ICS sync url", placement: "left" });
+
+let rotation = 0;
+refetchIcon.addEventListener("click", () => {
+    rotation += 720;
+    refetchIcon.style.transform = `rotate(${rotation}deg)`;
+    calendar.refetchEvents();
+});
+
+linkIcon.addEventListener("click", () => {
+    let url = `${location.protocol}//${location.host}/calendar${location.search}`;
+
+    try {
+        navigator.clipboard.writeText(url);
+        alert(
+            `Copied sync url to your clipboard!\nPaste it in your calendar app to sync.`
+        );
+    } catch (error) {
+        // Fallback when unable to write to clipboard
+        prompt(
+            `Cannot copy sync url to your clipboard!\nCopy following url manually and paste it in your calendar app to sync.`,
+            url
+        );
+    }
+});
+//#endregion
+
 //#region Setup & Render calendar
+const wrapperEl: HTMLElement = document.querySelector("#wrapper")!;
 const calendarEl: HTMLElement = document.querySelector("#calendar")!;
 const tippyContainer: HTMLElement = document.querySelector("#tippy-container")!;
 tippyContainer.style.display = "none";
@@ -87,11 +120,11 @@ const calendar = new Calendar(calendarEl, {
             },
             appendTo: () => tippyContainer,
             onShow: () => {
-                calendarEl.classList.add("event-open");
+                wrapperEl.classList.add("event-open");
                 tippyContainer.style.display = null;
             },
             onHide: (instance) => {
-                calendarEl.classList.remove("event-open");
+                wrapperEl.classList.remove("event-open");
                 tippyContainer.style.display = "none";
                 instance.popper.remove();
             },

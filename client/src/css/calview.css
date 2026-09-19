@@ -9,6 +9,32 @@ body {
     background-color: var(--tippy-background);
 }
 
+#icons {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    top: 0;
+    width: calc(100dvw - 3rem);
+    padding: 1.5rem;
+    height: 3rem;
+    z-index: 1;
+
+    svg {
+        height: 100%;
+        cursor: pointer;
+        transition: transform 2s linear;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 #calendar {
     .toolbar {
         display: grid;
@@ -23,10 +49,10 @@ body {
             margin-left: auto;
         }
     }
+}
 
-    &.event-open {
-        filter: blur(10px) brightness(0.5);
-    }
+.event-open {
+    filter: blur(10px) brightness(0.5);
 }
 
 #tippy-container {
@@ -39,7 +65,7 @@ body {
     align-items: center;
 }
 
-[data-tippy-root] {
+[data-tippy-root]:has(div.tippy-box[data-theme~="custom"]) {
     transform: unset !important;
     position: unset !important;
     transform: unset !important;

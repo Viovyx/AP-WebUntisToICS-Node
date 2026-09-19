@@ -8,7 +8,61 @@
         <title>AP WebUntisToICS</title>
     </head>
     <body>
-        <div id="calendar"></div>
+        <div id="wrapper">
+            <div id="icons">
+                <!-- Refetch -->
+                <svg
+                    id="refetch-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M2.5 12C2.5 12.2761 2.72386 12.5 3 12.5C3.27614 12.5 3.5 12.2761 3.5 12H2.5ZM3.5 12C3.5 7.30558 7.30558 3.5 12 3.5V2.5C6.75329 2.5 2.5 6.75329 2.5 12H3.5ZM12 3.5C15.3367 3.5 18.2252 5.4225 19.6167 8.22252L20.5122 7.77748C18.9583 4.65062 15.7308 2.5 12 2.5V3.5Z"
+                        fill="white"
+                    />
+                    <path
+                        d="M20.4716 2.42157V8.07843H14.8147"
+                        stroke="white"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                    <path
+                        d="M21.5 12C21.5 11.7239 21.2761 11.5 21 11.5C20.7239 11.5 20.5 11.7239 20.5 12L21.5 12ZM20.5 12C20.5 16.6944 16.6944 20.5 12 20.5L12 21.5C17.2467 21.5 21.5 17.2467 21.5 12L20.5 12ZM12 20.5C8.66333 20.5 5.77477 18.5775 4.38328 15.7775L3.48776 16.2225C5.04168 19.3494 8.26923 21.5 12 21.5L12 20.5Z"
+                        fill="white"
+                    />
+                    <path
+                        d="M3.52844 21.5784L3.52844 15.9216L9.18529 15.9216"
+                        stroke="white"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+                <!-- Link -->
+                <svg
+                    id="link-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <g clip-path="url(#clip0_15_96)">
+                        <path
+                            d="M16.2427 12L19.0711 9.17159C19.0711 9.17159 20.4853 7.75737 18.364 5.63606C16.2427 3.51475 14.8285 4.92895 14.8285 4.92895C14.8285 4.92895 12.7071 7.05027 11.2929 8.46448C9.87873 9.87869 9.87873 11.2929 10.5858 12"
+                            stroke="white"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M7.75745 12L4.92902 14.8284C4.92902 14.8284 3.5148 16.2426 5.63613 18.364C7.75745 20.4853 9.17166 19.0711 9.17166 19.0711C9.17166 19.0711 10.9394 17.3033 12.3536 15.8891C13.7679 14.4749 14.1214 12.7071 13.4143 12"
+                            stroke="white"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </g>
+                </svg>
+            </div>
+            <div id="calendar"></div>
+        </div>
         <div id="tippy-container"></div>
     </body>
 </html>
