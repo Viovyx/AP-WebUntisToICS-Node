@@ -56,6 +56,19 @@ async function loadClasses(schoolyearId?: number) {
                 location.href = url;
             });
 
+        classEl.addEventListener("mouseenter", async () => {
+            await new Promise((r) => setTimeout(r, 1)); // Needed to prevent clicking buttons before visible
+            (
+                classEl.querySelector(".action-buttons") as HTMLElement
+            ).style.display = "flex";
+        });
+        classEl.addEventListener("mouseleave", async () => {
+            await new Promise((r) => setTimeout(r, 1)); // Needed to prevent clicking buttons before visible
+            (
+                classEl.querySelector(".action-buttons") as HTMLElement
+            ).style.display = "none";
+        });
+
         classesListRef.appendChild(classEl);
     });
 }
