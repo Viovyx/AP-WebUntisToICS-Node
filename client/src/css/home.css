@@ -50,11 +50,6 @@
         max-width: 50%;
     }
 
-    > div.group {
-        display: flex;
-        justify-content: center;
-    }
-
     button {
         background-color: #eee;
         border-radius: 1rem;

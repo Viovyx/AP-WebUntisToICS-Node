@@ -37,7 +37,6 @@ async function loadClasses(schoolyearId?: number) {
         classEl
             .querySelector(".copy-url")
             .addEventListener("click", (event) => {
-                const el = event.target as HTMLElement;
                 if (schoolyearId)
                     copy(
                         getUrl("calendar", classData.id.toString(), dateRange)
@@ -48,7 +47,6 @@ async function loadClasses(schoolyearId?: number) {
         classEl
             .querySelector(".open-calendar")
             .addEventListener("click", (event) => {
-                const el = event.target as HTMLElement;
                 let url = "";
                 if (schoolyearId)
                     url = getUrl("calview", classData.id.toString(), dateRange);
@@ -93,21 +91,20 @@ async function loadSchoolyears() {
 }
 
 function initSearch() {
-    const form: HTMLFormElement = document.querySelector("#find")!;
-    const findTextRef: HTMLInputElement = form.querySelector("#find-text")!;
+    const findTextRef: HTMLInputElement = document.querySelector("#find-text")!;
 
-    form.addEventListener("submit", (event) => {
+    findTextRef.addEventListener("keyup", (event) => {
         event.preventDefault();
-        const query: string = findTextRef.value;
+        const query: string = findTextRef.value.toLowerCase();
+        const classes = document.querySelectorAll("#classes > div");
 
-        if ("find" in window && typeof (window as any).find === "function") {
-            (window as any).find(query);
-        } else {
-            // Fallback for browsers that don't support window.find()
-            alert(
-                "window.find() is not supported in this browser.\n\nUse your browsers built-in search functionality ('ctrl+f' or 'Find in page') instead."
-            );
-        }
+        classes.forEach((classEl) => {
+            const name = classEl.querySelector("p").innerText.toLowerCase();
+
+            if (name.indexOf(query) > -1)
+                (classEl as HTMLElement).style.display = "";
+            else (classEl as HTMLElement).style.display = "none";
+        });
     });
 }
 
