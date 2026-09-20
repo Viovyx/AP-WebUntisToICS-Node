@@ -156,3 +156,61 @@ const calendar = new Calendar(calendarEl, {
 
 calendar.render();
 //#endregion
+
+//#region Swipte actions
+// Original source: https://onjsdev.com/article/detect-finger-swipe-gestures-in-javascript
+// Add event listeners for touchstart and touchend events
+document.body.addEventListener("touchstart", touchStart);
+document.body.addEventListener("touchend", touchEnd);
+
+// Declare variables to store the timestamp and initial touch coordinates
+let touchStartTime: number,
+    touchEndTime: number,
+    clientX: number,
+    clientY: number;
+
+function touchStart(e: TouchEvent) {
+    // Prevent the default behavior (e.g. scrolling) of the touch event
+    e.preventDefault();
+
+    // Record the timestamp of the touch event
+    touchStartTime = Date.now();
+
+    // Record the X and Y coordinates of the touch on the screen
+    clientY = e.touches[0].clientY;
+    clientX = e.touches[0].clientX;
+}
+
+function touchEnd(e: TouchEvent) {
+    // Record the timestamp of the touch end event
+    touchEndTime = Date.now();
+
+    // Call the swipe function to check if a swipe gesture occurred
+    swipe(e, touchEndTime - touchStartTime);
+}
+
+const DURATION_THRESHOLD = 600;
+const MOVE_THRESHOLD = 50;
+
+function swipe(e: TouchEvent, duration: number) {
+    // Get the final X and Y coordinates of the touch
+    const endClientX = e.changedTouches[0].clientX;
+    const endClientY = e.changedTouches[0].clientY;
+
+    // Check if the elapsed time between touchstart and touchend events is less than or equal to the duration threshold
+    if (duration <= DURATION_THRESHOLD) {
+        // Check if the touch moved at least MOVE_THRESHOLD pixels in the X or Y direction
+        if (clientY - endClientY >= MOVE_THRESHOLD) {
+            // console.log("swiped up");
+        } else if (endClientY - clientY >= MOVE_THRESHOLD) {
+            // console.log("swiped down");
+        } else if (endClientX - clientX >= MOVE_THRESHOLD) {
+            // console.log("swiped right");
+            calendar.prev();
+        } else if (clientX - endClientX >= MOVE_THRESHOLD) {
+            // console.log("swiped left");
+            calendar.next();
+        }
+    }
+}
+//#endregion
