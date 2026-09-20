@@ -79,6 +79,8 @@ const calendar = new Calendar(calendarEl, {
     expandRows: true,
     dayMaxEvents: true,
     nowIndicator: true,
+    navLinks: true,
+    weekNumbers: true,
     scrollTime: `08:00`,
     firstDay: 1, // Monday
     locale: "en-GB",
