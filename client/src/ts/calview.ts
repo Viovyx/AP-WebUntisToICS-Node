@@ -98,6 +98,7 @@ const calendar = new Calendar(calendarEl, {
     firstDay: 1, // Monday
     locale: "en-GB",
     toolbarClass: "toolbar",
+    eventClass: "cal-event",
     headerToolbar: {
         left: "title",
         center: "today prev,next",

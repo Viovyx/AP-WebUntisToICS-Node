@@ -51,17 +51,21 @@ body {
     }
 }
 
-.event-title {
-    font-weight: bold;
-}
+.cal-event {
+    cursor: pointer;
 
-.event-location {
-    margin: 0;
-    font-size: 1rem;
-    position: sticky;
-    top: 2em;
-    text-wrap: nowrap;
-    overflow: hidden;
+    .event-title {
+        font-weight: bold;
+    }
+
+    .event-location {
+        margin: 0;
+        font-size: 1rem;
+        position: sticky;
+        top: 2em;
+        text-wrap: nowrap;
+        overflow: hidden;
+    }
 }
 
 .event-open {
