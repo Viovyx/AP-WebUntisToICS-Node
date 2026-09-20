@@ -68,6 +68,23 @@ body {
     filter: blur(10px) brightness(0.5);
 }
 
+.event-close-btn {
+    width: 100%;
+    background-color: red;
+    margin: 2rem 0 1rem 0;
+    border-radius: 1rem;
+    border: none;
+    line-height: 3rem;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: darkred;
+    }
+}
+
 #tippy-container {
     position: absolute;
     top: 0;

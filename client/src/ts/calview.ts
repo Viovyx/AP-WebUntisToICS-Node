@@ -6,7 +6,7 @@ import timeGridPlugin from "fullcalendar/timegrid";
 import themePlugin from "fullcalendar/themes/forma";
 
 // Tippy imports
-import tippy from "tippy.js";
+import tippy, { type Instance } from "tippy.js";
 import { hideOnEsc } from "./tippy-custom-plugins";
 
 // Fullcalendar CSS
@@ -30,6 +30,19 @@ async function getCalendarUrl(): Promise<string> {
     if (!testRes.ok) location.replace("/");
 
     return url;
+}
+
+function initTippyClose(instance: Instance) {
+    const closeBtn: HTMLElement =
+        instance.popper.querySelector(".event-close-btn")!;
+
+    closeBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        wrapperEl.classList.remove("event-open");
+        tippyContainer.style.display = "none";
+        instance.popper.remove();
+        instance.hide();
+    });
 }
 //#endregion
 
@@ -122,23 +135,18 @@ const calendar = new Calendar(calendarEl, {
             plugins: [hideOnEsc],
             trigger: "click",
             arrow: false,
-            hideOnClick: true,
             theme: "custom",
             allowHTML: true,
             interactive: true,
             maxWidth: "none",
-            onClickOutside: (instance) => {
-                instance.popperInstance.destroy();
-            },
+            hideOnClick: false,
             appendTo: () => tippyContainer,
             onShow: () => {
                 wrapperEl.classList.add("event-open");
                 tippyContainer.style.display = null;
             },
-            onHide: (instance) => {
-                wrapperEl.classList.remove("event-open");
-                tippyContainer.style.display = "none";
-                instance.popper.remove();
+            onMount: (instance) => {
+                initTippyClose(instance);
             },
             content: `
                 <p class="time">${info.event.start.toLocaleString("nl-BE", { dateStyle: "short", timeStyle: "short" })} - ${info.event.end.toLocaleString("nl-BE", { timeStyle: "short" })}</p>
@@ -151,6 +159,7 @@ const calendar = new Calendar(calendarEl, {
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M280-280h280v-80H280v80Zm0-160h400v-80H280v80Zm0-160h400v-80H280v80Zm-80 480q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
                     <p>${(info.event.extendedProps.description as string).replaceAll("\n", "</br>")}</p>
                 </div>
+                <button class="event-close-btn">Close</button>
             `
         });
     }
