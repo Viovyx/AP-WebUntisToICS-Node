@@ -96,6 +96,11 @@ const calendar = new Calendar(calendarEl, {
     weekNumbers: true,
     scrollTime: `08:00`,
     firstDay: 1, // Monday
+    businessHours: {
+        daysOfWeek: [1, 2, 3, 4, 5],
+        startTime: "08:00",
+        endTime: "18:00"
+    },
     locale: "en-GB",
     toolbarClass: "toolbar",
     eventClass: "cal-event",
