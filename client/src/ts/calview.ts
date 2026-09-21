@@ -138,7 +138,7 @@ const calendar = new Calendar(calendarEl, {
 
         // Event detailed view
         tippy(info.el, {
-            plugins: [hideOnEsc],
+            // plugins: [hideOnEsc],
             trigger: "click",
             arrow: false,
             theme: "custom",
