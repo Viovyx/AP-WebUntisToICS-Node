@@ -19,23 +19,19 @@ body {
     height: 3rem;
     z-index: 1;
 
+    a {
+        transition: transform 2s linear;
+    }
+
     svg {
         height: 100%;
         cursor: pointer;
-        transition: transform 2s linear;
-    }
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
     }
 }
 
 #calendar {
+    user-select: none;
+
     .toolbar {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
