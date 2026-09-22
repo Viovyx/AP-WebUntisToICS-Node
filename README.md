@@ -45,11 +45,11 @@ Theoretically this should work in any calendar client that supports importing fr
 
 ##### Week overview:
 
-<img width="2791" height="1595" alt="built-in-week-view" src="https://github.com/user-attachments/assets/27f7df53-3d26-4940-a9d1-ae9714aa45c3" />
+<img width="1920" height="1080" alt="custom-week-overview" src="https://github.com/user-attachments/assets/5e19fd2f-41a8-4c7e-afa7-00510acc75e8" />
 
 ##### Detailed info view:
 
-<img width="500" height="auto" alt="built-in-detail-view" src="https://github.com/user-attachments/assets/b03014ee-3e9f-4413-947e-b43c5c945e54" />
+<img width="500" height="auto" alt="custom-detail-view" src="https://github.com/user-attachments/assets/79491f1b-cb4b-481d-ab68-9effe8dc15b4" />
 
 #### Google calendar
 
