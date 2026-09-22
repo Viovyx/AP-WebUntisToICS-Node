@@ -150,7 +150,7 @@ const calendar = new Calendar(calendarEl, {
             interactive: true,
             maxWidth: "none",
             hideOnClick: false,
-            onClickOutside: (instance) => closeTippy(instance),
+            // onClickOutside: (instance) => closeTippy(instance),
             appendTo: () => tippyContainer,
             onShow: () => {
                 wrapperEl.classList.add("event-open");
