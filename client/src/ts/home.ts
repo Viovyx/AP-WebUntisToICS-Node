@@ -76,7 +76,7 @@ async function loadSchoolyears() {
         document.querySelector("select#schoolyears")!;
     const schoolyears: SchoolYear[] = await get("/schoolyears");
 
-    schoolyearsSelectRef.innerHTML = `<option value="" selected>Current Schoolyear</option>`;
+    schoolyearsSelectRef.innerHTML = `<option value="" selected>Default Schoolyear</option>`;
     schoolyearsSelectRef.innerHTML += schoolyears
         .map(
             (schoolyear) =>
