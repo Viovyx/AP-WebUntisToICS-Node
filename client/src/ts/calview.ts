@@ -182,8 +182,8 @@ calendar.render();
 //#region Swipte actions
 // Original source: https://onjsdev.com/article/detect-finger-swipe-gestures-in-javascript
 // Add event listeners for touchstart and touchend events
-document.body.addEventListener("touchstart", touchStart);
-document.body.addEventListener("touchend", touchEnd);
+calendarEl.addEventListener("touchstart", touchStart);
+calendarEl.addEventListener("touchend", touchEnd);
 
 // Declare variables to store the timestamp and initial touch coordinates
 let touchStartTime: number,
@@ -192,9 +192,6 @@ let touchStartTime: number,
     clientY: number;
 
 function touchStart(e: TouchEvent) {
-    // Prevent the default behavior (e.g. scrolling) of the touch event
-    e.preventDefault();
-
     // Record the timestamp of the touch event
     touchStartTime = Date.now();
 
