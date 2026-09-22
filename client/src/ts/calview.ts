@@ -32,16 +32,20 @@ async function getCalendarUrl(): Promise<string> {
     return url;
 }
 
+function closeTippy(instance: Instance) {
+    wrapperEl.classList.remove("event-open");
+    tippyContainer.style.display = "none";
+    instance.popper.remove();
+    instance.hide();
+}
+
 function initTippyClose(instance: Instance) {
     const closeBtn: HTMLElement =
         instance.popper.querySelector(".event-close-btn")!;
 
     closeBtn.addEventListener("click", (event) => {
         event.preventDefault();
-        wrapperEl.classList.remove("event-open");
-        tippyContainer.style.display = "none";
-        instance.popper.remove();
-        instance.hide();
+        closeTippy(instance);
     });
 }
 //#endregion
@@ -146,6 +150,7 @@ const calendar = new Calendar(calendarEl, {
             interactive: true,
             maxWidth: "none",
             hideOnClick: false,
+            onClickOutside: (instance) => closeTippy(instance),
             appendTo: () => tippyContainer,
             onShow: () => {
                 wrapperEl.classList.add("event-open");
