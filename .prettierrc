@@ -1,6 +1,8 @@
 {
-  "tabWidth": 4,
-  "useTabs": false,
-  "semi": true,
-  "trailingComma": "none"
+    "$schema": "https://www.schemastore.org/prettierrc",
+    "tabWidth": 4,
+    "useTabs": false,
+    "semi": true,
+    "trailingComma": "none",
+    "printWidth": 80
 }
