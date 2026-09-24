@@ -1,0 +1,56 @@
+type: http_request
+model: http_request
+id: rq_KAGDXPBJ6W
+createdAt: 2026-09-24T18:59:24.975316849
+updatedAt: 2026-09-24T19:02:35.915266185
+workspaceId: wk_zQeZZzpqy6
+folderId: fl_qSJBXS6beM
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers:
+- enabled: true
+  name: anonymous-school
+  value: ap
+  id: null
+method: GET
+name: Timetable Entries
+sortPriority: 8.0
+url: ${[ BASE_URL ]}/timetable/entries
+urlParameters:
+- enabled: true
+  name: resourceType
+  value: CLASS
+  id: null
+- enabled: true
+  name: resources
+  value: '3515'
+  id: null
+- enabled: true
+  name: start
+  value: 2026-02-01
+  id: null
+- enabled: true
+  name: end
+  value: 2026-02-02
+  id: null
+settingSendCookies:
+  enabled: false
+  value: true
+settingStoreCookies:
+  enabled: false
+  value: true
+settingValidateCertificates:
+  enabled: false
+  value: true
+settingFollowRedirects:
+  enabled: false
+  value: true
+settingRequestTimeout:
+  enabled: false
+  value: 0
+settingHttpVersion:
+  enabled: false
+  value: auto

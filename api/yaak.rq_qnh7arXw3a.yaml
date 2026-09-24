@@ -1,0 +1,36 @@
+type: http_request
+model: http_request
+id: rq_qnh7arXw3a
+createdAt: 2026-09-24T18:59:24.974982915
+updatedAt: 2026-09-24T19:03:57.382515541
+workspaceId: wk_zQeZZzpqy6
+folderId: fl_cSgxZvLcv4
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Schoolyears
+sortPriority: 3.0
+url: ${[ BASE_URL ]}/schoolyears
+urlParameters: []
+settingSendCookies:
+  enabled: false
+  value: true
+settingStoreCookies:
+  enabled: false
+  value: true
+settingValidateCertificates:
+  enabled: false
+  value: true
+settingFollowRedirects:
+  enabled: false
+  value: true
+settingRequestTimeout:
+  enabled: false
+  value: 0
+settingHttpVersion:
+  enabled: false
+  value: auto

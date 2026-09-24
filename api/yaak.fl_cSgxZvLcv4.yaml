@@ -1,0 +1,34 @@
+type: folder
+model: folder
+id: fl_cSgxZvLcv4
+createdAt: 2026-09-24T18:59:24.975412180
+updatedAt: 2026-09-24T18:59:24.975412240
+workspaceId: wk_zQeZZzpqy6
+folderId: null
+authentication: {}
+authenticationType: none
+description: ''
+headers: []
+name: This API
+sortPriority: 0.0
+settingSendCookies:
+  enabled: false
+  value: true
+settingStoreCookies:
+  enabled: false
+  value: true
+settingValidateCertificates:
+  enabled: false
+  value: true
+settingFollowRedirects:
+  enabled: false
+  value: true
+settingRequestTimeout:
+  enabled: false
+  value: 0
+settingRequestMessageSize:
+  enabled: false
+  value: 67108864
+settingHttpVersion:
+  enabled: false
+  value: auto
