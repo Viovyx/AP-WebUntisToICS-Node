@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_WFKiRWyMys
 createdAt: 2026-09-24T18:59:24.974891404
-updatedAt: 2026-09-24T19:03:49.940474206
+updatedAt: 2026-09-24T22:04:35.630252200
 workspaceId: wk_zQeZZzpqy6
 folderId: fl_cSgxZvLcv4
 authentication: {}
@@ -14,16 +14,20 @@ headers: []
 method: GET
 name: Classes
 sortPriority: 2.0
-url: ${[ BASE_URL ]}/classes?start=2026-09-21&end=2027-09-19
+url: ${[ THIS_BASE ]}/classes
 urlParameters:
 - enabled: true
   name: start
   value: 2026-09-21
-  id: null
+  id: z6QgM5B4et
 - enabled: true
   name: end
   value: 2027-09-19
-  id: null
+  id: RWZgFbnSi3
+- enabled: true
+  name: ''
+  value: ''
+  id: FxYTd4XUJF
 settingSendCookies:
   enabled: false
   value: true

@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_YH6g3zN8gP
 createdAt: 2026-09-24T18:59:24.975067716
-updatedAt: 2026-09-24T19:03:06.693027457
+updatedAt: 2026-09-24T22:05:50.680964200
 workspaceId: wk_zQeZZzpqy6
 folderId: fl_qSJBXS6beM
 authentication: {}
@@ -18,7 +18,7 @@ headers:
 method: GET
 name: School Data
 sortPriority: 5.0
-url: ${[ BASE_URL ]}/app/data
+url: ${[ WEBUNTIS_BASE ]}/app/data
 urlParameters: []
 settingSendCookies:
   enabled: false

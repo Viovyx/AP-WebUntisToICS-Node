@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_qnh7arXw3a
 createdAt: 2026-09-24T18:59:24.974982915
-updatedAt: 2026-09-24T19:03:57.382515541
+updatedAt: 2026-09-24T22:00:06.358219800
 workspaceId: wk_zQeZZzpqy6
 folderId: fl_cSgxZvLcv4
 authentication: {}
@@ -14,7 +14,7 @@ headers: []
 method: GET
 name: Schoolyears
 sortPriority: 3.0
-url: ${[ BASE_URL ]}/schoolyears
+url: ${[ THIS_BASE ]}/schoolyears
 urlParameters: []
 settingSendCookies:
   enabled: false

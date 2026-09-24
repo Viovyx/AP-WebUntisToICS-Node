@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_rS6EJgnMup
 createdAt: 2026-09-24T18:59:24.974749633
-updatedAt: 2026-09-24T19:03:47.122742734
+updatedAt: 2026-09-24T22:04:39.495703300
 workspaceId: wk_zQeZZzpqy6
 folderId: fl_cSgxZvLcv4
 authentication: {}
@@ -14,7 +14,7 @@ headers: []
 method: GET
 name: Calendar
 sortPriority: 1.0
-url: ${[ BASE_URL ]}/calendar?class=10235&start=2026-09-21&end=2027-09-19
+url: ${[ THIS_BASE ]}/calendar
 urlParameters:
 - enabled: true
   name: class

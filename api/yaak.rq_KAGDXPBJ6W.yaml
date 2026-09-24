@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_KAGDXPBJ6W
 createdAt: 2026-09-24T18:59:24.975316849
-updatedAt: 2026-09-24T19:02:35.915266185
+updatedAt: 2026-09-24T22:06:06.351222
 workspaceId: wk_zQeZZzpqy6
 folderId: fl_qSJBXS6beM
 authentication: {}
@@ -18,7 +18,7 @@ headers:
 method: GET
 name: Timetable Entries
 sortPriority: 8.0
-url: ${[ BASE_URL ]}/timetable/entries
+url: ${[ WEBUNTIS_BASE ]}/timetable/entries
 urlParameters:
 - enabled: true
   name: resourceType
