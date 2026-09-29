@@ -4,8 +4,8 @@ Easy to use .ics generator for importing your Webuntis calendar into your own ca
 
 ## Usage
 
-
 ### Using the built in calendar
+
 1. Go to the public url above
 2. Find and click your class (If you can't find your class, make sure you've selected the correct schoolyear!)
 3. Choose `Open Calendar`
@@ -13,6 +13,7 @@ Easy to use .ics generator for importing your Webuntis calendar into your own ca
 You can view your schedule there and save the url to come back later. You can also filter out subjects as explained below by adding the `filter` parameter to the url.
 
 ### Syncing with your own calendar client
+
 1. Go to the public url above
 2. Find and click your class (If you can't find your class, make sure you've selected the correct schoolyear!)
 3. Choose `Copy ICS sync url`
@@ -21,12 +22,15 @@ You can view your schedule there and save the url to come back later. You can al
 This will sync with WebUntis whenever your client syncs the url. You can also filter out subjects as explained below by adding the `filter` parameter to the url.
 
 ## Filtering
+
 It is possible to filter out subjects that don't apply to you. Filtering is done by adding a `filter` parameter to the url you copied from the steps above. You can have multiple subjects filtered by splitting them with a comma.
 
 Below is an example:
+
 ```
 https://<the link copied from the steps above>&filter=Ideation, Robot Dynamics
 ```
+
 This will filter out all subjects that match one of those names (capitalization insensitive). Currently it is only possible to filter on subjects, not on subject info or teacher, this means if there are practical and theoretical classes of one subject it will filter out both.
 
 ### Tested clients
@@ -45,7 +49,7 @@ Theoretically this should work in any calendar client that supports importing fr
 
 ##### Week overview:
 
-<img width="1920" height="1080" alt="custom-week-overview" src="https://github.com/user-attachments/assets/5e19fd2f-41a8-4c7e-afa7-00510acc75e8" />
+<img width="1920" height="auto" alt="custom-week-overview" src="https://github.com/user-attachments/assets/5e19fd2f-41a8-4c7e-afa7-00510acc75e8" />
 
 ##### Detailed info view:
 
@@ -55,12 +59,11 @@ Theoretically this should work in any calendar client that supports importing fr
 
 ##### Week overview:
 
-<img width="2137" height="1103" alt="week-view" src="https://github.com/user-attachments/assets/866b631e-85e2-4c17-8784-d3a21dda302b" />
+<img width="2137" height="auto" alt="week-view" src="https://github.com/user-attachments/assets/866b631e-85e2-4c17-8784-d3a21dda302b" />
 
 ##### Detailed info view:
 
 <img width="500" height="auto" alt="detail-view" src="https://github.com/user-attachments/assets/adf6c9ec-29c0-442e-95bf-1a2e511de967" />
-
 
 ## Disclaimers
 
