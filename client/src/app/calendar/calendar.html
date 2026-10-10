@@ -1,0 +1,5 @@
+<full-calendar #calendar [options]="calendarOptions">
+  <ng-template #eventContent let-info>
+    <app-calendar-event [eventInfo]="info" />
+  </ng-template>
+</full-calendar>

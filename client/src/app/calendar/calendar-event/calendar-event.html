@@ -1,0 +1,7 @@
+@let info = eventInfo();
+
+<p>{{ info.event.start | date: 'HH:mm' }}-{{ info.event.end | date: 'HH:mm' }}</p>
+<p>
+  <b>{{ info.event.title }}</b>
+</p>
+<p>{{ info.event.extendedProps['location'] }}</p>

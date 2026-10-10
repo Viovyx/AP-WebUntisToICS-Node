@@ -25,6 +25,9 @@
               }
             ],
             "styles": [
+              "@fullcalendar/angular/skeleton.css",
+              "@fullcalendar/angular/themes/forma/theme.css",
+              "@fullcalendar/angular/themes/forma/palettes/red.css",
               "src/styles.css"
             ]
           },

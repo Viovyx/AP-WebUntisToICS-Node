@@ -1,0 +1,15 @@
+:host {
+  position: sticky;
+  top: 0;
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+p {
+  margin: 0;
+  font-size: 0.7rem;
+}
+
+b {
+  font-weight: 800;
+}
