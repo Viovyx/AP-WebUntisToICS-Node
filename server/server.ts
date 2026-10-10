@@ -10,10 +10,17 @@ import ical from "ical-generator";
 import { mapToCalEvent, mapToClasses, mapToLessons } from "./src/mappers.ts";
 import path from "node:path";
 import { config } from "dotenv";
+import cors from "cors";
 
 //#region Set consts
 config();
 const app = express();
+app.use(
+    cors({
+        origin: "*",
+        methods: "GET"
+    })
+);
 
 export const envUndefined = (name: string) => {
     console.error(
