@@ -1,20 +1,23 @@
 import { Component, computed, input, signal, ViewChild } from '@angular/core';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions } from 'fullcalendar';
+import { CalendarOptions, EventApi } from 'fullcalendar';
 import themePlugin from '@fullcalendar/angular/themes/forma';
 import dayGridPlugin from '@fullcalendar/angular/daygrid';
 import timeGridPlugin from '@fullcalendar/angular/timegrid';
 import iCalendarPlugin from '@fullcalendar/icalendar';
 import { CalendarEvent } from './calendar-event/calendar-event';
+import { EventDetails } from '../event-details/event-details';
 
 @Component({
   selector: 'app-calendar',
-  imports: [FullCalendarModule, CalendarEvent],
+  imports: [FullCalendarModule, CalendarEvent, EventDetails],
   templateUrl: './calendar.html',
   styleUrl: './calendar.css',
 })
 export class Calendar {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
+
+  activeEvent = signal<EventApi>(null);
 
   calendarUrl = input.required<string>();
   initialDate = signal<Date>(this.isWeekend() ? this.getNextMonday() : new Date());
@@ -73,6 +76,7 @@ export class Calendar {
         url: this.calendarUrl(),
         format: 'ics',
       },
+      eventClick: (info) => this.activeEvent.set(info.event),
     };
   });
 
