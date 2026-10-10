@@ -145,14 +145,9 @@ app.get("/schoolyears", async (_, res) => {
 });
 //#endregion
 
-//#region Serve Client
+//#region Catch All 404
 app.use((req, res) => {
-    const resPath = path.resolve(
-        `../client/dist${!path.extname(req.path) ? req.path + "/index.html" : req.path}`
-    );
-    res.sendFile(resPath, (error) => {
-        if (error) sendError(res, `Cannot ${req.method} ${req.path}`, 404);
-    });
+    sendError(res, `Cannot ${req.method} ${req.path}`, 404);
 });
 //#endregion
 
