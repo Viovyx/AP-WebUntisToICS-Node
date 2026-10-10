@@ -1,11 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Calendar } from './calendar/calendar';
-import { Popover } from './popover/popover';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Calendar, Popover],
+  imports: [RouterOutlet, Calendar],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

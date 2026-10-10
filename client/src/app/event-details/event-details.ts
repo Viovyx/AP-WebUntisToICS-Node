@@ -1,4 +1,4 @@
-import { Component, computed, input, model, signal } from '@angular/core';
+import { Component, computed, model } from '@angular/core';
 import { Popover } from '../popover/popover';
 import { EventApi } from 'fullcalendar';
 

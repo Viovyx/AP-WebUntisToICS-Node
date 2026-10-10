@@ -1,4 +1,4 @@
-import { Component, input, model, output, signal } from '@angular/core';
+import { Component, model, output } from '@angular/core';
 
 @Component({
   selector: 'app-popover',
