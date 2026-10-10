@@ -36,7 +36,10 @@ const port: number = Number(process.env.PORT?.trim()) || envUndefined("PORT");
 
 export const apiBaseUrl: string =
     process.env.API_BASE_URL?.trim() || envUndefined("API_BASE_URL");
-export const headers: HeadersInit = { "anonymous-school": "ap" };
+export const headers: HeadersInit = {
+    "anonymous-school":
+        process.env.API_SCHOOL?.trim() || envUndefined("API_SCHOOL")
+};
 
 const sendError = (res: Response, error: string, status: number = 400) =>
     res.status(status).send(error);
