@@ -1,12 +1,12 @@
 import { Component, computed, input, model, output, signal } from '@angular/core';
 import { Popover } from '../popover/popover';
-import { CloseButton } from '../components/close-button/close-button';
 import { Class, SchoolYear } from '../../types';
 import { getClasses, getSchoolyears } from '../../api';
+import { ActionButton } from '../components/action-button/action-button';
 
 @Component({
   selector: 'app-settings-menu',
-  imports: [Popover, CloseButton],
+  imports: [Popover, ActionButton],
   templateUrl: './settings-menu.html',
   styleUrl: './settings-menu.css',
 })
