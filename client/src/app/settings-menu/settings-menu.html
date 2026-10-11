@@ -1,0 +1,30 @@
+@if (shown()) {
+  <app-popover (closed)="shown.set(false)">
+    <h1>Settings</h1>
+    <label for="schoolyear">Schoolyear:</label>
+    <select name="schoolyear">
+      @if (activeSchoolyear() === null) {
+        <option selected>Select a schoolyear...</option>
+      }
+      @for (schoolyear of schoolyears(); track schoolyear.id) {
+        <option (click)="activeSchoolyear.set(schoolyear)">{{ schoolyear.name }}</option>
+      }
+    </select>
+    <br />
+    <label for="classes">Class:</label>
+    <select name="classes" [disabled]="activeSchoolyear() === null">
+      @if (activeSchoolyear() === null) {
+        <option selected>Select a schoolyear first</option>
+      } @else {
+        @if (activeClass() === null) {
+          <option selected>Select a class...</option>
+        } @else {
+          @for (class of classes(); track class.id) {
+            <option (click)="activeClass.set(class)">{{ class.name }}</option>
+          }
+        }
+      }
+    </select>
+    <app-close-button (closed)="shown.set(false)" />
+  </app-popover>
+}

@@ -1,0 +1,16 @@
+button {
+  width: 100%;
+  background-color: red;
+  margin: 1rem 0;
+  border-radius: 10px;
+  border: none;
+  line-height: 2rem;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darkred;
+  }
+}

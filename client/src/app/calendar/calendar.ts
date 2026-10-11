@@ -7,10 +7,11 @@ import timeGridPlugin from '@fullcalendar/angular/timegrid';
 import iCalendarPlugin from '@fullcalendar/icalendar';
 import { CalendarEvent } from './calendar-event/calendar-event';
 import { EventDetails } from '../event-details/event-details';
+import { SettingsMenu } from '../settings-menu/settings-menu';
 
 @Component({
   selector: 'app-calendar',
-  imports: [FullCalendarModule, CalendarEvent, EventDetails],
+  imports: [FullCalendarModule, CalendarEvent, EventDetails, SettingsMenu],
   templateUrl: './calendar.html',
   styleUrl: './calendar.css',
 })
@@ -18,6 +19,7 @@ export class Calendar {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
   activeEvent = signal<EventApi>(null);
+  settingsShown = signal<boolean>(false);
 
   calendarUrl = input.required<string>();
   initialDate = signal<Date>(this.isWeekend() ? this.getNextMonday() : new Date());
@@ -69,6 +71,7 @@ export class Calendar {
         },
         settings: {
           text: 'Settings',
+          click: () => this.settingsShown.set(true),
         },
       },
       weekends: false,

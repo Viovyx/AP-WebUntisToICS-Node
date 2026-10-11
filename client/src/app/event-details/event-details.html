@@ -35,6 +35,6 @@
       </svg>
       <p>{{ event.extendedProps['description'] }}</p>
     </div>
-    <button class="close-btn" (click)="closeEvent()">Close</button>
+    <app-close-button (closed)="closeEvent()" />
   </app-popover>
 }
