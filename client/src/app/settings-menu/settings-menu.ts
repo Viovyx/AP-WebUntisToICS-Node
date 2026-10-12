@@ -1,8 +1,6 @@
 import {
   Component,
   computed,
-  effect,
-  input,
   linkedSignal,
   model,
   output,
@@ -14,22 +12,13 @@ import { Popover } from '../components/popover/popover';
 import { Class, DateRange, SchoolYear } from '../../types';
 import { getClasses, getSchoolyears } from '../../api';
 import { ActionButton } from '../components/action-button/action-button';
-import { EventInput, EventSourceFuncInfo, EventSourceInput } from 'fullcalendar';
-import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { EventSourceInput } from 'fullcalendar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { apiHost } from '../../config';
 
 @Component({
   selector: 'app-settings-menu',
-  imports: [
-    Popover,
-    ActionButton,
-    MatFormFieldModule,
-    MatSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+  imports: [Popover, ActionButton, FormsModule, ReactiveFormsModule],
   templateUrl: './settings-menu.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './settings-menu.css',
@@ -55,6 +44,16 @@ export class SettingsMenu {
     },
     loader: ({ params }) => getClasses(params.schoolyear.dateRange),
   });
+  classesFilter = model<string>('');
+  visibleClasses = computed(() =>
+    this.classes
+      .value()
+      .filter(
+        (c) =>
+          c.name.substring(0, this.classesFilter().length).toLowerCase() ===
+          this.classesFilter().toLowerCase(),
+      ),
+  );
 
   selectedClasses = signal<Map<Class, DateRange>>(new Map());
   savedClasses = signal<Map<Class, DateRange>>(new Map());
@@ -87,9 +86,6 @@ export class SettingsMenu {
     this.shown.set(false);
   }
 
-  // Source - https://stackoverflow.com/a/16348977
-  // Posted by Joe Freeman, modified by community. See post 'Timeline' for change history
-  // Retrieved 2026-10-13, License - CC BY-SA 4.0
   stringToColour = (str: string) => {
     let hash = 0;
     str.split('').forEach((char) => {

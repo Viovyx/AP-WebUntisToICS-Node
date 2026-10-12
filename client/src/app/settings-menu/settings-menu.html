@@ -1,13 +1,16 @@
 @if (shown()) {
   <app-popover (closed)="cancel()">
     <h1>Settings</h1>
-    <select [(ngModel)]="activeSchoolyear">
-      @for (schoolyear of schoolyears.value(); track schoolyear.id) {
-        <option [ngValue]="schoolyear">{{ schoolyear.name }}</option>
-      }
-    </select>
+    <div class="filters">
+      <input [(ngModel)]="classesFilter" type="text" placeholder="filter..." />
+      <select [(ngModel)]="activeSchoolyear">
+        @for (schoolyear of schoolyears.value(); track schoolyear.id) {
+          <option [ngValue]="schoolyear">{{ schoolyear.name }}</option>
+        }
+      </select>
+    </div>
     <ul>
-      @for (classEl of classes.value(); track classEl.id) {
+      @for (classEl of visibleClasses(); track classEl.id) {
         <li
           (click)="toggleClass(classEl, activeSchoolyear().dateRange)"
           [class.selected]="selectedClasses().has(classEl)"
