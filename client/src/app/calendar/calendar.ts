@@ -75,10 +75,19 @@ export class Calendar {
         },
       },
       weekends: false,
-      events: {
-        url: this.calendarUrl(),
-        format: 'ics',
-      },
+      eventSources: [
+        {
+          id: 'CSC',
+          url: 'http://localhost:3000/calendar?class=10220',
+          format: 'ics',
+          color: 'blue',
+        },
+        {
+          id: 'SOF',
+          url: 'http://localhost:3000/calendar?class=10235',
+          format: 'ics',
+        },
+      ],
       eventClick: (info) => this.activeEvent.set(info.event),
     };
   });
