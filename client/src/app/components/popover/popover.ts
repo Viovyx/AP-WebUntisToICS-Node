@@ -1,9 +1,10 @@
-import { Component, model, output } from '@angular/core';
+import { Component, model, output, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-popover',
   imports: [],
   templateUrl: './popover.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './popover.css',
 })
 export class Popover {

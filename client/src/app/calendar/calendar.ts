@@ -1,4 +1,12 @@
-import { Component, computed, input, output, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  input,
+  output,
+  signal,
+  ViewChild,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions, EventApi, EventInput, EventSourceInput } from 'fullcalendar';
 import themePlugin from '@fullcalendar/angular/themes/forma';
@@ -12,6 +20,7 @@ import { EventDetails } from '../event-details/event-details';
   selector: 'app-calendar',
   imports: [FullCalendarModule, CalendarEvent, EventDetails],
   templateUrl: './calendar.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './calendar.css',
 })
 export class Calendar {

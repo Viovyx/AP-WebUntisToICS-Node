@@ -8,6 +8,7 @@ import {
   output,
   resource,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Popover } from '../components/popover/popover';
 import { Class, SchoolYear } from '../../types';
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-settings-menu',
   imports: [Popover, ActionButton, FormsModule],
   templateUrl: './settings-menu.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './settings-menu.css',
 })
 export class SettingsMenu {

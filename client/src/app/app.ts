@@ -1,4 +1,4 @@
-import { Component, model, signal } from '@angular/core';
+import { Component, model, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Calendar } from './calendar/calendar';
 import { SettingsMenu } from './settings-menu/settings-menu';
@@ -8,6 +8,7 @@ import { EventSourceInput } from 'fullcalendar';
   selector: 'app-root',
   imports: [RouterOutlet, Calendar, SettingsMenu],
   templateUrl: './app.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.css',
 })
 export class App {
