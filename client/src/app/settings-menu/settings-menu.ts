@@ -1,5 +1,5 @@
 import { Component, model, signal } from '@angular/core';
-import { Popover } from '../popover/popover';
+import { Popover } from '../components/popover/popover';
 import { Class, SchoolYear } from '../../types';
 import { getClasses, getSchoolyears } from '../../api';
 import { ActionButton } from '../components/action-button/action-button';

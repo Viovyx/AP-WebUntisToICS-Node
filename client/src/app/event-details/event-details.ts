@@ -1,5 +1,5 @@
 import { Component, computed, model } from '@angular/core';
-import { Popover } from '../popover/popover';
+import { Popover } from '../components/popover/popover';
 import { EventApi } from 'fullcalendar';
 import { ActionButton } from '../components/action-button/action-button';
 
