@@ -7,6 +7,7 @@ export interface SchoolYear {
   dateRange: DateRange;
   id: number;
   name: string;
+  active: boolean;
 }
 
 export interface DateRange {

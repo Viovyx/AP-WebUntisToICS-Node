@@ -21,6 +21,10 @@ export interface CleanPositions {
     infos: Position[];
     classes: Position[];
 }
+
+export interface SchoolYearInfo extends SchoolYear {
+    active: boolean;
+}
 //#endregion
 
 //#region API response types

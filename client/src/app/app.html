@@ -1,6 +1,3 @@
-<app-calendar
-  calendarUrl="http://127.0.0.1:3000/calendar?class=10235&filter=Robot%20design,Robot%20dynamics,Business%20development,Ideation,VR%20experience"
-  (settingsOpened)="settingsOpen.set(true)"
-/>
-<app-settings-menu [(shown)]="settingsOpen" />
+<app-calendar [eventSources]="eventSources()" (settingsOpened)="settingsOpen.set(true)" />
+<app-settings-menu [(shown)]="settingsOpen" (submitted)="eventSources.set($event)" />
 <router-outlet />

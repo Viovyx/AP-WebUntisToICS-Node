@@ -6,6 +6,8 @@ import type {
     GridEntry,
     Lesson,
     Position,
+    SchoolYear,
+    SchoolYearInfo,
     Timetable
 } from "./types.ts";
 
@@ -62,6 +64,21 @@ function getEntryPositions(gridEntry: GridEntry): CleanPositions {
 //#endregion
 
 //#region Mappers
+export function mapToSchoolyearsInfo(
+    schoolyears: SchoolYear[]
+): SchoolYearInfo[] {
+    const today = new Date();
+
+    return schoolyears.map((schoolyear) => {
+        return {
+            ...schoolyear,
+            active:
+                new Date(schoolyear.dateRange.start) < today &&
+                new Date(schoolyear.dateRange.end) > today
+        };
+    });
+}
+
 export function mapToLessons(
     timetable: Timetable,
     filter?: string[]

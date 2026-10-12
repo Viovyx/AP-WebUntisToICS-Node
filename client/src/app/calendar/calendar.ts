@@ -1,6 +1,6 @@
 import { Component, computed, input, output, signal, ViewChild } from '@angular/core';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions, EventApi } from 'fullcalendar';
+import { CalendarOptions, EventApi, EventInput, EventSourceInput } from 'fullcalendar';
 import themePlugin from '@fullcalendar/angular/themes/forma';
 import dayGridPlugin from '@fullcalendar/angular/daygrid';
 import timeGridPlugin from '@fullcalendar/angular/timegrid';
@@ -17,11 +17,9 @@ import { EventDetails } from '../event-details/event-details';
 export class Calendar {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
+  eventSources = input.required<EventSourceInput[]>();
   activeEvent = signal<EventApi>(null);
   settingsOpened = output();
-
-  calendarUrl = input.required<string>();
-  initialDate = signal<Date>(this.isWeekend() ? this.getNextMonday() : new Date());
 
   calendarOptions = computed<CalendarOptions>(() => {
     return {
@@ -35,7 +33,7 @@ export class Calendar {
       navLinks: true,
       weekNumbers: true,
       scrollTime: `08:00`,
-      initialDate: this.initialDate(),
+      initialDate: this.isWeekend() ? this.getNextMonday() : new Date(),
       firstDay: 1, // Monday
       businessHours: {
         daysOfWeek: [1, 2, 3, 4, 5],
@@ -74,19 +72,7 @@ export class Calendar {
         },
       },
       weekends: false,
-      eventSources: [
-        {
-          id: 'CSC',
-          url: 'http://localhost:3000/calendar?class=10220',
-          format: 'ics',
-          color: 'blue',
-        },
-        {
-          id: 'SOF',
-          url: 'http://localhost:3000/calendar?class=10235',
-          format: 'ics',
-        },
-      ],
+      eventSources: this.eventSources(),
       eventClick: (info) => this.activeEvent.set(info.event),
     };
   });

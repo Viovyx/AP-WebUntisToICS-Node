@@ -5,10 +5,12 @@ import type {
     Resource,
     SchoolData,
     SchoolYear,
+    SchoolYearInfo,
     Timetable
 } from "./types.ts";
 import NodeFetchCache, { FileSystemCache } from "node-fetch-cache";
 import { apiBaseUrl, headers } from "../server.ts";
+import { mapToSchoolyearsInfo } from "./mappers.ts";
 
 //#region Helpers
 function newURL(path: string, params?: URLSearchParams): string {
@@ -75,13 +77,13 @@ export async function getClasses(
     return data.classes;
 }
 
-export async function getSchoolyears(): Promise<SchoolYear[]> {
+export async function getSchoolyears(): Promise<SchoolYearInfo[]> {
     const data: SchoolYear[] = await fetchJson(
         longCache,
         newURL("/schoolyears")
     );
 
-    return data;
+    return mapToSchoolyearsInfo(data);
 }
 
 export async function getCurrentSchoolyear(): Promise<CurrentSchoolyear> {
