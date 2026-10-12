@@ -41,10 +41,13 @@ export class App {
   constructor() {
     effect(() => {
       const url = new URL(window.location.href);
+      url.searchParams.delete('url');
+
       this.eventSources().forEach((s) => {
         const sourceUrl = new URL((s as any).url);
         url.searchParams.append('url', sourceUrl.pathname + sourceUrl.search);
       });
+
       window.history.replaceState(null, null, url); // or pushState
     });
   }
