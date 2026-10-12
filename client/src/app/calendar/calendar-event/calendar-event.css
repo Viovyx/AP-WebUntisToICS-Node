@@ -15,3 +15,7 @@ p {
 b {
   font-weight: 800;
 }
+
+i {
+  filter: brightness(0.7);
+}
