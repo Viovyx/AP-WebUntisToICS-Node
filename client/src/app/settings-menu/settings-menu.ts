@@ -1,4 +1,4 @@
-import { Component, computed, input, model, output, signal } from '@angular/core';
+import { Component, model, signal } from '@angular/core';
 import { Popover } from '../popover/popover';
 import { Class, SchoolYear } from '../../types';
 import { getClasses, getSchoolyears } from '../../api';
