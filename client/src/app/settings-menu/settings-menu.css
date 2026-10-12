@@ -1,0 +1,25 @@
+ul {
+  max-height: 30dvh;
+  overflow-y: scroll;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+li {
+  padding: 0.5rem;
+  border: 1px solid grey;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: grey;
+  }
+
+  &.selected {
+    background-color: green;
+  }
+}
