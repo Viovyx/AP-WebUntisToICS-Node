@@ -29,7 +29,7 @@ div#content {
   border-radius: 10px;
   color: white;
   padding: 0 1rem;
-  width: min(600px, 90dvw);
+  width: min(600px, 85dvw);
   max-height: 70vh;
   overflow-y: scroll;
 }
