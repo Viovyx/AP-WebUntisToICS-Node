@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Popover } from '../components/popover/popover';
 import { Class, DateRange, SchoolYear } from '../../types';
-import { getClasses, getSchoolyears } from '../../api';
+import { createEventSource, getClasses, getSchoolyears } from '../../api';
 import { ActionButton } from '../components/action-button/action-button';
 import { EventSourceInput } from 'fullcalendar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -70,12 +70,9 @@ export class SettingsMenu {
     this.savedClasses.set(new Map(this.selectedClasses()));
 
     this.submitted.emit(
-      [...this.savedClasses().entries()].map((classData) => ({
-        id: `${classData[0].name} (${classData[0].id})`,
-        url: `${apiHost}/calendar?class=${classData[0].id}&start=${classData[1].start}&end=${classData[1].end}`,
-        format: 'ics',
-        color: this.stringToColour(classData[0].name),
-      })),
+      [...this.savedClasses().entries()].map((classData) =>
+        createEventSource(classData[0], classData[1]),
+      ),
     );
 
     this.shown.set(false);
@@ -85,17 +82,4 @@ export class SettingsMenu {
     this.selectedClasses.set(new Map(this.savedClasses()));
     this.shown.set(false);
   }
-
-  stringToColour = (str: string) => {
-    let hash = 0;
-    str.split('').forEach((char) => {
-      hash = char.charCodeAt(0) + ((hash << 5) - hash);
-    });
-    let colour = '#';
-    for (let i = 0; i < 3; i++) {
-      const value = (hash >> (i * 8)) & 0xff;
-      colour += value.toString(16).padStart(2, '0');
-    }
-    return colour;
-  };
 }
