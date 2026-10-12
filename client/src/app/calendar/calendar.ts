@@ -87,7 +87,7 @@ export class Calendar {
   });
 
   refetchEvents() {
-    var calendarApi = this.calendarComponent.getApi();
+    const calendarApi = this.calendarComponent.getApi();
     calendarApi.refetchEvents();
   }
 
