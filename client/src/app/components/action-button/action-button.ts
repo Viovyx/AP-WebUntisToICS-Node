@@ -10,4 +10,5 @@ import type * as CSS from 'csstype';
 export class ActionButton {
   clicked = output();
   color = input.required<CSS.Properties['color']>();
+  text = input.required<string>();
 }

@@ -1,6 +1,6 @@
 @if (shown()) {
   <app-popover (closed)="shown.set(false)">
     <h1>Settings</h1>
-    <app-action-button color="red" (clicked)="shown.set(false)" />
+    <app-action-button text="Close" color="red" (clicked)="shown.set(false)" />
   </app-popover>
 }
