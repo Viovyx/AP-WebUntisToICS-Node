@@ -82,4 +82,11 @@ export class SettingsMenu {
     this.selectedClasses.set(new Map(this.savedClasses()));
     this.shown.set(false);
   }
+
+  reset() {
+    if (!confirm('Are you sure you want to reset your selection?')) return;
+
+    this.selectedClasses.set(new Map());
+    this.save();
+  }
 }
