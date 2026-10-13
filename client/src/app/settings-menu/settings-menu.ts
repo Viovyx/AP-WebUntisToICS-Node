@@ -92,6 +92,7 @@ export class SettingsMenu {
     if (!confirm('Are you sure you want to reset your selection?')) return;
 
     this.selectedClasses.set(new Map());
+    this.hiddenCourses.set(new Map());
     this.save();
   }
 
