@@ -1,6 +1,21 @@
 @if (shown()) {
   <app-popover (closed)="cancel()">
     <h1>Settings</h1>
+
+    <ul class="selectedClasses">
+      @for (selectedClass of selectedClasses(); track selectedClass[0].id) {
+        <li (click)="detailsClass.set(selectedClass[0])">{{ selectedClass[0].name }}</li>
+      }
+    </ul>
+
+    @if (detailsOpen()) {
+      <ul class="details">
+        @for (course of hiddenCourses().get(detailsClass()); track $index) {
+          <li>{{ course }}</li>
+        }
+      </ul>
+    }
+
     <div class="filters">
       <input [(ngModel)]="classesFilter" type="text" placeholder="filter..." />
       <select [(ngModel)]="activeSchoolyear">
@@ -9,7 +24,7 @@
         }
       </select>
     </div>
-    <ul>
+    <ul class="classesList">
       @for (classEl of visibleClasses(); track classEl.id) {
         <li
           (click)="toggleClass(classEl, activeSchoolyear().dateRange)"

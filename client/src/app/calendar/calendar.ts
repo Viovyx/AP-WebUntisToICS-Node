@@ -15,6 +15,7 @@ import timeGridPlugin from '@fullcalendar/angular/timegrid';
 import iCalendarPlugin from '@fullcalendar/icalendar';
 import { CalendarEvent } from './calendar-event/calendar-event';
 import { EventDetails } from '../event-details/event-details';
+import { Class } from '../../types';
 
 @Component({
   selector: 'app-calendar',
@@ -24,6 +25,8 @@ import { EventDetails } from '../event-details/event-details';
   styleUrl: './calendar.css',
 })
 export class Calendar {
+  hideCourse = output<[Class, string]>();
+
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
   eventSources = input.required<EventSourceInput[]>();

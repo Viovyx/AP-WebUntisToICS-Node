@@ -1,4 +1,4 @@
-ul {
+ul.classesList {
   max-height: 30dvh;
   overflow-y: scroll;
   list-style: none;
@@ -7,21 +7,45 @@ ul {
   flex-direction: column;
   gap: 0.5rem;
   text-align: center;
+
+  li {
+    padding: 0.5rem;
+    border: 1px solid grey;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: grey;
+    }
+
+    &.selected {
+      background-color: green;
+    }
+  }
 }
 
-li {
-  padding: 0.5rem;
-  border: 1px solid grey;
-  border-radius: 5px;
-  cursor: pointer;
+ul.selectedClasses {
+  display: flex;
+  list-style: none;
+  gap: 0.5rem;
+  padding: 0;
+  flex-wrap: wrap;
 
-  &:hover {
-    background-color: grey;
-  }
+  li {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid grey;
+    border-radius: 1rem;
+    cursor: pointer;
 
-  &.selected {
-    background-color: green;
+    &:hover {
+      background-color: grey;
+    }
   }
+}
+
+ul.details {
+  background-color: green;
 }
 
 .filters {

@@ -1,3 +1,11 @@
-<app-calendar [eventSources]="eventSources()" (settingsOpened)="settingsOpen.set(true)" />
-<app-settings-menu [(shown)]="settingsOpen" (submitted)="eventSources.set($event)" />
+<app-calendar
+  [eventSources]="eventSources()"
+  (settingsOpened)="settingsOpen.set(true)"
+  (hideCourse)="addHiddenCourse($event)"
+/>
+<app-settings-menu
+  [(shown)]="settingsOpen"
+  (submitted)="eventSources.set($event)"
+  [(hiddenCourses)]="hiddenCourses"
+/>
 <router-outlet />

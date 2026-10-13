@@ -1,4 +1,4 @@
-import { Component, model, signal, ChangeDetectionStrategy, effect } from '@angular/core';
+import { Component, model, signal, ChangeDetectionStrategy, effect, input } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Calendar } from './calendar/calendar';
 import { SettingsMenu } from './settings-menu/settings-menu';
@@ -18,6 +18,14 @@ export class App {
   protected readonly title = signal('AP Webuntis To ICS');
   settingsOpen = model<boolean>(false);
   eventSources = signal<EventSourceInput[]>(this.getInitialEventSources());
+  hiddenCourses = signal<Map<Class, Set<string>>>(new Map());
+
+  addHiddenCourse(sourceDetails: [Class, string]) {
+    this.hiddenCourses.update((l) => {
+      const curr = l.get(sourceDetails[0]);
+      return new Map(l).set(sourceDetails[0], curr.add(sourceDetails[1]));
+    });
+  }
 
   getInitialEventSources(): EventSourceInput[] {
     const urlList = new URL(window.location.href).searchParams

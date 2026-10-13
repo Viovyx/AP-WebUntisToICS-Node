@@ -7,6 +7,7 @@ import {
   resource,
   signal,
   ChangeDetectionStrategy,
+  input,
 } from '@angular/core';
 import { Popover } from '../components/popover/popover';
 import { Class, DateRange, SchoolYear } from '../../types';
@@ -57,6 +58,7 @@ export class SettingsMenu {
 
   selectedClasses = signal<Map<Class, DateRange>>(new Map());
   savedClasses = signal<Map<Class, DateRange>>(new Map());
+  hiddenCourses = model.required<Map<Class, Set<string>>>();
 
   toggleClass(classEl: Class, dateRange: DateRange) {
     this.selectedClasses.update((classes) => {
@@ -89,4 +91,7 @@ export class SettingsMenu {
     this.selectedClasses.set(new Map());
     this.save();
   }
+
+  detailsClass = signal<Class>(undefined);
+  detailsOpen = computed(() => this.detailsClass() !== undefined);
 }
