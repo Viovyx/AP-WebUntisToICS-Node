@@ -1,7 +1,7 @@
 <app-calendar [eventSources]="eventSources()" (settingsOpened)="settingsOpen.set(true)" />
 <app-settings-menu
   [(shown)]="settingsOpen"
-  (submitted)="eventSources.set($event)"
   [(hiddenCourses)]="hiddenCourses"
+  [(savedClasses)]="savedClassSources"
 />
 <router-outlet />

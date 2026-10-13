@@ -3,8 +3,16 @@
     <h1>Settings</h1>
 
     <ul class="selectedClasses">
-      @for (selectedClass of selectedClasses(); track selectedClass[0].id) {
-        <li (click)="detailsClass.set(selectedClass[0].id)">{{ selectedClass[0].name }}</li>
+      @for (selectedClass of selectedClasses(); track selectedClass[0]) {
+        <li
+          [class.selected]="selectedClass[1][0].id === detailsClass()"
+          (click)="detailsClass.set(selectedClass[1][0].id)"
+        >
+          {{ selectedClass[1][0].name }}
+          ({{ selectedClass[1][1].start.split('-')[0] }}/{{
+            selectedClass[1][1].end.split('-')[0]
+          }})
+        </li>
       }
     </ul>
 
@@ -13,6 +21,7 @@
         @for (course of hiddenCourses().get(detailsClass()); track $index) {
           <li>{{ course }}</li>
         }
+        <p>d</p>
       </ul>
     }
 
@@ -28,7 +37,7 @@
       @for (classEl of visibleClasses(); track classEl.id) {
         <li
           (click)="toggleClass(classEl, activeSchoolyear().dateRange)"
-          [class.selected]="selectedClasses().has(classEl)"
+          [class.selected]="selectedClasses().has(classEl.id)"
         >
           {{ classEl.name }}
         </li>

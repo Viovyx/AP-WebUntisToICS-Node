@@ -17,11 +17,11 @@ ul.classesList {
     &:hover {
       background-color: grey;
     }
-
-    &.selected {
-      background-color: green;
-    }
   }
+}
+
+.selected {
+  background-color: green;
 }
 
 ul.selectedClasses {
@@ -45,7 +45,7 @@ ul.selectedClasses {
 }
 
 ul.details {
-  background-color: green;
+  background-color: pink;
 }
 
 .filters {

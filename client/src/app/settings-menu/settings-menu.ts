@@ -3,19 +3,15 @@ import {
   computed,
   linkedSignal,
   model,
-  output,
   resource,
   signal,
   ChangeDetectionStrategy,
-  input,
 } from '@angular/core';
 import { Popover } from '../components/popover/popover';
 import { Class, DateRange, SchoolYear } from '../../types';
-import { createEventSource, getClasses, getSchoolyears } from '../../api';
+import { getClasses, getSchoolyears } from '../../api';
 import { ActionButton } from '../components/action-button/action-button';
-import { EventSourceInput } from 'fullcalendar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { apiHost } from '../../config';
 
 @Component({
   selector: 'app-settings-menu',
@@ -26,7 +22,6 @@ import { apiHost } from '../../config';
 })
 export class SettingsMenu {
   shown = model<boolean>(false);
-  submitted = output<EventSourceInput[]>();
 
   schoolyears = resource({
     loader: () => getSchoolyears(),
@@ -56,33 +51,31 @@ export class SettingsMenu {
       ),
   );
 
-  selectedClasses = signal<Map<Class, DateRange>>(new Map());
-  savedClasses = signal<Map<Class, DateRange>>(new Map());
+  savedClasses = model<Map<number, [Class, DateRange]>>();
+  selectedClasses = linkedSignal({
+    source: this.savedClasses,
+    computation: (savedClasses) => new Map(savedClasses ?? []),
+  });
   hiddenCourses = model.required<Map<number, Set<string>>>();
 
   toggleClass(classEl: Class, dateRange: DateRange) {
     this.selectedClasses.update((classes) => {
       const updated = new Map(classes);
-      if (!updated.delete(classEl)) updated.set(classEl, dateRange);
+      if (!updated.delete(classEl.id)) updated.set(classEl.id, [classEl, dateRange]);
       return updated;
     });
   }
 
   save() {
     this.savedClasses.set(new Map(this.selectedClasses()));
-
-    this.submitted.emit(
-      [...this.savedClasses().entries()].map((classData) =>
-        createEventSource(classData[0], classData[1]),
-      ),
-    );
-
     this.shown.set(false);
+    this.detailsClass.set(null);
   }
 
   cancel() {
-    this.selectedClasses.set(new Map(this.savedClasses()));
+    this.selectedClasses.set(new Map(this.savedClasses() ?? []));
     this.shown.set(false);
+    this.detailsClass.set(null);
   }
 
   reset() {
@@ -93,5 +86,7 @@ export class SettingsMenu {
   }
 
   detailsClass = signal<number | null>(null);
-  detailsVisible = computed(() => this.detailsClass() !== undefined);
+  detailsVisible = computed(
+    () => this.detailsClass() !== null && this.selectedClasses().has(this.detailsClass()),
+  );
 }

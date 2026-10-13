@@ -1,4 +1,4 @@
-import { Component, model, signal, ChangeDetectionStrategy, effect, input } from '@angular/core';
+import { Component, model, signal, ChangeDetectionStrategy, effect, computed } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Calendar } from './calendar/calendar';
 import { SettingsMenu } from './settings-menu/settings-menu';
@@ -17,7 +17,10 @@ import { apiHost } from '../config';
 export class App {
   protected readonly title = signal('AP Webuntis To ICS');
   settingsOpen = model<boolean>(false);
-  eventSources = signal<EventSourceInput[]>(this.getInitialEventSources());
+  savedClassSources = model<Map<number, [Class, DateRange]>>(this.getInitialClassSources());
+  eventSources = computed<EventSourceInput[]>(() =>
+    [...this.savedClassSources()].map((data) => createEventSource(data[1][0], data[1][1])),
+  );
   hiddenCourses = signal<Map<number, Set<string>>>(new Map());
 
   addHiddenCourse(classId: number, coursName: string) {
@@ -27,11 +30,14 @@ export class App {
     });
   }
 
-  getInitialEventSources(): EventSourceInput[] {
+  getInitialClassSources(): Map<number, [Class, DateRange]> {
     const urlList = new URL(window.location.href).searchParams
       .getAll('url')
       .map((url) => decodeURI(url));
-    return urlList.map((urlStr) => {
+
+    const sources: Map<number, [Class, DateRange]> = new Map();
+
+    urlList.forEach((urlStr) => {
       const url = new URL(apiHost + urlStr);
       const classEl: Class = {
         id: +url.searchParams.get('class'),
@@ -42,8 +48,10 @@ export class App {
         end: url.searchParams.get('end'),
       };
 
-      return createEventSource(classEl, dateRange);
+      sources.set(classEl.id, [classEl, dateRange]);
     });
+
+    return sources;
   }
 
   constructor() {
