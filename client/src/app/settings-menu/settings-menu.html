@@ -6,7 +6,7 @@
       @for (selectedClass of selectedClasses(); track selectedClass[0]) {
         <li
           [class.selected]="selectedClass[1][0].id === detailsClass()"
-          (click)="detailsClass.set(selectedClass[1][0].id)"
+          (click)="toggleDetailsClass(selectedClass[1][0].id)"
         >
           {{ selectedClass[1][0].name }}
           ({{ selectedClass[1][1].start.split('-')[0] }}/{{

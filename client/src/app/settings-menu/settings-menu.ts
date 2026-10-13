@@ -76,6 +76,10 @@ export class SettingsMenu {
     });
   }
 
+  toggleDetailsClass(classId: number) {
+    this.detailsClass.set(this.detailsClass() !== classId ? classId : null);
+  }
+
   save() {
     this.savedClasses.set(new Map(this.selectedClasses()));
     this.shown.set(false);
