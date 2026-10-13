@@ -17,11 +17,11 @@ ul.classesList {
     &:hover {
       background-color: grey;
     }
-  }
-}
 
-.selected {
-  background-color: green;
+    &.selected {
+      background-color: green;
+    }
+  }
 }
 
 ul.selectedClasses,
@@ -41,6 +41,10 @@ li {
   cursor: pointer;
 
   &:hover {
+    background-color: grey;
+  }
+
+  &.selected {
     background-color: grey;
   }
 }
