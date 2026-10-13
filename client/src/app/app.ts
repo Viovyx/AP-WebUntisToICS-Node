@@ -17,16 +17,21 @@ import { apiHost } from '../config';
 export class App {
   protected readonly title = signal('AP Webuntis To ICS');
   settingsOpen = model<boolean>(false);
+  hiddenCourses = signal<Map<number, Set<string>>>(new Map());
   savedClassSources = model<Map<number, [Class, DateRange]>>(this.getInitialClassSources());
   eventSources = computed<EventSourceInput[]>(() =>
-    [...this.savedClassSources()].map((data) => createEventSource(data[1][0], data[1][1])),
+    [...this.savedClassSources()].map((data) =>
+      createEventSource(data[1][0], data[1][1], [
+        ...(this.hiddenCourses().get(data[1][0].id) ?? []),
+      ]),
+    ),
   );
-  hiddenCourses = signal<Map<number, Set<string>>>(new Map());
 
   addHiddenCourse(classId: number, coursName: string) {
     this.hiddenCourses.update((l) => {
       const curr = l.get(classId);
-      return new Map(l).set(classId, curr.add(coursName));
+
+      return new Map(l).set(classId, curr ? curr.add(coursName) : new Set([coursName]));
     });
   }
 
@@ -47,6 +52,10 @@ export class App {
         start: url.searchParams.get('start'),
         end: url.searchParams.get('end'),
       };
+      url.searchParams
+        .get('filter')
+        .split(',')
+        .forEach((filter) => this.addHiddenCourse(classEl.id, filter));
 
       sources.set(classEl.id, [classEl, dateRange]);
     });

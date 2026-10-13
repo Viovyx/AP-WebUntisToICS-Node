@@ -17,12 +17,15 @@
     </ul>
 
     @if (detailsVisible()) {
-      <ul class="details">
-        @for (course of hiddenCourses().get(detailsClass()); track $index) {
-          <li>{{ course }}</li>
-        }
-        <p>d</p>
-      </ul>
+      @if (hiddenCourses().get(detailsClass()) && hiddenCourses().get(detailsClass()).size > 0) {
+        <ul class="details">
+          @for (course of hiddenCourses().get(detailsClass()); track $index) {
+            <li (click)="removeHiddenCourse(detailsClass(), course)">{{ course }}</li>
+          }
+        </ul>
+      } @else {
+        <p>No hidden events for this class.</p>
+      }
     }
 
     <div class="filters">

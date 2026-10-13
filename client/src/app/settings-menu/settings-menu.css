@@ -24,28 +24,31 @@ ul.classesList {
   background-color: green;
 }
 
-ul.selectedClasses {
+ul.selectedClasses,
+ul.details {
   display: flex;
   list-style: none;
   gap: 0.5rem;
   padding: 0;
   flex-wrap: wrap;
+}
 
-  li {
-    display: inline-block;
-    padding: 0.2rem 0.5rem;
-    border: 1px solid grey;
-    border-radius: 1rem;
-    cursor: pointer;
+li {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid grey;
+  border-radius: 1rem;
+  cursor: pointer;
 
-    &:hover {
-      background-color: grey;
-    }
+  &:hover {
+    background-color: grey;
   }
 }
 
 ul.details {
-  background-color: pink;
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 1rem;
 }
 
 .filters {

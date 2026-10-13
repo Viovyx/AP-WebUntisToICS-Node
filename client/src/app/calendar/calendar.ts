@@ -29,6 +29,7 @@ export class Calendar {
 
   eventSources = input.required<EventSourceInput[]>();
   activeEvent = signal<EventApi>(null);
+  hideEvent = output<[number, string]>();
   settingsOpened = output();
 
   calendarOptions = computed<CalendarOptions>(() => {

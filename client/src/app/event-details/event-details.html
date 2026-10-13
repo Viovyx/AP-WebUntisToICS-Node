@@ -35,6 +35,7 @@
       </svg>
       <p>{{ event.extendedProps['description'] }}</p>
     </div>
+    <app-action-button text="Hide" color="darkred" (clicked)="hide()" />
     <app-action-button text="Close" color="red" (clicked)="closeEvent()" />
   </app-popover>
 }

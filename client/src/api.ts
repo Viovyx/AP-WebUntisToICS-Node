@@ -12,10 +12,14 @@ export async function getClasses(dateRange: DateRange): Promise<Class[]> {
   return await response.json();
 }
 
-export function createEventSource(classEl: Class, dateRange: DateRange): EventSourceInput {
+export function createEventSource(
+  classEl: Class,
+  dateRange: DateRange,
+  hiddenCourses?: string[],
+): EventSourceInput {
   return {
     id: `${classEl.name} (${classEl.id})`,
-    url: `${apiHost}/calendar?class=${classEl.id}&start=${dateRange.start}&end=${dateRange.end}&name=${classEl.name}`,
+    url: `${apiHost}/calendar?class=${classEl.id}&start=${dateRange.start}&end=${dateRange.end}&name=${classEl.name}&filter=${hiddenCourses?.join()}`,
     format: 'ics',
     color: stringToColour(classEl.name),
   };

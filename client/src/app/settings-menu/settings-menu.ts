@@ -58,6 +58,16 @@ export class SettingsMenu {
   });
   hiddenCourses = model.required<Map<number, Set<string>>>();
 
+  removeHiddenCourse(classId: number, coursName: string) {
+    this.hiddenCourses.update((m) => {
+      const courses = m.get(classId);
+      const updated = new Map(m);
+      courses.delete(coursName);
+      updated.set(classId, courses);
+      return updated;
+    });
+  }
+
   toggleClass(classEl: Class, dateRange: DateRange) {
     this.selectedClasses.update((classes) => {
       const updated = new Map(classes);
