@@ -58,7 +58,7 @@ export class SettingsMenu {
 
   selectedClasses = signal<Map<Class, DateRange>>(new Map());
   savedClasses = signal<Map<Class, DateRange>>(new Map());
-  hiddenCourses = model.required<Map<Class, Set<string>>>();
+  hiddenCourses = model.required<Map<number, Set<string>>>();
 
   toggleClass(classEl: Class, dateRange: DateRange) {
     this.selectedClasses.update((classes) => {
@@ -92,6 +92,6 @@ export class SettingsMenu {
     this.save();
   }
 
-  detailsClass = signal<Class>(undefined);
-  detailsOpen = computed(() => this.detailsClass() !== undefined);
+  detailsClass = signal<number | null>(null);
+  detailsVisible = computed(() => this.detailsClass() !== undefined);
 }

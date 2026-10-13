@@ -15,8 +15,6 @@ export class EventDetails {
   eventData = model<EventApi | null>(null);
   shown = computed<boolean>(() => this.eventData() !== null);
 
-  hideCourse = output<[Class, string]>();
-
   closeEvent() {
     this.eventData.set(null);
   }

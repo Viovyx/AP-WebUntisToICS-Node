@@ -4,11 +4,11 @@
 
     <ul class="selectedClasses">
       @for (selectedClass of selectedClasses(); track selectedClass[0].id) {
-        <li (click)="detailsClass.set(selectedClass[0])">{{ selectedClass[0].name }}</li>
+        <li (click)="detailsClass.set(selectedClass[0].id)">{{ selectedClass[0].name }}</li>
       }
     </ul>
 
-    @if (detailsOpen()) {
+    @if (detailsVisible()) {
       <ul class="details">
         @for (course of hiddenCourses().get(detailsClass()); track $index) {
           <li>{{ course }}</li>

@@ -18,12 +18,12 @@ export class App {
   protected readonly title = signal('AP Webuntis To ICS');
   settingsOpen = model<boolean>(false);
   eventSources = signal<EventSourceInput[]>(this.getInitialEventSources());
-  hiddenCourses = signal<Map<Class, Set<string>>>(new Map());
+  hiddenCourses = signal<Map<number, Set<string>>>(new Map());
 
-  addHiddenCourse(sourceDetails: [Class, string]) {
+  addHiddenCourse(classId: number, coursName: string) {
     this.hiddenCourses.update((l) => {
-      const curr = l.get(sourceDetails[0]);
-      return new Map(l).set(sourceDetails[0], curr.add(sourceDetails[1]));
+      const curr = l.get(classId);
+      return new Map(l).set(classId, curr.add(coursName));
     });
   }
 

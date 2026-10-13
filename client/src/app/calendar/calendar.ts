@@ -25,8 +25,6 @@ import { Class } from '../../types';
   styleUrl: './calendar.css',
 })
 export class Calendar {
-  hideCourse = output<[Class, string]>();
-
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
   eventSources = input.required<EventSourceInput[]>();
