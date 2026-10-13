@@ -16,7 +16,6 @@ import { apiHost } from '../config';
 })
 export class App {
   protected readonly title = signal('AP Webuntis To ICS');
-  settingsOpen = model<boolean>(false);
   hiddenCourses = signal<Map<number, Set<string>>>(new Map());
   savedClassSources = model<Map<number, [Class, DateRange]>>(this.getInitialClassSources());
   eventSources = computed<EventSourceInput[]>(() =>
@@ -26,6 +25,7 @@ export class App {
       ]),
     ),
   );
+  settingsOpen = model<boolean>(this.savedClassSources().size === 0);
 
   addHiddenCourse(classId: number, coursName: string) {
     this.hiddenCourses.update((l) => {
