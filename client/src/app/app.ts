@@ -55,7 +55,7 @@ export class App {
       url.searchParams
         .get('filter')
         .split(',')
-        .forEach((filter) => this.addHiddenCourse(classEl.id, filter));
+        .forEach((filter) => (filter !== '' ? this.addHiddenCourse(classEl.id, filter) : null));
 
       sources.set(classEl.id, [classEl, dateRange]);
     });
