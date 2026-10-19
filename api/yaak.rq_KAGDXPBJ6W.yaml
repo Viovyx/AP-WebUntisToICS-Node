@@ -2,9 +2,9 @@ type: http_request
 model: http_request
 id: rq_KAGDXPBJ6W
 createdAt: 2026-09-24T18:59:24.975316849
-updatedAt: 2026-09-24T22:06:06.351222
+updatedAt: 2026-10-15T13:40:07.985165300
 workspaceId: wk_zQeZZzpqy6
-folderId: fl_qSJBXS6beM
+folderId: null
 authentication: {}
 authenticationType: null
 body: {}
@@ -17,7 +17,7 @@ headers:
   id: null
 method: GET
 name: Timetable Entries
-sortPriority: 8.0
+sortPriority: 2000.0
 url: ${[ WEBUNTIS_BASE ]}/timetable/entries
 urlParameters:
 - enabled: true

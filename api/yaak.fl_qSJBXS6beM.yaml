@@ -2,7 +2,7 @@ type: folder
 model: folder
 id: fl_qSJBXS6beM
 createdAt: 2026-09-24T18:59:24.975503630
-updatedAt: 2026-09-24T18:59:24.975503690
+updatedAt: 2026-10-15T13:40:07.984000100
 workspaceId: wk_zQeZZzpqy6
 folderId: null
 authentication: {}
@@ -10,7 +10,7 @@ authenticationType: none
 description: ''
 headers: []
 name: WebUntis API
-sortPriority: 4.0
+sortPriority: 1000.0
 settingSendCookies:
   enabled: false
   value: true
