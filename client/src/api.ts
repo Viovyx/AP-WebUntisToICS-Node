@@ -1,6 +1,6 @@
 import { EventSourceInput } from 'fullcalendar';
 import { apiHost } from './config';
-import { Class, DateRange, SchoolYear } from './types';
+import { CalendarEventResource, Class, CourseData, DateRange, SchoolYear } from './types';
 
 export async function getSchoolyears(): Promise<SchoolYear[]> {
   const response = await fetch(apiHost + '/schoolyears');
@@ -15,11 +15,14 @@ export async function getClasses(dateRange: DateRange): Promise<Class[]> {
 export function createEventSource(
   classEl: Class,
   dateRange: DateRange,
-  hiddenCourses?: string[],
-): EventSourceInput {
+  hiddenCourses?: CourseData[],
+): CalendarEventResource {
   return {
     id: `${classEl.name} (${classEl.id})`,
-    url: `${apiHost}/calendar?class=${classEl.id}&start=${dateRange.start}&end=${dateRange.end}&name=${classEl.name}&filter=${hiddenCourses?.join()}`,
+    url: `${apiHost}/calendar?class=${classEl.id}&start=${dateRange.start}&end=${dateRange.end}&name=${classEl.name}&filter=${hiddenCourses
+      ?.filter((h) => h.classId === classEl.id)
+      .map((h) => h.courseName)
+      .join()}`,
     format: 'ics',
     color: stringToColour(classEl.name),
   };

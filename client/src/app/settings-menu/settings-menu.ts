@@ -6,12 +6,14 @@ import {
   resource,
   signal,
   ChangeDetectionStrategy,
+  inject,
 } from '@angular/core';
 import { Popover } from '../components/popover/popover';
-import { Class, DateRange, SchoolYear } from '../../types';
+import { Class, DateRange, ResourceData, SchoolYear } from '../../types';
 import { getClasses, getSchoolyears } from '../../api';
 import { ActionButton } from '../components/action-button/action-button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CalendarStore } from '../calendar-store';
 
 @Component({
   selector: 'app-settings-menu',
@@ -21,28 +23,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './settings-menu.css',
 })
 export class SettingsMenu {
+  calendarStore = inject(CalendarStore);
+
   shown = model<boolean>(false);
 
-  schoolyears = resource({
-    loader: () => getSchoolyears(),
-  });
-  activeSchoolyear = linkedSignal<SchoolYear | null>(
+  readonly activeSchoolyear = linkedSignal<SchoolYear | null>(
     () =>
-      this.schoolyears.value()?.find((year) => year.active) ??
-      this.schoolyears.value()?.[0] ??
+      this.calendarStore.schoolyears.value()?.find((year) => year.active) ??
+      this.calendarStore.schoolyears.value()?.[0] ??
       null,
   );
 
-  classes = resource({
-    params: () => {
-      const schoolyear = this.activeSchoolyear();
-      return schoolyear ? { schoolyear } : undefined;
-    },
-    loader: ({ params }) => getClasses(params.schoolyear.dateRange),
-  });
   classesFilter = model<string>('');
   visibleClasses = computed(() =>
-    this.classes
+    this.calendarStore.classes
       .value()
       .filter(
         (c) =>
@@ -51,58 +45,53 @@ export class SettingsMenu {
       ),
   );
 
-  savedClasses = model<Map<number, [Class, DateRange]>>();
   selectedClasses = linkedSignal({
-    source: this.savedClasses,
-    computation: (savedClasses) => new Map(savedClasses ?? []),
+    source: this.calendarStore.classResources,
+    computation: (classResources) => classResources ?? [],
   });
-  hiddenCourses = model.required<Map<number, Set<string>>>();
 
-  removeHiddenCourse(classId: number, coursName: string) {
-    if (confirm(`Show '${coursName}' again?`))
-      this.hiddenCourses.update((m) => {
-        const courses = m.get(classId);
-        const updated = new Map(m);
-        courses.delete(coursName);
-        updated.set(classId, courses);
-        return updated;
-      });
-  }
-
-  toggleClass(classEl: Class, dateRange: DateRange) {
-    this.selectedClasses.update((classes) => {
-      const updated = new Map(classes);
-      if (!updated.delete(classEl.id)) updated.set(classEl.id, [classEl, dateRange]);
-      return updated;
-    });
+  toggleClass(classResource: ResourceData) {
+    this.selectedClasses.update((classes) =>
+      classes.some((c) => c.classData.id === classResource.classData.id)
+        ? classes.filter((c) => c.classData.id !== classResource.classData.id)
+        : [...classes, classResource],
+    );
   }
 
   toggleDetailsClass(classId: number) {
-    this.detailsClass.set(this.detailsClass() !== classId ? classId : null);
+    this.detailsClassId.set(this.detailsClassId() !== classId ? classId : null);
   }
 
   save() {
-    this.savedClasses.set(new Map(this.selectedClasses()));
+    this.selectedClasses().forEach((selectedClass) =>
+      this.calendarStore.addClassResource(selectedClass),
+    );
     this.shown.set(false);
-    this.detailsClass.set(null);
+    this.detailsClassId.set(null);
   }
 
   cancel() {
-    this.selectedClasses.set(new Map(this.savedClasses() ?? []));
+    this.selectedClasses.set(this.calendarStore.classResources() ?? []);
     this.shown.set(false);
-    this.detailsClass.set(null);
+    this.detailsClassId.set(null);
   }
 
   reset() {
     if (!confirm('Are you sure you want to reset your selection?')) return;
 
-    this.selectedClasses.set(new Map());
-    this.hiddenCourses.set(new Map());
+    this.selectedClasses.set([]);
+    this.calendarStore
+      .hiddenCourses()
+      .forEach((hidden) =>
+        this.calendarStore.removeHiddenCourse(hidden.courseName, hidden.classId),
+      );
     this.save();
   }
 
-  detailsClass = signal<number | null>(null);
+  detailsClassId = signal<number | null>(null);
   detailsVisible = computed(
-    () => this.detailsClass() !== null && this.selectedClasses().has(this.detailsClass()),
+    () =>
+      this.detailsClassId() !== null &&
+      this.selectedClasses().some((c) => c.classData.id === this.detailsClassId()),
   );
 }

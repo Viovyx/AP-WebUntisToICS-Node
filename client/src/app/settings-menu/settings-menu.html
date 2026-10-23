@@ -5,7 +5,7 @@
     <ul class="selectedClasses">
       @for (selectedClass of selectedClasses(); track selectedClass[0]) {
         <li
-          [class.selected]="selectedClass[1][0].id === detailsClass()"
+          [class.selected]="selectedClass[1][0].id === detailsClassId()"
           (click)="toggleDetailsClass(selectedClass[1][0].id)"
         >
           {{ selectedClass[1][0].name }}
@@ -17,10 +17,15 @@
     </ul>
 
     @if (detailsVisible()) {
-      @if (hiddenCourses().get(detailsClass()) && hiddenCourses().get(detailsClass()).size > 0) {
+      @let hiddenCourses =
+        calendarStore.hiddenCourses().filter((h) => h.classId === detailsClassId());
+
+      @if (hiddenCourses && hiddenCourses.length > 0) {
         <ul class="details">
-          @for (course of hiddenCourses().get(detailsClass()); track $index) {
-            <li (click)="removeHiddenCourse(detailsClass(), course)">{{ course }}</li>
+          @for (course of hiddenCourses; track $index) {
+            <li (click)="calendarStore.removeHiddenCourse(course.courseName, detailsClassId())">
+              {{ course }}
+            </li>
           }
         </ul>
       } @else {
@@ -31,7 +36,7 @@
     <div class="filters">
       <input [(ngModel)]="classesFilter" type="text" placeholder="filter..." />
       <select [(ngModel)]="activeSchoolyear">
-        @for (schoolyear of schoolyears.value(); track schoolyear.id) {
+        @for (schoolyear of calendarStore.schoolyears.value(); track schoolyear.id) {
           <option [ngValue]="schoolyear">{{ schoolyear.name }}</option>
         }
       </select>
@@ -39,8 +44,8 @@
     <ul class="classesList">
       @for (classEl of visibleClasses(); track classEl.id) {
         <li
-          (click)="toggleClass(classEl, activeSchoolyear().dateRange)"
-          [class.selected]="selectedClasses().has(classEl.id)"
+          (click)="toggleClass({ classData: classEl, schoolYear: activeSchoolyear() })"
+          [class.selected]="selectedClasses().some((c) => c.classData.id === classEl.id)"
         >
           {{ classEl.name }}
         </li>

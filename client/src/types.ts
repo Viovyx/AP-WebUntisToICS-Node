@@ -13,8 +13,8 @@ export interface SchoolYear {
 }
 
 export interface DateRange {
-  start: string;
-  end: string;
+  start: Date;
+  end: Date;
 }
 
 export interface ResourceData {
@@ -23,8 +23,10 @@ export interface ResourceData {
 }
 
 export interface CourseData {
-  resource: ResourceData;
+  classId: number;
   courseName: string;
 }
 
-export interface CalendarEventResource extends Partial<EventImpl> {}
+export interface CalendarEventResource extends Partial<EventImpl> {
+  format?: string;
+}

@@ -1,8 +1,17 @@
-import { Component, computed, model, ChangeDetectionStrategy, output, input } from '@angular/core';
+import {
+  Component,
+  computed,
+  model,
+  ChangeDetectionStrategy,
+  output,
+  input,
+  inject,
+} from '@angular/core';
 import { Popover } from '../components/popover/popover';
-import { EventApi } from 'fullcalendar';
+import { Calendar, EventApi } from 'fullcalendar';
 import { ActionButton } from '../components/action-button/action-button';
 import { Class } from '../../types';
+import { CalendarStore } from '../calendar-store';
 
 @Component({
   selector: 'app-event-details',
@@ -12,9 +21,10 @@ import { Class } from '../../types';
   styleUrl: './event-details.css',
 })
 export class EventDetails {
+  calendarStore = inject(CalendarStore);
+
   eventData = model<EventApi | null>(null);
   shown = computed<boolean>(() => this.eventData() !== null);
-  hideEvent = output<[number, string]>();
 
   closeEvent() {
     this.eventData.set(null);
@@ -26,7 +36,7 @@ export class EventDetails {
     const coursName = this.eventData().title.split('(')[0];
 
     if (confirm(`Hide '${coursName}'?`)) {
-      this.hideEvent.emit([classId, coursName]);
+      this.calendarStore.addHiddenCourse({ classId: classId, courseName: coursName });
       this.closeEvent();
     }
   }

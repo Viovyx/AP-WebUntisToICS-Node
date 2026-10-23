@@ -6,6 +6,7 @@ import {
   signal,
   ViewChild,
   ChangeDetectionStrategy,
+  inject,
 } from '@angular/core';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions, EventApi, EventInput, EventSourceInput } from 'fullcalendar';
@@ -16,6 +17,7 @@ import iCalendarPlugin from '@fullcalendar/icalendar';
 import { CalendarEvent } from './calendar-event/calendar-event';
 import { EventDetails } from '../event-details/event-details';
 import { Class } from '../../types';
+import { CalendarStore } from '../calendar-store';
 
 @Component({
   selector: 'app-calendar',
@@ -27,9 +29,9 @@ import { Class } from '../../types';
 export class Calendar {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
-  eventSources = input.required<EventSourceInput[]>();
+  calendarStore = inject(CalendarStore);
+
   activeEvent = signal<EventApi>(null);
-  hideEvent = output<[number, string]>();
   settingsOpened = output();
 
   calendarOptions = computed<CalendarOptions>(() => {
@@ -83,7 +85,7 @@ export class Calendar {
         },
       },
       weekends: false,
-      eventSources: this.eventSources(),
+      eventSources: this.calendarStore.eventResources(),
       eventClick: (info) => this.activeEvent.set(info.event),
     };
   });
