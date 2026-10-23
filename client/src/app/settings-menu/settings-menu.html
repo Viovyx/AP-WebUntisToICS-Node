@@ -3,14 +3,14 @@
     <h1>Settings</h1>
 
     <ul class="selectedClasses">
-      @for (selectedClass of selectedClasses(); track selectedClass[0]) {
+      @for (selectedClass of selectedClasses(); track selectedClass.classData.id) {
         <li
-          [class.selected]="selectedClass[1][0].id === detailsClassId()"
-          (click)="toggleDetailsClass(selectedClass[1][0].id)"
+          [class.selected]="selectedClass.classData.id === detailsClassId()"
+          (click)="toggleDetailsClass(selectedClass.classData.id)"
         >
-          {{ selectedClass[1][0].name }}
-          ({{ selectedClass[1][1].start.split('-')[0] }}/{{
-            selectedClass[1][1].end.split('-')[0]
+          {{ selectedClass.classData.name }}
+          ({{ selectedClass.schoolYear.dateRange.start }}/{{
+            selectedClass.schoolYear.dateRange.end
           }})
         </li>
       }

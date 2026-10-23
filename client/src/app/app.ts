@@ -29,12 +29,14 @@ export class App {
   settingsOpen = model<boolean>(this.calendarStore.classResources().length === 0);
 
   constructor() {
+    this.calendarStore.seedCalendar();
+
     effect(() => {
       const url = new URL(window.location.href);
       url.searchParams.delete('url');
 
       this.calendarStore.eventResources().forEach((s) => {
-        const sourceUrl = new URL((s as any).url);
+        const sourceUrl = new URL(s.url);
         url.searchParams.append('url', sourceUrl.pathname + sourceUrl.search);
       });
 

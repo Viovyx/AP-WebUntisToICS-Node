@@ -35,10 +35,6 @@ export class CalendarStore {
     ),
   );
 
-  constructor() {
-    this.seedCalendar();
-  }
-
   addClassResource(classResource: ResourceData) {
     this.resources.update((list) =>
       list.some((resource) => resource.classData.id === classResource.classData.id)
@@ -76,8 +72,8 @@ export class CalendarStore {
       const url = new URL(apiHost + urlStr);
       const classId: number = +url.searchParams.get('class');
       const dateRange: DateRange = {
-        start: new Date(url.searchParams.get('start')),
-        end: new Date(url.searchParams.get('end')),
+        start: url.searchParams.get('start'),
+        end: url.searchParams.get('end'),
       };
 
       const classEl: Class = this.classes.value().find((c) => c.id === classId);

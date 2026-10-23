@@ -13,8 +13,8 @@ export interface SchoolYear {
 }
 
 export interface DateRange {
-  start: Date;
-  end: Date;
+  start: string;
+  end: string;
 }
 
 export interface ResourceData {
