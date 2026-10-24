@@ -83,6 +83,7 @@ export class SettingsMenu {
         this.calendarStore.removeHiddenCourse(hidden.courseName, hidden.classId),
       );
     this.save();
+    this.shown.set(true);
   }
 
   detailsClassId = signal<number | null>(null);
