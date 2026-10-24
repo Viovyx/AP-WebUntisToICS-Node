@@ -8,7 +8,7 @@ import {
   SchoolYear,
 } from '../types';
 import { createEventSource, getClasses, getSchoolyears } from '../api';
-import { apiHost } from '../config';
+import { environment } from '../environments/environment';
 
 @Service()
 export class CalendarStore {
@@ -78,7 +78,7 @@ export class CalendarStore {
         .map((url) => decodeURI(url));
 
       urlList.forEach(async (urlStr) => {
-        const url = new URL(apiHost + urlStr);
+        const url = new URL(environment.apiHost + urlStr);
         const classId: number = +url.searchParams.get('class');
         const dateRange: DateRange = {
           start: url.searchParams.get('start'),

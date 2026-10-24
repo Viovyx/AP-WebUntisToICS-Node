@@ -1,5 +1,7 @@
-import { apiHost } from './config';
+import { environment } from './environments/environment';
 import { CalendarEventResource, Class, CourseData, DateRange, SchoolYear } from './types';
+
+const apiHost = environment.apiHost;
 
 export async function getSchoolyears(): Promise<SchoolYear[]> {
   const response = await fetch(apiHost + '/schoolyears');
