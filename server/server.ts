@@ -8,7 +8,6 @@ import {
 } from "./src/api.ts";
 import ical from "ical-generator";
 import { mapToCalEvent, mapToClasses, mapToLessons } from "./src/mappers.ts";
-import path from "node:path";
 import { config } from "dotenv";
 import cors from "cors";
 
