@@ -26,15 +26,13 @@ import { CalendarStore } from './calendar-store';
 export class App {
   protected readonly title = signal('AP Webuntis To ICS');
   calendarStore = inject(CalendarStore);
-  settingsOpen = model<boolean>(this.calendarStore.classResources().length === 0);
+  settingsOpen = model<boolean>(!new URLSearchParams(location.search).has('url'));
 
   constructor() {
     void this.calendarStore.seedCalendar();
 
     effect(() => {
-      if (!this.calendarStore.seeded()) return;
-
-      const url = new URL(window.location.href);
+      const url = new URL(location.href);
       url.searchParams.delete('url');
 
       this.calendarStore.eventResources().forEach((s) => {
@@ -42,7 +40,7 @@ export class App {
         url.searchParams.append('url', sourceUrl.pathname + sourceUrl.search);
       });
 
-      window.history.replaceState(null, null, url); // or pushState
+      history.replaceState(null, null, url); // or pushState
     });
   }
 }
