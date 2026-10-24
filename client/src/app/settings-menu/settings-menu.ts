@@ -24,15 +24,7 @@ import { CalendarStore } from '../calendar-store';
 })
 export class SettingsMenu {
   calendarStore = inject(CalendarStore);
-
   shown = model<boolean>(false);
-
-  readonly activeSchoolyear = linkedSignal<SchoolYear | null>(() =>
-    this.calendarStore.schoolyears.hasValue()
-      ? (this.calendarStore.schoolyears.value().find((year) => year.active) ??
-        this.calendarStore.schoolyears.value()[0])
-      : null,
-  );
 
   classesFilter = model<string>('');
   visibleClasses = computed(() => {
@@ -52,6 +44,11 @@ export class SettingsMenu {
     computation: (classResources) => classResources ?? [],
   });
 
+  removeHiddenCourse(courseName: string, classId: number) {
+    if (confirm(`Show '${courseName}' again?`))
+      this.calendarStore.removeHiddenCourse(courseName, classId);
+  }
+
   toggleClass(classResource: ResourceData) {
     this.selectedClasses.update((classes) =>
       classes.some((c) => c.classData.id === classResource.classData.id)
@@ -65,9 +62,7 @@ export class SettingsMenu {
   }
 
   save() {
-    this.selectedClasses().forEach((selectedClass) =>
-      this.calendarStore.addClassResource(selectedClass),
-    );
+    this.calendarStore.setClassResources(this.selectedClasses());
     this.shown.set(false);
     this.detailsClassId.set(null);
   }

@@ -29,9 +29,11 @@ export class App {
   settingsOpen = model<boolean>(this.calendarStore.classResources().length === 0);
 
   constructor() {
-    this.calendarStore.seedCalendar();
+    void this.calendarStore.seedCalendar();
 
     effect(() => {
+      if (!this.calendarStore.seeded()) return;
+
       const url = new URL(window.location.href);
       url.searchParams.delete('url');
 

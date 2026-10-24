@@ -12,16 +12,20 @@ import { apiHost } from '../config';
 
 @Service()
 export class CalendarStore {
+  readonly seeded = signal(false);
+
   readonly schoolyears = resource({
     loader: () => getSchoolyears(),
   });
+  public activeSchoolyear = linkedSignal<SchoolYear | null>(() =>
+    this.schoolyears.hasValue()
+      ? (this.schoolyears.value().find((year) => year.active) ?? this.schoolyears.value()[0])
+      : null,
+  );
 
   readonly classes = resource({
-    params: () => {
-      const schoolyear = this.schoolyears.value().find((y) => y.active);
-      return schoolyear ? { schoolyear } : undefined;
-    },
-    loader: ({ params }) => getClasses(params.schoolyear.dateRange),
+    params: () => (this.activeSchoolyear() ? this.activeSchoolyear() : undefined),
+    loader: (value) => getClasses(value.params.dateRange),
   });
 
   private resources = signal<ResourceData[]>([]);
@@ -34,6 +38,10 @@ export class CalendarStore {
       createEventSource(c.classData, c.schoolYear.dateRange, this.hiddenCourses()),
     ),
   );
+
+  setClassResources(classResources: ResourceData[]) {
+    this.resources.set(classResources);
+  }
 
   addClassResource(classResource: ResourceData) {
     this.resources.update((list) =>
@@ -59,43 +67,50 @@ export class CalendarStore {
 
   removeHiddenCourse(courseName: string, classId: number) {
     this.hidden.update((list) =>
-      list.filter((hidden) => hidden.courseName !== courseName && hidden.classId !== classId),
+      list.filter((hidden) => hidden.courseName !== courseName || hidden.classId !== classId),
     );
   }
 
-  seedCalendar() {
-    const urlList = new URL(window.location.href).searchParams
-      .getAll('url')
-      .map((url) => decodeURI(url));
+  async seedCalendar() {
+    try {
+      const urlList = new URL(window.location.href).searchParams
+        .getAll('url')
+        .map((url) => decodeURI(url));
 
-    urlList.forEach(async (urlStr) => {
-      const url = new URL(apiHost + urlStr);
-      const classId: number = +url.searchParams.get('class');
-      const dateRange: DateRange = {
-        start: url.searchParams.get('start'),
-        end: url.searchParams.get('end'),
-      };
+      urlList.forEach(async (urlStr) => {
+        const url = new URL(apiHost + urlStr);
+        const classId: number = +url.searchParams.get('class');
+        const dateRange: DateRange = {
+          start: url.searchParams.get('start'),
+          end: url.searchParams.get('end'),
+        };
 
-      while (!this.classes.hasValue() && !this.schoolyears.hasValue()) {}
-
-      const classEl: Class = this.classes.value().find((c) => c.id === classId);
-      const schoolYear: SchoolYear = this.schoolyears
-        .value()
-        .find((y) => y.dateRange.start === dateRange.start && y.dateRange.end === dateRange.end);
-
-      url.searchParams
-        .get('filter')
-        .split(',')
-        .forEach((filter) =>
-          filter !== ''
-            ? this.addHiddenCourse({
-                courseName: filter,
-                classId: classEl.id,
-              })
-            : null,
+        const schoolYears = await getSchoolyears();
+        const schoolYear: SchoolYear = schoolYears.find(
+          (y) => y.dateRange.start === dateRange.start && y.dateRange.end === dateRange.end,
         );
+        if (!schoolYear) return console.error(`Schoolyear not found for '${url}'`);
 
-      this.addClassResource({ classData: classEl, schoolYear: schoolYear });
-    });
+        const classes = await getClasses(schoolYear.dateRange);
+        const classEl: Class = classes.find((c) => c.id === classId);
+        if (!classes) return console.error(`Class not found for '${url}'`);
+
+        url.searchParams
+          .get('filter')
+          .split(',')
+          .forEach((filter) =>
+            filter !== ''
+              ? this.addHiddenCourse({
+                  courseName: filter,
+                  classId: classEl.id,
+                })
+              : null,
+          );
+
+        this.addClassResource({ classData: classEl, schoolYear: schoolYear });
+      });
+    } finally {
+      this.seeded.set(true);
+    }
   }
 }
