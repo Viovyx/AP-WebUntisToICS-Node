@@ -36,7 +36,12 @@
     <div class="filters">
       <input [(ngModel)]="classesFilter" type="text" placeholder="filter..." />
       <select [(ngModel)]="activeSchoolyear">
-        @for (schoolyear of calendarStore.schoolyears.value(); track schoolyear.id) {
+        @for (
+          schoolyear of calendarStore.schoolyears.hasValue()
+            ? calendarStore.schoolyears.value()
+            : [];
+          track schoolyear.id
+        ) {
           <option [ngValue]="schoolyear">{{ schoolyear.name }}</option>
         }
       </select>

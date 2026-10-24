@@ -76,6 +76,8 @@ export class CalendarStore {
         end: url.searchParams.get('end'),
       };
 
+      while (!this.classes.hasValue() && !this.schoolyears.hasValue()) {}
+
       const classEl: Class = this.classes.value().find((c) => c.id === classId);
       const schoolYear: SchoolYear = this.schoolyears
         .value()

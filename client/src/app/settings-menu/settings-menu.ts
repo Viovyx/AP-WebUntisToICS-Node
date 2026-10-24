@@ -27,23 +27,25 @@ export class SettingsMenu {
 
   shown = model<boolean>(false);
 
-  readonly activeSchoolyear = linkedSignal<SchoolYear | null>(
-    () =>
-      this.calendarStore.schoolyears.value()?.find((year) => year.active) ??
-      this.calendarStore.schoolyears.value()?.[0] ??
-      null,
+  readonly activeSchoolyear = linkedSignal<SchoolYear | null>(() =>
+    this.calendarStore.schoolyears.hasValue()
+      ? (this.calendarStore.schoolyears.value().find((year) => year.active) ??
+        this.calendarStore.schoolyears.value()[0])
+      : null,
   );
 
   classesFilter = model<string>('');
-  visibleClasses = computed(() =>
-    this.calendarStore.classes
-      .value()
-      .filter(
-        (c) =>
-          c.name.substring(0, this.classesFilter().length).toLowerCase() ===
-          this.classesFilter().toLowerCase(),
-      ),
-  );
+  visibleClasses = computed(() => {
+    if (this.calendarStore.classes.hasValue())
+      return this.calendarStore.classes
+        .value()
+        .filter(
+          (c) =>
+            c.name.substring(0, this.classesFilter().length).toLowerCase() ===
+            this.classesFilter().toLowerCase(),
+        );
+    else return [];
+  });
 
   selectedClasses = linkedSignal({
     source: this.calendarStore.classResources,
