@@ -1,7 +1,6 @@
 import {
   Component,
   computed,
-  input,
   output,
   signal,
   ViewChild,
@@ -9,14 +8,13 @@ import {
   inject,
 } from '@angular/core';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions, EventApi, EventInput, EventSourceInput } from 'fullcalendar';
+import { CalendarOptions, EventApi } from 'fullcalendar';
 import themePlugin from '@fullcalendar/angular/themes/forma';
 import dayGridPlugin from '@fullcalendar/angular/daygrid';
 import timeGridPlugin from '@fullcalendar/angular/timegrid';
 import iCalendarPlugin from '@fullcalendar/icalendar';
 import { CalendarEvent } from './calendar-event/calendar-event';
 import { EventDetails } from '../event-details/event-details';
-import { Class } from '../../types';
 import { CalendarStore } from '../calendar-store';
 
 @Component({

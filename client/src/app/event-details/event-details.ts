@@ -1,16 +1,7 @@
-import {
-  Component,
-  computed,
-  model,
-  ChangeDetectionStrategy,
-  output,
-  input,
-  inject,
-} from '@angular/core';
+import { Component, computed, model, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Popover } from '../components/popover/popover';
-import { Calendar, EventApi } from 'fullcalendar';
+import { EventApi } from 'fullcalendar';
 import { ActionButton } from '../components/action-button/action-button';
-import { Class } from '../../types';
 import { CalendarStore } from '../calendar-store';
 
 @Component({

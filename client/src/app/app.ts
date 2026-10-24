@@ -1,19 +1,7 @@
-import {
-  Component,
-  model,
-  signal,
-  ChangeDetectionStrategy,
-  effect,
-  computed,
-  inject,
-} from '@angular/core';
+import { Component, model, signal, ChangeDetectionStrategy, effect, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Calendar } from './calendar/calendar';
 import { SettingsMenu } from './settings-menu/settings-menu';
-import { EventSourceInput } from 'fullcalendar';
-import { Class, DateRange } from '../types';
-import { createEventSource } from '../api';
-import { apiHost } from '../config';
 import { CalendarStore } from './calendar-store';
 
 @Component({

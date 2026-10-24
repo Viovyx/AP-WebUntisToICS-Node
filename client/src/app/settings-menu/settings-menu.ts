@@ -3,14 +3,12 @@ import {
   computed,
   linkedSignal,
   model,
-  resource,
   signal,
   ChangeDetectionStrategy,
   inject,
 } from '@angular/core';
 import { Popover } from '../components/popover/popover';
-import { Class, DateRange, ResourceData, SchoolYear } from '../../types';
-import { getClasses, getSchoolyears } from '../../api';
+import { ResourceData } from '../../types';
 import { ActionButton } from '../components/action-button/action-button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarStore } from '../calendar-store';

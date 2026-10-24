@@ -1,4 +1,3 @@
-import { EventSourceInput } from 'fullcalendar';
 import { apiHost } from './config';
 import { CalendarEventResource, Class, CourseData, DateRange, SchoolYear } from './types';
 
