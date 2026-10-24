@@ -20,7 +20,7 @@ export function createEventSource(
 ): CalendarEventResource {
   return {
     id: `${classEl.name} (${classEl.id})`,
-    url: `${apiHost}/calendar?class=${classEl.id}&start=${dateRange.start}&end=${dateRange.end}&name=${classEl.name}&filter=${hiddenCourses
+    url: `${apiHost}/calendar?class=${classEl.id}&start=${dateRange.start}&end=${dateRange.end}&filter=${hiddenCourses
       ?.filter((h) => h.classId === classEl.id)
       .map((h) => h.courseName)
       .join()}`,
