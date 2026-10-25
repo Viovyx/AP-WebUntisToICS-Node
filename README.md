@@ -25,7 +25,7 @@ Easy to use .ics generator for importing your Webuntis calendar into your own ca
 
 This will sync with WebUntis whenever your client syncs the url. It will also exclude the courses you have hidden.
 
-### Tested clients
+### Tested 3rd party clients
 
 | Client                                                         | Comment                                                     |
 | -------------------------------------------------------------- | ----------------------------------------------------------- |
@@ -41,7 +41,7 @@ Theoretically this should work in any calendar client that supports importing fr
 
 #### Week overview:
 
-<img width="1920" height="1080" alt="custom-week-overview" src="./img/week-view.png" />
+<img width="1920" height="auto" alt="custom-week-overview" src="./img/week-view.png" />
 
 #### Detailed info view:
 
@@ -55,7 +55,7 @@ Theoretically this should work in any calendar client that supports importing fr
 
 #### Week overview:
 
-<img width="2137" height="1103" alt="week-view" src="./img/google-week-view.png" />
+<img width="1920" height="auto" alt="week-view" src="./img/google-week-view.png" />
 
 #### Detailed info view:
 
@@ -69,4 +69,4 @@ Made to work for [AP Hogeschool WebUntis](https://ap.webuntis.com/)
 
 ## Issues
 
-If you run into a bug or issue (that is not related to the [the disclaimers](#disclaimers)), please create an issue [here](https://github.com/Viovyx/AP-WebUntisToICS/issues), and I'll do my best to resolve it.
+If you run into a bug or issue (that is not related to the [the disclaimers](#disclaimers)), feel free to contact me on discord: [@viovyx](https://discord.com/users/431093546561568779).
