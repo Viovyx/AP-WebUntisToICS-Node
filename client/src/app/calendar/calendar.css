@@ -1,3 +1,7 @@
 :host {
   user-select: none;
 }
+
+div#calendar-container {
+  touch-action: pan-y;
+}

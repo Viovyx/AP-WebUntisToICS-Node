@@ -1,6 +1,8 @@
-<full-calendar #calendar [options]="calendarOptions()">
-  <ng-template #eventContent let-info>
-    <app-calendar-event [eventInfo]="info" />
-  </ng-template>
-</full-calendar>
+<div id="calendar-container" (touchstart)="touchStart($event)" (touchend)="touchEnd($event)">
+  <full-calendar #calendar [options]="calendarOptions()">
+    <ng-template #eventContent let-info>
+      <app-calendar-event [eventInfo]="info" />
+    </ng-template>
+  </full-calendar>
+</div>
 <app-event-details [eventData]="activeEvent()" />
