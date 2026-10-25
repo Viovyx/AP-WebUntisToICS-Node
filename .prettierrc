@@ -4,5 +4,14 @@
     "useTabs": false,
     "semi": true,
     "trailingComma": "none",
-    "printWidth": 80
+    "printWidth": 80,
+    "overrides": [
+        {
+            "files": "*.yml",
+            "options": {
+                "useTabs": true,
+                "tabWidth": 2
+            }
+        }
+    ]
 }

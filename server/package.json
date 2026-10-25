@@ -5,7 +5,8 @@
     "main": "main.js",
     "scripts": {
         "clear-cache": "rm -r ./cache/*",
-        "start": "tsx watch server"
+        "start": "node server.ts",
+        "dev": "tsx watch server"
     },
     "keywords": [],
     "author": "",
