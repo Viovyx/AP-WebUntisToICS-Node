@@ -19,6 +19,12 @@ RUN target=/root/.npm npm ci
 # Copy the rest of the application source code into the container
 COPY . .
 
+# Inject API_HOST env var
+ARG API_HOST=http://127.0.0.1:3000
+ENV API_HOST=$API_HOST
+RUN printf "export const environment = { apiHost: '%s' };\n" "$API_HOST" \
+> src/environments/environment.ts
+
 # Build the Angular application
 RUN npm run build
 
