@@ -4,30 +4,26 @@ Easy to use .ics generator for importing your Webuntis calendar into your own ca
 
 ## Usage
 
-
 ### Using the built in calendar
-1. Go to the public url above
-2. Find and click your class (If you can't find your class, make sure you've selected the correct schoolyear!)
-3. Choose `Open Calendar`
 
-You can view your schedule there and save the url to come back later. You can also filter out subjects as explained below by adding the `filter` parameter to the url.
+1. Go to the public url above
+2. On first launch you will be presented with the list of available classes.
+3. Select the classes that you want to view in your calendar and click `save`.
+4. It is possible to hide courses that you don't want to see by opening said course and clicking `hide` and confirming the action.
+    1. To show the courses again, go to settings in the bottom right corner
+    2. Select the class of which you have hidden a course.
+    3. Click on the course you want to show again and confirm the action.
 
 ### Syncing with your own calendar client
-1. Go to the public url above
-2. Find and click your class (If you can't find your class, make sure you've selected the correct schoolyear!)
-3. Choose `Copy ICS sync url`
-4. Import the link in your calendar app of choice
 
-This will sync with WebUntis whenever your client syncs the url. You can also filter out subjects as explained below by adding the `filter` parameter to the url.
+1. Open the settings in the bottom right corner.
+2. Make sure the class you want the sync url for is already selected and listed at the top.
+3. Click on that class so the copy button is shown.
+    1. This view also lists the courses you have hidden.
+4. Choose `Copy ICS link`
+5. Import the link in your calendar app of choice
 
-## Filtering
-It is possible to filter out subjects that don't apply to you. Filtering is done by adding a `filter` parameter to the url you copied from the steps above. You can have multiple subjects filtered by splitting them with a comma.
-
-Below is an example:
-```
-https://<the link copied from the steps above>&filter=Ideation, Robot Dynamics
-```
-This will filter out all subjects that match one of those names (capitalization insensitive). Currently it is only possible to filter on subjects, not on subject info or teacher, this means if there are practical and theoretical classes of one subject it will filter out both.
+This will sync with WebUntis whenever your client syncs the url. It will also exclude the courses you have hidden.
 
 ### Tested clients
 
@@ -39,28 +35,27 @@ This will filter out all subjects that match one of those names (capitalization 
 
 Theoretically this should work in any calendar client that supports importing from url and some might have better results, these are just the ones I've tested myself with my experience.
 
-### Examples
+## Examples
 
-#### Built in calendar
+### Built in calendar
 
-##### Week overview:
+#### Week overview:
 
 <img width="1920" height="1080" alt="custom-week-overview" src="https://github.com/user-attachments/assets/5e19fd2f-41a8-4c7e-afa7-00510acc75e8" />
 
-##### Detailed info view:
+#### Detailed info view:
 
 <img width="500" height="auto" alt="custom-detail-view" src="https://github.com/user-attachments/assets/79491f1b-cb4b-481d-ab68-9effe8dc15b4" />
 
-#### Google calendar
+### Google calendar
 
-##### Week overview:
+#### Week overview:
 
 <img width="2137" height="1103" alt="week-view" src="https://github.com/user-attachments/assets/866b631e-85e2-4c17-8784-d3a21dda302b" />
 
-##### Detailed info view:
+#### Detailed info view:
 
 <img width="500" height="auto" alt="detail-view" src="https://github.com/user-attachments/assets/adf6c9ec-29c0-442e-95bf-1a2e511de967" />
-
 
 ## Disclaimers
 
