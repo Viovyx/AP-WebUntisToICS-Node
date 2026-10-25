@@ -41,21 +41,25 @@ Theoretically this should work in any calendar client that supports importing fr
 
 #### Week overview:
 
-<img width="1920" height="1080" alt="custom-week-overview" src="https://github.com/user-attachments/assets/5e19fd2f-41a8-4c7e-afa7-00510acc75e8" />
+<img width="1920" height="1080" alt="custom-week-overview" src="./img/week-view.png" />
 
 #### Detailed info view:
 
-<img width="500" height="auto" alt="custom-detail-view" src="https://github.com/user-attachments/assets/79491f1b-cb4b-481d-ab68-9effe8dc15b4" />
+<img width="500" height="auto" alt="custom-detail-view" src="./img/details-view.png" />
+
+#### Settings view:
+
+<img width="500" height="auto" alt="custom-detail-view" src="./img/settings-view.png" />
 
 ### Google calendar
 
 #### Week overview:
 
-<img width="2137" height="1103" alt="week-view" src="https://github.com/user-attachments/assets/866b631e-85e2-4c17-8784-d3a21dda302b" />
+<img width="2137" height="1103" alt="week-view" src="./img/google-week-view.png" />
 
 #### Detailed info view:
 
-<img width="500" height="auto" alt="detail-view" src="https://github.com/user-attachments/assets/adf6c9ec-29c0-442e-95bf-1a2e511de967" />
+<img width="500" height="auto" alt="detail-view" src="./img/google-details-view.png" />
 
 ## Disclaimers
 
