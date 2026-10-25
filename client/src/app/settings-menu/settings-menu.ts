@@ -61,9 +61,11 @@ export class SettingsMenu {
   }
 
   copyICS(classId: number) {
+    const apiHost = new URL(environment.apiHost);
+
     const url = new URL(location.href).searchParams
       .getAll('url')
-      .map((url) => new URL(environment.apiHost + decodeURI(url)))
+      .map((url) => new URL(`${apiHost.protocol}//${apiHost.host}${decodeURI(url)}`))
       .find((url) => +url.searchParams.get('class') === classId);
 
     try {
