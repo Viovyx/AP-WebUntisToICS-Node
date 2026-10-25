@@ -12,6 +12,7 @@ import { ResourceData } from '../../types';
 import { ActionButton } from '../components/action-button/action-button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarStore } from '../calendar-store';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-settings-menu',
@@ -57,6 +58,24 @@ export class SettingsMenu {
 
   toggleDetailsClass(classId: number) {
     this.detailsClassId.set(this.detailsClassId() !== classId ? classId : null);
+  }
+
+  copyICS(classId: number) {
+    const url = new URL(location.href).searchParams
+      .getAll('url')
+      .map((url) => new URL(environment.apiHost + decodeURI(url)))
+      .find((url) => +url.searchParams.get('class') === classId);
+
+    try {
+      navigator.clipboard.writeText(url.toString());
+      alert(`Copied sync url to your clipboard!\nPaste it in your calendar app to sync.`);
+    } catch (error) {
+      // Fallback when unable to write to clipboard
+      prompt(
+        `Cannot copy sync url to your clipboard!\nCopy following url manually and paste it in your calendar app to sync.`,
+        url.toString(),
+      );
+    }
   }
 
   save() {

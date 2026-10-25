@@ -20,6 +20,8 @@
       @let hiddenCourses =
         calendarStore.hiddenCourses().filter((h) => h.classId === detailsClassId());
 
+      <app-action-button text="Copy ICS link" color="grey" (clicked)="copyICS(detailsClassId())" />
+
       @if (hiddenCourses && hiddenCourses.length > 0) {
         <ul class="details">
           @for (course of hiddenCourses; track $index) {
