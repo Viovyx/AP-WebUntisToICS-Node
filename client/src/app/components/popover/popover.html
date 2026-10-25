@@ -1,7 +1,9 @@
 <div id="content">
   <ng-content />
   <br />
-  <ng-content select="[actions]" />
+  <div id="actions">
+    <ng-content select="[actions]" />
+  </div>
 </div>
 
 <div id="background" (click)="closed.emit()"></div>
