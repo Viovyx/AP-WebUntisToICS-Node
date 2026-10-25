@@ -9,8 +9,8 @@
           (click)="toggleDetailsClass(selectedClass.classData.id)"
         >
           {{ selectedClass.classData.name }}
-          ({{ selectedClass.schoolYear.dateRange.start }}/{{
-            selectedClass.schoolYear.dateRange.end
+          ({{ selectedClass.schoolYear.dateRange.start.split('-')[0] }}/{{
+            selectedClass.schoolYear.dateRange.end.split('-')[0]
           }})
         </li>
       }
