@@ -2,6 +2,13 @@
 
 Easy to use .ics generator for importing your Webuntis calendar into your own calendar app.
 
+> [!IMPORTANT]
+> The client side recently got an update which changed the ics link endpoint to `/api/calendar`!
+>
+> There currently is a rewrite rule so that the old path `/calendar` still works, but there is no guarantee this will stay.
+>
+> **Please update your ics sync link in your calendar clients to `/api/calendar`**
+
 ## Usage
 
 ### Using the built in calendar
