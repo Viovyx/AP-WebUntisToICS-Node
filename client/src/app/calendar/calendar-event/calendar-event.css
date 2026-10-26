@@ -5,11 +5,13 @@
   overflow-y: scroll;
   cursor: pointer;
   height: 100%;
+  overflow-x: scroll;
 }
 
 p {
   margin: 0;
   font-size: 12px;
+  white-space: nowrap;
 }
 
 b {
