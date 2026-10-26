@@ -74,6 +74,11 @@ There is a built in cache that clears every 15min to prevent hitting a possible 
 
 Made to work for [AP Hogeschool WebUntis](https://ap.webuntis.com/)
 
+> [!NOTE]
+> No AI was used for writing code in this project. I made this as a way to learn and improve my own skills.
+>
+> Some snippits of code from guides and forums were used and modified along the way by myself.
+
 ## Issues
 
 If you run into a bug or issue (that is not related to the [the disclaimers](#disclaimers)), feel free to contact me on discord: [@viovyx](https://discord.com/users/431093546561568779).
