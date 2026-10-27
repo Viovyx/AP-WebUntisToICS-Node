@@ -14,6 +14,7 @@ import cors from "cors";
 //#region Set consts
 config();
 const app = express();
+const upSince = new Date();
 app.use(
     cors({
         origin: "*",
@@ -144,6 +145,10 @@ app.get("/schoolyears", async (_, res) => {
     } catch (error) {
         return sendError(res, getErrorMessage(error), 502);
     }
+});
+
+app.get("/ping", (req, res) => {
+    res.send(`PONG!\nUp since ${upSince}`);
 });
 //#endregion
 

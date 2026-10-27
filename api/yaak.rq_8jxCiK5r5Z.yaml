@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_8jxCiK5r5Z
 createdAt: 2026-09-24T18:59:24.975227888
-updatedAt: 2026-09-24T22:06:02.648269200
+updatedAt: 2026-10-27T17:39:13.286075618
 workspaceId: wk_zQeZZzpqy6
 folderId: fl_qSJBXS6beM
 authentication: {}
@@ -17,7 +17,7 @@ headers:
   id: null
 method: GET
 name: Classes
-sortPriority: 7.0
+sortPriority: 4000.0
 url: ${[ WEBUNTIS_BASE ]}/timetable/filter
 urlParameters:
 - enabled: true

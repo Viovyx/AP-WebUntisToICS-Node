@@ -1,0 +1,40 @@
+type: http_request
+model: http_request
+id: rq_4YWwm4ekJx
+createdAt: 2026-10-27T17:41:37.199017319
+updatedAt: 2026-10-27T17:41:48.615196800
+workspaceId: wk_zQeZZzpqy6
+folderId: fl_cSgxZvLcv4
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Ping
+sortPriority: 1.001
+url: ${[ THIS_BASE ]}/ping
+urlParameters:
+- enabled: true
+  name: ''
+  value: ''
+  id: EUGPjXFUKD
+settingSendCookies:
+  enabled: false
+  value: true
+settingStoreCookies:
+  enabled: false
+  value: true
+settingValidateCertificates:
+  enabled: false
+  value: true
+settingFollowRedirects:
+  enabled: false
+  value: true
+settingRequestTimeout:
+  enabled: false
+  value: 0
+settingHttpVersion:
+  enabled: false
+  value: auto
