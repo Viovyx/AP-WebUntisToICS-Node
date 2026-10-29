@@ -8,6 +8,8 @@ services:
     restart: unless-stopped
     ports:
       - ${CLIENT_PORT:-8080}:8080
+    depends_on:
+      - server
 
   server:
     build:
