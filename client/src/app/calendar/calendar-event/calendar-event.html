@@ -1,7 +1,17 @@
 @let info = eventInfo();
 
-<p>{{ info.event.start | date: 'HH:mm' }}-{{ info.event.end | date: 'HH:mm' }}</p>
-<p>
-  <b>{{ info.event.title }}</b>
-</p>
-<p>{{ info.event.extendedProps['location'] }}</p>
+@switch (info.view.type) {
+  @case ('dayGridMonth') {
+    <p style="padding-left: 2px">
+      {{ info.event.start | date: 'HH:mm' }}
+      <b>{{ info.event.title }}</b>
+    </p>
+  }
+  @default {
+    <p>{{ info.event.start | date: 'HH:mm' }}-{{ info.event.end | date: 'HH:mm' }}</p>
+    <p>
+      <b>{{ info.event.title }}</b>
+    </p>
+    <p>{{ info.event.extendedProps['location'] }}</p>
+  }
+}
