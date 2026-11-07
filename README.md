@@ -81,4 +81,4 @@ Made to work for [AP Hogeschool WebUntis](https://ap.webuntis.com/)
 
 ## Issues
 
-If you run into a bug or issue (that is not related to the [the disclaimers](#disclaimers)), feel free to contact me on discord: [@viovyx](https://discord.com/users/431093546561568779).
+If you run into a bug or issue (that is not related to the [the disclaimers](#disclaimers), please create an issue [here](https://github.com/Viovyx/AP-WebUntisToICS/issues), and I'll do my best to resolve it.
