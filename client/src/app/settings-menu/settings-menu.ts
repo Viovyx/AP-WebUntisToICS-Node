@@ -38,6 +38,7 @@ export class SettingsMenu {
     else return [];
   });
 
+  private readonly selectedClassesLimit: number = 5;
   selectedClasses = linkedSignal({
     source: this.calendarStore.classResources,
     computation: (classResources) => classResources ?? [],
@@ -49,11 +50,15 @@ export class SettingsMenu {
   }
 
   toggleClass(classResource: ResourceData) {
-    this.selectedClasses.update((classes) =>
-      classes.some((c) => c.classData.id === classResource.classData.id)
-        ? classes.filter((c) => c.classData.id !== classResource.classData.id)
-        : [...classes, classResource],
-    );
+    this.selectedClasses.update((classes) => {
+      if (classes.some((c) => c.classData.id === classResource.classData.id))
+        return classes.filter((c) => c.classData.id !== classResource.classData.id);
+      else if (this.selectedClasses().length >= this.selectedClassesLimit) {
+        alert('Max classes reached!');
+        return classes;
+      }
+      return [...classes, classResource];
+    });
   }
 
   toggleDetailsClass(classId: number) {
