@@ -23,6 +23,7 @@ export class CalendarStore {
       : null,
   );
 
+  readonly classesLimit: number = 5;
   readonly classes = resource({
     params: () => (this.activeSchoolyear() ? this.activeSchoolyear() : undefined),
     loader: (value) => getClasses(value.params.dateRange),
@@ -75,7 +76,10 @@ export class CalendarStore {
     try {
       const urlList = new URL(window.location.href).searchParams
         .getAll('url')
+        .slice(0, this.classesLimit)
         .map((url) => decodeURI(url));
+
+      console.log(urlList);
 
       urlList.forEach(async (urlStr) => {
         const url = new URL(environment.apiHost + urlStr);
